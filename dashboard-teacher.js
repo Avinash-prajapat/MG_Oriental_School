@@ -2,7 +2,7 @@
 // TEACHER DASHBOARD - COMPLETE WITH ALL SECTIONS
 // =====================================================
 
-const API_BASE_URL = 'https://aacem-backend.onrender.com/api';
+const API_BASE_URL = 'https://avinashprajapati.pythonanywhere.com/api';
 
 // ==================== GLOBAL VARIABLES ====================
 let currentTeacher = null;
