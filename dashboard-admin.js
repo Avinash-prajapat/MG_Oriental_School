@@ -150,7 +150,7 @@
     
 })();
 
-const API_URL = 'https://aacem-backend.onrender.com';
+const API_URL = 'https://avinashprajapati.pythonanywhere.com';
 
 // Global variables
 let sectionsData = [];
@@ -231,7 +231,7 @@ async function ensureCoursesLoaded() {
     if (coursesData.length === 0) {
         console.log('No courses in cache, loading courses...');
         try {
-            const response = await fetch('https://aacem-backend.onrender.com/api/courses');
+            const response = await fetch('https://avinashprajapati.pythonanywhere.com/api/courses');
             const data = await response.json();
             if (data.success) {
                 coursesData = data.courses || [];
@@ -302,7 +302,7 @@ async function loadDashboardData() {
         showLoading('dashboardStats');
         console.log('Loading dashboard data...');
         
-        const response = await fetch('https://aacem-backend.onrender.com/api/dashboard-data');
+        const response = await fetch('https://avinashprajapati.pythonanywhere.com/api/dashboard-data');
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -419,7 +419,7 @@ function showSuccess(message) {
 // Load notifications
 async function loadNotifications() {
     try {
-        const response = await fetch('https://aacem-backend.onrender.com/api/notifications');
+        const response = await fetch('https://avinashprajapati.pythonanywhere.com/api/notifications');
         const data = await response.json();
         
         if (data.success) {
@@ -3364,8 +3364,8 @@ async function saveStudent() {
         console.log('📤 Sending to server:', requestBody);
         
         const url = currentEditId 
-            ? `https://aacem-backend.onrender.com/api/update-student/${currentEditId}`
-            : 'https://aacem-backend.onrender.com/api/add-student';
+            ? `https://avinashprajapati.pythonanywhere.com/api/update-student/${currentEditId}`
+            : 'https://avinashprajapati.pythonanywhere.com/api/add-student';
         const method = currentEditId ? 'PUT' : 'POST';
         
         const response = await fetch(url, {
@@ -3428,8 +3428,8 @@ async function saveTeacher() {
         button.disabled = true;
         
         const url = currentEditId ? 
-            `https://aacem-backend.onrender.com/api/update-teacher/${currentEditId}` :
-            'https://aacem-backend.onrender.com/api/add-teacher';
+            `https://avinashprajapati.pythonanywhere.com/api/update-teacher/${currentEditId}` :
+            'https://avinashprajapati.pythonanywhere.com/api/add-teacher';
         
         const method = currentEditId ? 'PUT' : 'POST';
         
@@ -3499,8 +3499,8 @@ async function saveCourse() {
         button.disabled = true;
         
         const url = currentEditId ? 
-            `https://aacem-backend.onrender.com/api/update-course/${currentEditId}` :
-            'https://aacem-backend.onrender.com/api/add-course';
+            `https://avinashprajapati.pythonanywhere.com/api/update-course/${currentEditId}` :
+            'https://avinashprajapati.pythonanywhere.com/api/add-course';
         
         const method = currentEditId ? 'PUT' : 'POST';
         
@@ -3575,8 +3575,8 @@ async function sendNotification() {
         button.disabled = true;
         
         const url = currentEditId ? 
-            `https://aacem-backend.onrender.com/api/update-notification/${currentEditId}` :
-            'https://aacem-backend.onrender.com/api/send-notification';
+            `https://avinashprajapati.pythonanywhere.com/api/update-notification/${currentEditId}` :
+            'https://avinashprajapati.pythonanywhere.com/api/send-notification';
         
         const method = currentEditId ? 'PUT' : 'POST';
         
@@ -3639,7 +3639,7 @@ async function generateReport() {
         button.innerHTML = '<span class="loading-spinner"></span> Generating...';
         button.disabled = true;
         
-        const response = await fetch('https://aacem-backend.onrender.com/api/generate-report', {
+        const response = await fetch('https://avinashprajapati.pythonanywhere.com/api/generate-report', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -3700,7 +3700,7 @@ async function saveSettings() {
     const formData = new FormData(form);
     
     try {
-        const response = await fetch('https://aacem-backend.onrender.com/api/update-settings', {
+        const response = await fetch('https://avinashprajapati.pythonanywhere.com/api/update-settings', {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
@@ -3740,7 +3740,7 @@ async function syncWithSupabase() {
             syncStatus.style.display = 'block';
         }
         
-        const response = await fetch('https://aacem-backend.onrender.com/api/sync-supabase');
+        const response = await fetch('https://avinashprajapati.pythonanywhere.com/api/sync-supabase');
         const result = await response.json();
         
         if (result.success) {
@@ -3783,7 +3783,7 @@ async function syncWithSupabase() {
 // Export data function
 async function exportData(type) {
     try {
-        const response = await fetch(`https://aacem-backend.onrender.com/api/export-data?type=${type}`);
+        const response = await fetch(`https://avinashprajapati.pythonanywhere.com/api/export-data?type=${type}`);
         const result = await response.json();
         
         if (result.success) {
@@ -3821,7 +3821,7 @@ async function editStudent(studentId) {
     
     // Force fresh data fetch from server
     try {
-        const response = await fetch(`https://aacem-backend.onrender.com/api/student-profile/${studentId}`);
+        const response = await fetch(`https://avinashprajapati.pythonanywhere.com/api/student-profile/${studentId}`);
         const freshData = await response.json();
         
         if (freshData.success && freshData.student) {
@@ -4090,7 +4090,7 @@ async function deleteStudent(studentId) {
         
         // Use force delete
         try {
-            const response = await fetch(`https://aacem-backend.onrender.com/api/delete-student-force/${studentId}`, {
+            const response = await fetch(`https://avinashprajapati.pythonanywhere.com/api/delete-student-force/${studentId}`, {
                 method: 'DELETE'
             });
             
@@ -4111,7 +4111,7 @@ async function deleteStudent(studentId) {
         if (!confirm(message + "This action cannot be undone.")) return;
         
         try {
-            const response = await fetch(`https://aacem-backend.onrender.com/api/delete-student/${studentId}`, {
+            const response = await fetch(`https://avinashprajapati.pythonanywhere.com/api/delete-student/${studentId}`, {
                 method: 'DELETE'
             });
             
@@ -4136,7 +4136,7 @@ async function viewStudent(studentId) {
     console.log('👁️ VIEW STUDENT CALLED FOR:', studentId);
     
     try {
-        const response = await fetch(`https://aacem-backend.onrender.com/api/student-profile/${studentId}`);
+        const response = await fetch(`https://avinashprajapati.pythonanywhere.com/api/student-profile/${studentId}`);
         const result = await response.json();
         
         if (!result.success || !result.student) {
@@ -4158,7 +4158,7 @@ async function viewStudent(studentId) {
         let dueAmount = student.due_amount || (student.fee_amount - totalPaid);
         
         try {
-            const feeResponse = await fetch(`https://aacem-backend.onrender.com/api/student-fee-details/${studentId}`);
+            const feeResponse = await fetch(`https://avinashprajapati.pythonanywhere.com/api/student-fee-details/${studentId}`);
             const feeResult = await feeResponse.json();
             if (feeResult.success) {
                 feeHistory = feeResult.fee_history || [];
@@ -4943,7 +4943,7 @@ async function deleteStudent(studentId) {
     if (!confirm("Are you sure you want to delete this student? This action cannot be undone.")) return;
     
     try {
-        const response = await fetch(`https://aacem-backend.onrender.com/api/delete-student/${studentId}`, {
+        const response = await fetch(`https://avinashprajapati.pythonanywhere.com/api/delete-student/${studentId}`, {
             method: 'DELETE'
         });
         
@@ -4965,7 +4965,7 @@ async function deleteTeacher(teacherId) {
     if (!confirm("Are you sure you want to delete this teacher? This action cannot be undone.")) return;
     
     try {
-        const response = await fetch(`https://aacem-backend.onrender.com/api/delete-teacher/${teacherId}`, {
+        const response = await fetch(`https://avinashprajapati.pythonanywhere.com/api/delete-teacher/${teacherId}`, {
             method: 'DELETE'
         });
         
@@ -4987,7 +4987,7 @@ async function deleteCourse(courseCode) {
     if (!confirm("Are you sure you want to delete this course? This action cannot be undone.")) return;
     
     try {
-        const response = await fetch(`https://aacem-backend.onrender.com/api/delete-course/${courseCode}`, {
+        const response = await fetch(`https://avinashprajapati.pythonanywhere.com/api/delete-course/${courseCode}`, {
             method: 'DELETE'
         });
         
@@ -5015,7 +5015,7 @@ async function deleteNotification(notificationId) {
     if (!confirm("Are you sure you want to delete this notification?")) return;
     
     try {
-        const response = await fetch(`https://aacem-backend.onrender.com/api/delete-notification/${notificationId}`, {
+        const response = await fetch(`https://avinashprajapati.pythonanywhere.com/api/delete-notification/${notificationId}`, {
             method: 'DELETE'
         });
         
@@ -6199,7 +6199,7 @@ async function loadContactMessages() {
     try {
         showLoading('contactMessagesContainer');
         
-        const response = await fetch('https://aacem-backend.onrender.com/api/contact-messages');
+        const response = await fetch('https://avinashprajapati.pythonanywhere.com/api/contact-messages');
         const result = await response.json();
         
         if (result.success) {
@@ -6405,7 +6405,7 @@ async function viewContactMessage(contactId) {
 // Update message status
 async function updateMessageStatus(contactId, status) {
     try {
-        const response = await fetch(`https://aacem-backend.onrender.com/api/contact-messages/${contactId}`, {
+        const response = await fetch(`https://avinashprajapati.pythonanywhere.com/api/contact-messages/${contactId}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -6434,7 +6434,7 @@ async function deleteContactMessage(contactId) {
     }
     
     try {
-        const response = await fetch(`https://aacem-backend.onrender.com/api/contact-messages/${contactId}`, {
+        const response = await fetch(`https://avinashprajapati.pythonanywhere.com/api/contact-messages/${contactId}`, {
             method: 'DELETE'
         });
         
@@ -6471,7 +6471,7 @@ async function deleteAllReadMessages() {
         let deletedCount = 0;
         
         for (const message of readMessages) {
-            const response = await fetch(`https://aacem-backend.onrender.com/api/contact-messages/${message.contact_id}`, {
+            const response = await fetch(`https://avinashprajapati.pythonanywhere.com/api/contact-messages/${message.contact_id}`, {
                 method: 'DELETE'
             });
             
@@ -7320,7 +7320,7 @@ async function loadSyllabusData() {
     try {
         showLoading('Loading syllabus...');
         
-        const response = await fetch('https://aacem-backend.onrender.com/api/syllabus/all');
+        const response = await fetch('https://avinashprajapati.pythonanywhere.com/api/syllabus/all');
         const result = await response.json();
         
         hideLoading();
@@ -7822,7 +7822,7 @@ async function viewSyllabus(syllabusId, event) {
     
     try {
         showLoading('Loading...');
-        const response = await fetch(`https://aacem-backend.onrender.com/api/syllabus/${syllabusId}`);
+        const response = await fetch(`https://avinashprajapati.pythonanywhere.com/api/syllabus/${syllabusId}`);
         const result = await response.json();
         hideLoading();
         
@@ -7959,7 +7959,7 @@ async function editSyllabus(syllabusId, event) {
     
     try {
         showLoading('Loading...');
-        const response = await fetch(`https://aacem-backend.onrender.com/api/syllabus/${syllabusId}`);
+        const response = await fetch(`https://avinashprajapati.pythonanywhere.com/api/syllabus/${syllabusId}`);
         const result = await response.json();
         hideLoading();
         
@@ -8077,7 +8077,7 @@ async function saveSyllabus() {
         btn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span>Saving...';
         btn.disabled = true;
         
-        const response = await fetch('https://aacem-backend.onrender.com/api/syllabus/save', {
+        const response = await fetch('https://avinashprajapati.pythonanywhere.com/api/syllabus/save', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(data)
@@ -8107,7 +8107,7 @@ async function toggleSyllabusStatus(syllabusId, event) {
     if (event) event.stopPropagation();
     
     try {
-        const response = await fetch(`https://aacem-backend.onrender.com/api/syllabus/toggle-status/${syllabusId}`, {
+        const response = await fetch(`https://avinashprajapati.pythonanywhere.com/api/syllabus/toggle-status/${syllabusId}`, {
             method: 'PUT'
         });
         
@@ -8131,7 +8131,7 @@ async function deleteSyllabus(syllabusId, event) {
     if (!confirm('Are you sure you want to delete this syllabus?')) return;
     
     try {
-        const response = await fetch(`https://aacem-backend.onrender.com/api/syllabus/delete/${syllabusId}`, {
+        const response = await fetch(`https://avinashprajapati.pythonanywhere.com/api/syllabus/delete/${syllabusId}`, {
             method: 'DELETE'
         });
         
@@ -9036,7 +9036,7 @@ console.log('✅ Section-wise Time Table Management loaded successfully!');
 // =====================================================
 
 // ==================== GLOBAL VARIABLES ====================
-const SECTION_API_URL = 'https://aacem-backend.onrender.com';
+const SECTION_API_URL = 'https://avinashprajapati.pythonanywhere.com';
 
 // ==================== SECTION MANAGEMENT FUNCTIONS ====================
 
