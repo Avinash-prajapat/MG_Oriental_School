@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Teacher Login - AACEM Coaching Institute</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>Teacher Login - M.G. Oriental School & New Era Coaching</title>
     
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -14,10 +14,18 @@
     
     <style>
         :root {
-            --primary: #0d6efd;
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
             --secondary: #8a8d93;
             --light: #f7f7f7;
             --dark: #1c1e21;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
         body {
@@ -30,137 +38,152 @@
 
         /* --- Navbar --- */
         .navbar {
-            background-color: var(--primary);
-            padding: 15px 0;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+            background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+            padding: 12px 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
         }
 
-        .navbar .navbar-brand {
-            color: #fff;
-            font-weight: 600;
-            font-size: 1.4rem;
+        .navbar-brand {
+            color: white;
+            font-weight: 700;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
-        .navbar .navbar-brand:hover {
-            color: #ffc107;
+        .navbar-brand img {
+            height: 35px;
+            width: auto;
+        }
+
+        @media (min-width: 768px) {
+            .navbar-brand {
+                font-size: 1.3rem;
+            }
+            .navbar-brand img {
+                height: 40px;
+            }
+        }
+
+        .navbar-brand:hover {
+            color: #fcd34d;
         }
 
         /* --- Login Box --- */
         .login-container {
             width: 100%;
             max-width: 420px;
-            margin: 50px auto;
+            margin: 40px auto;
             padding: 2rem;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        @media (max-width: 480px) {
+            .login-container {
+                margin: 20px auto;
+                padding: 1.5rem;
+                width: calc(100% - 30px);
+            }
         }
 
         .teacher-header {
-            background: linear-gradient(45deg, #0d6efd, #6610f2);
+            background: var(--gradient);
             color: white;
             padding: 1.2rem;
-            border-radius: 10px;
+            border-radius: 15px;
             margin-bottom: 1.5rem;
             text-align: center;
         }
 
         .teacher-header i {
-            font-size: 3rem;
-            margin-bottom: 0.5rem;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
         }
 
         .teacher-header h3 {
-            margin: 0;
-            font-weight: 600;
+            font-size: 1.3rem;
+            margin-bottom: 5px;
         }
 
         .teacher-header p {
-            margin: 0;
+            font-size: 0.8rem;
             opacity: 0.9;
+            margin: 0;
+        }
+
+        .form-control {
+            border-radius: 12px;
+            padding: 12px 15px;
+            border: 2px solid #e2e8f0;
+            transition: all 0.3s ease;
         }
 
         .form-control:focus {
             border-color: var(--primary);
-            box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+        }
+
+        .input-group-text {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-right: none;
+            border-radius: 12px 0 0 12px;
+            color: var(--primary);
+        }
+
+        .input-group .form-control {
+            border-left: none;
+            border-radius: 0 12px 12px 0;
         }
 
         .btn-primary {
-            background-color: var(--primary);
-            border-color: var(--primary);
-            font-weight: 500;
+            background: var(--gradient);
+            border: none;
+            border-radius: 50px;
+            padding: 12px;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
         }
 
         .btn-primary:hover {
-            background-color: #084298;
-            border-color: #084298;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
         }
 
         .password-toggle {
-            cursor: pointer;
-            background: transparent;
-            border: none;
-            color: #6c757d;
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-left: none;
+            border-radius: 0 12px 12px 0;
+            color: #94a3b8;
         }
 
         .password-toggle:hover {
             color: var(--primary);
+            background: #f8fafc;
         }
 
-        /* --- Footer --- */
-        footer {
-            background-color: #1c1e21;
-            color: white;
-            padding: 40px 0 20px 0;
-            margin-top: auto;
-        }
-
-        footer a {
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        footer a:hover {
-            color: #ffc107;
-        }
-
-        .social-icons a {
-            color: white;
-            font-size: 18px;
-            margin-right: 15px;
-            transition: color 0.3s;
-        }
-
-        .social-icons a:hover {
-            color: #ffc107;
-        }
-
-        .alert {
-            border-radius: 10px;
-            border: none;
-            margin-top: 1rem;
-        }
-
-        .alert-danger {
-            background: #fee;
-            color: #c00;
-            border-left: 5px solid #c00;
-        }
-
-        .alert-success {
-            background: #e8f5e9;
-            color: #2e7d32;
-            border-left: 5px solid #2e7d32;
+        .form-text {
+            font-size: 0.7rem;
+            color: #94a3b8;
+            margin-top: 5px;
+            margin-left: 5px;
         }
 
         .login-links {
             text-align: center;
-            margin-top: 1.5rem;
+            margin-top: 1.2rem;
         }
 
         .login-links a {
             color: var(--primary);
             text-decoration: none;
+            font-size: 0.85rem;
             font-weight: 500;
         }
 
@@ -168,24 +191,91 @@
             text-decoration: underline;
         }
 
+        .alert {
+            border-radius: 12px;
+            border: none;
+            font-size: 0.85rem;
+            margin-top: 1rem;
+        }
+
+        /* --- Footer --- */
+        .footer {
+            background: linear-gradient(135deg, #0f172a, #1e293b);
+            color: white;
+            padding: 40px 0 20px;
+            margin-top: auto;
+        }
+
+        .footer h4, .footer h5 {
+            font-weight: 700;
+            margin-bottom: 15px;
+            font-size: 1rem;
+        }
+
+        .footer p, .footer a {
+            font-size: 0.75rem;
+            color: #cbd5e0;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            color: #a5b4fc;
+        }
+
+        .footer ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer ul li {
+            margin-bottom: 8px;
+        }
+
+        .social-icons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 35px;
+            height: 35px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            margin-right: 10px;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            background: var(--gradient);
+            transform: translateY(-3px);
+        }
+
+        .footer hr {
+            border-color: #334155;
+        }
+
+        @media (max-width: 768px) {
+            .footer {
+                padding: 30px 0 15px;
+            }
+            .footer h4, .footer h5 {
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Loading Spinner */
         .loading-spinner {
             display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(255,255,255,0.3);
+            width: 18px;
+            height: 18px;
+            border: 2px solid rgba(255,255,255,0.3);
             border-radius: 50%;
             border-top-color: white;
-            animation: spin 1s ease-in-out infinite;
-            margin-right: 10px;
+            animation: spin 0.8s linear infinite;
+            margin-right: 8px;
         }
 
         @keyframes spin {
             to { transform: rotate(360deg); }
-        }
-
-        .form-text {
-            font-size: 0.85rem;
-            color: #6c757d;
         }
     </style>
 </head>
@@ -195,7 +285,8 @@
     <nav class="navbar navbar-expand-lg">
         <div class="container">
             <a class="navbar-brand" href="index.html">
-                <i class="fas fa-graduation-cap me-2"></i>AACEM Institute
+                <img src="logo.png" alt="Logo" onerror="this.style.display='none'">
+                MG Oriental & New Era
             </a>
         </div>
     </nav>
@@ -205,14 +296,11 @@
         <div class="teacher-header">
             <i class="fas fa-chalkboard-teacher"></i>
             <h3>Teacher Login</h3>
-            <p class="mb-0">Access your teacher dashboard</p>
+            <p>Access your dashboard - 22 Mile Chowk, Patepur</p>
         </div>
 
         <!-- Alert Message -->
-        <div id="alertMessage" class="alert" style="display: none;">
-            <i class="fas"></i>
-            <span id="alertText"></span>
-        </div>
+        <div id="alertMessage" class="alert" style="display: none;"></div>
 
         <!-- Login Form -->
         <form id="teacherLoginForm">
@@ -220,9 +308,9 @@
                 <label for="teacherId" class="form-label">Teacher ID</label>
                 <div class="input-group">
                     <span class="input-group-text"><i class="fas fa-id-card"></i></span>
-                    <input type="text" class="form-control" placeholder="Enter your Teacher ID" id="teacherId" name="teacher_id" required autofocus>
+                    <input type="text" class="form-control" placeholder="Enter your Teacher ID" id="teacherId" name="teacher_id" required autofocus autocomplete="off">
                 </div>
-                <div class="form-text">Enter your registered Teacher ID</div>
+                <div class="form-text">Enter your registered Teacher ID (e.g., TCH001)</div>
             </div>
 
             <div class="mb-3">
@@ -234,83 +322,63 @@
                         <i class="fas fa-eye"></i>
                     </button>
                 </div>
-                <div class="form-text">Enter your password</div>
+                <div class="form-text">Default password: 123456 (change after login)</div>
             </div>
 
             <button type="submit" class="btn btn-primary w-100 py-2 mb-3" id="loginBtn">
-                <span class="button-text">Login to Dashboard</span>
+                <span class="button-text"><i class="fas fa-sign-in-alt me-2"></i>Login to Dashboard</span>
             </button>
         </form>
 
-        
+        <div class="login-links">
+            <a href="forgot-password.html"><i class="fas fa-key me-1"></i> Forgot Password?</a>
+        </div>
     </div>
 
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
             <div class="row">
-                <!-- About Section -->
-                <div class="col-md-4 mb-4">
-                    <h4>AACEM Institute</h4>
-                    <p>Providing quality education in computer courses and academic classes since 2010.</p>
-                    <p>
-                        <strong>Address:</strong> XYZ Road, Patna, Bihar - 800001 <br>
-                        <strong>Phone:</strong> +91 9876543210 <br>
-                        <strong>Email:</strong> info@aacem.com
-                    </p>
+                <div class="col-md-4 mb-3">
+                    <h4><i class="fas fa-graduation-cap me-2"></i>MG Oriental & New Era</h4>
+                    <p>Quality education at 22 Mile Chowk, Tejpurwa, Patepur, Vaishali since 2016.</p>
+                    <p class="mt-2"><i class="fas fa-phone-alt me-2"></i>9934795178 , 9801640473</p>
+                    <p><i class="fas fa-map-marker-alt me-2"></i>22 Mile Chowk, Tejpurwa, Patepur, Vaishali, Bihar</p>
                 </div>
-
-                <!-- Quick Links -->
-                <div class="col-md-2 mb-4">
+                <div class="col-md-2 mb-3">
                     <h5>Quick Links</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="index.html" class="text-white">Home</a></li>
-                        <li><a href="courses.html" class="text-white">Courses</a></li>
-                        <li><a href="index.html#admissions" class="text-white">Admissions</a></li>
-                        <li><a href="index.html#features" class="text-white">Features</a></li>
-                        <li><a href="index.html#contact" class="text-white">Contact</a></li>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="index.html#school">School</a></li>
+                        <li><a href="index.html#coaching">Coaching</a></li>
+                        <li><a href="index.html#courses">Courses</a></li>
+                        <li><a href="index.html#contact">Contact</a></li>
                     </ul>
                 </div>
-
-                <!-- Courses -->
-                <div class="col-md-3 mb-4">
-                    <h5>Courses</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="#" class="text-white">Computer Courses</a></li>
-                        <li><a href="#" class="text-white">BSEB Classes</a></li>
-                        <li><a href="#" class="text-white">CBSE Classes</a></li>
-                        <li><a href="#" class="text-white">Crash Courses</a></li>
-                        <li><a href="#" class="text-white">Download Prospectus</a></li>
+                <div class="col-md-3 mb-3">
+                    <h5>Our Courses</h5>
+                    <ul>
+                        <li><a href="#">School Courses (Nursery - VIII)</a></li>
+                        <li><a href="#">Coaching Classes (1 - 12)</a></li>
+                        <li><a href="#">Science & Arts Stream</a></li>
+                        <li><a href="#">Crash Course (₹1000 Only)</a></li>
                     </ul>
                 </div>
-
-                <!-- Contact -->
-                <div class="col-md-3 mb-4">
-                    <h5>Get in Touch</h5>
-                    <p>Have questions? Contact us directly.</p>
-                    <a href="contact.html" class="btn btn-primary">Contact Us</a>
-
-                    <!-- Social Media -->
-                    <div class="social-icons mt-3">
+                <div class="col-md-3 mb-3">
+                    <h5>Follow Us</h5>
+                    <div class="social-icons mb-3">
                         <a href="#"><i class="fab fa-facebook-f"></i></a>
                         <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
                         <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
                     </div>
+                    <p class="small mb-1">Designed by <strong>Avinash Kumar</strong></p>
+                    <p class="small"><a href="https://www.instagram.com/avinashprajapati0408/" target="_blank" style="color:#a5b4fc;"><i class="fab fa-instagram me-1"></i>AI & Software Engineer</a></p>
                 </div>
             </div>
-
-            <hr class="mt-4 mb-4">
-
-            <!-- Legal Links -->
-            <div class="row">
-                <div class="col-md-6 text-center text-md-start mb-2">
-                    <p>© <span id="year"></span> AACEM Coaching Institute. All Rights Reserved.</p>
-                </div>
-                <div class="col-md-6 text-center text-md-end">
-                    <a href="#" class="text-white me-3">Privacy Policy</a>
-                    <a href="#" class="text-white">Terms & Conditions</a>
-                </div>
+            <hr>
+            <div class="text-center">
+                <p class="small mb-0">© 2026 M.G. Oriental School & New Era Coaching Centre. All Rights Reserved.</p>
             </div>
         </div>
     </footer>
@@ -318,37 +386,29 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
     <script>
-        const API_BASE_URL = 'https://aacem-backend.onrender.com/api';
+        // API Configuration
+        const API_BASE_URL = 'https://avinashprajapati.pythonanywhere.com';
 
-        // ==================== IMPROVED CHECK ====================
+        // ==================== SESSION CHECK ====================
         (function() {
             console.log('Checking existing session...');
             
             const token = localStorage.getItem('teacherToken');
             const teacherData = localStorage.getItem('teacherData');
             
-            if (!token || !teacherData) {
-                console.log('No session found');
-                return;
-            }
-            
-            try {
-                const teacher = JSON.parse(teacherData);
-                const currentPage = window.location.pathname.split('/').pop();
-                
-                if (currentPage === 'dashboard-teacher.html') {
-                    return;
-                }
-                
-                if (teacher && teacher.teacher_id) {
-                    console.log('Valid session found');
-                    window.location.href = 'dashboard-teacher.html';
-                } else {
+            if (token && teacherData) {
+                try {
+                    const teacher = JSON.parse(teacherData);
+                    const currentPage = window.location.pathname.split('/').pop();
+                    
+                    if (currentPage !== 'dashboard-teacher.html' && teacher && teacher.teacher_id) {
+                        console.log('Valid session found, redirecting...');
+                        window.location.href = 'dashboard-teacher.html';
+                    }
+                } catch (e) {
+                    console.error('Error parsing teacher data:', e);
                     localStorage.clear();
                 }
-            } catch (e) {
-                console.error('Error parsing teacher data:', e);
-                localStorage.clear();
             }
         })();
 
@@ -369,20 +429,8 @@
         // ==================== SHOW ALERT ====================
         function showAlert(message, type = 'danger') {
             const alertDiv = document.getElementById('alertMessage');
-            const alertIcon = alertDiv.querySelector('.fas');
-            const alertText = document.getElementById('alertText');
-            
             alertDiv.className = `alert alert-${type}`;
-            
-            if (type === 'success') {
-                alertIcon.className = 'fas fa-check-circle';
-            } else if (type === 'danger') {
-                alertIcon.className = 'fas fa-exclamation-circle';
-            } else {
-                alertIcon.className = 'fas fa-info-circle';
-            }
-            
-            alertText.textContent = message;
+            alertDiv.innerHTML = `<i class="fas ${type === 'success' ? 'fa-check-circle' : type === 'danger' ? 'fa-exclamation-circle' : 'fa-info-circle'} me-2"></i>${message}`;
             alertDiv.style.display = 'block';
             
             if (type === 'success') {
@@ -401,16 +449,22 @@
             const loginBtn = document.getElementById('loginBtn');
             const buttonText = loginBtn.querySelector('.button-text');
             
-            if (!teacherId || !password) {
-                showAlert('Please enter Teacher ID and Password');
+            if (!teacherId) {
+                showAlert('Please enter your Teacher ID');
                 return;
             }
             
+            if (!password) {
+                showAlert('Please enter your password');
+                return;
+            }
+            
+            // Button state
             loginBtn.disabled = true;
             buttonText.innerHTML = '<span class="loading-spinner"></span> Verifying...';
             
             try {
-                const response = await fetch(`${API_BASE_URL}/teacher-login`, {
+                const response = await fetch(`${API_BASE_URL}/api/teacher-login`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ teacher_id: teacherId, password: password })
@@ -419,34 +473,32 @@
                 const result = await response.json();
                 
                 if (result.success) {
+                    // Clear existing session
                     localStorage.clear();
                     
-                    localStorage.setItem('teacherToken', result.token);
+                    // Store new session
+                    localStorage.setItem('teacherToken', result.token || 'teacher-auth');
                     localStorage.setItem('teacherData', JSON.stringify(result.teacher));
+                    localStorage.setItem('loginTime', new Date().getTime().toString());
                     
-                    showAlert('Login successful! Redirecting...', 'success');
+                    showAlert('✅ Login successful! Redirecting to dashboard...', 'success');
                     
                     setTimeout(() => {
                         window.location.href = 'dashboard-teacher.html';
                     }, 1500);
                     
                 } else {
-                    showAlert(result.message || 'Invalid Teacher ID or Password');
+                    showAlert(result.message || '❌ Invalid Teacher ID or Password');
                     loginBtn.disabled = false;
-                    buttonText.textContent = 'Login to Dashboard';
+                    buttonText.innerHTML = '<i class="fas fa-sign-in-alt me-2"></i>Login to Dashboard';
                 }
             } catch (error) {
                 console.error('Login error:', error);
-                showAlert('Network error. Please check your connection.');
+                showAlert('⚠️ Network error. Please check your connection and try again.');
                 loginBtn.disabled = false;
-                buttonText.textContent = 'Login to Dashboard';
+                buttonText.innerHTML = '<i class="fas fa-sign-in-alt me-2"></i>Login to Dashboard';
             }
         });
-
-        // ==================== SET CURRENT YEAR ====================
-        document.getElementById('year').textContent = new Date().getFullYear();
     </script>
 </body>
 </html>
-
-
