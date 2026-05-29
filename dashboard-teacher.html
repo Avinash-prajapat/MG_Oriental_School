@@ -174,7 +174,7 @@
         .alert-modern.info { background: #3b82f6; }
         @keyframes slideInRight { from { opacity: 0; transform: translateX(100px); } to { opacity: 1; transform: translateX(0); } }
 
-        /* PDF Viewer Modal - Full Page In-Page View */
+        /* PDF Viewer Modal */
         .pdf-viewer-modal .modal-dialog { max-width: 95%; width: 95%; height: 90vh; margin: 5vh auto; }
         .pdf-viewer-modal .modal-content { height: 100%; border-radius: 16px; }
         .pdf-viewer-modal .modal-body { height: calc(100% - 70px); padding: 0; position: relative; }
@@ -189,9 +189,23 @@
         .modal-content-modern { border-radius: 18px; border: none; overflow: hidden; }
         .modal-header-modern { background: var(--gradient-primary); color: white; border: none; padding: 15px 20px; }
 
-        /* Confirm Modal - Logout */
+        /* Confirm Modal */
         .confirm-modal .modal-content { border-radius: 16px; }
         .logout-modal .modal-content { border-radius: 16px; }
+        
+        /* Pull to Refresh Container */
+        .refresh-container {
+            position: relative;
+            overflow: auto;
+            height: 100%;
+        }
+        .pull-to-refresh {
+            text-align: center;
+            padding: 10px;
+            color: #64748b;
+            font-size: 0.75rem;
+            transition: all 0.3s ease;
+        }
         
         @media (max-width: 768px) {
             .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
@@ -260,7 +274,7 @@
         </div>
         <div id="sectionsContent" style="display:none;"><h4 class="mb-3 fw-bold fs-5">My Assigned Sections</h4><div class="sections-grid" id="sectionsContainer"></div></div>
         <div id="attendanceContent" style="display:none;"><div class="table-container-modern"><div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3"><h5 class="fw-bold fs-6 mb-0"><i class="fas fa-calendar-check me-2"></i>Attendance Records</h5><div class="d-flex gap-2 flex-wrap"><input type="date" id="filterDate" class="form-control form-control-sm" style="width:130px;" onchange="applyAttendanceFilters()"><select id="filterCourse" class="form-select form-select-sm" style="width:120px;" onchange="applyAttendanceFilters()"><option value="">All Courses</option></select><select id="filterSection" class="form-select form-select-sm" style="width:120px;" onchange="applyAttendanceFilters()"><option value="">All Sections</option></select><button class="btn btn-sm btn-outline-secondary" onclick="clearAllFilters()"><i class="fas fa-times"></i> Clear</button><button class="btn btn-primary btn-sm" onclick="takeAttendance()"><i class="fas fa-plus"></i> Take</button></div></div><div class="table-responsive"><table class="table-modern"><thead><tr><th>Date</th><th>Course</th><th>Section</th><th>Subject</th><th>Present</th><th>Absent</th><th>%</th></tr></thead><tbody id="attendanceTableBody"></tbody></table></div><div class="mt-2 text-muted small">Showing <span id="displayedCount">0</span> of <span id="totalCount">0</span></div></div></div>
-        <div id="marksContent" style="display:none;"><div class="table-container-modern"><div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3"><h5 class="fw-bold fs-6 mb-0"><i class="fas fa-chart-bar me-2"></i>Marks Records</h5><div class="d-flex gap-2 flex-wrap"><input type="date" id="marksFilterDate" class="form-control form-control-sm" style="width:110px;" onchange="applyMarksFilters()"><select id="marksFilterCourse" class="form-select form-select-sm" style="width:100px;" onchange="applyMarksFilters()"><option value="">All Courses</option></select><select id="marksFilterSection" class="form-select form-select-sm" style="width:100px;" onchange="applyMarksFilters()"><option value="">All Sections</option></select><select id="marksFilterSubject" class="form-select form-select-sm" style="width:100px;" onchange="applyMarksFilters()"><option value="">All Subjects</option></select><button class="btn btn-sm btn-outline-secondary" onclick="clearAllMarksFilters()"><i class="fas fa-times"></i> Clear</button><button class="btn btn-primary btn-sm" onclick="enterMarks()"><i class="fas fa-plus"></i> Add</button></div></div><div class="table-responsive"><table class="table-modern"><thead><tr><th>Date</th><th>Exam</th><th>Course</th><th>Section</th><th>Student</th><th>Subject</th><th>Marks</th><th>%</th><th>Grade</th></tr></thead><tbody id="marksTableBody"></tbody><td></div><div class="mt-2 text-muted small">Showing <span id="marksDisplayedCount">0</span> of <span id="marksTotalCount">0</span></div></div></div>
+        <div id="marksContent" style="display:none;"><div class="table-container-modern"><div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3"><h5 class="fw-bold fs-6 mb-0"><i class="fas fa-chart-bar me-2"></i>Marks Records</h5><div class="d-flex gap-2 flex-wrap"><input type="date" id="marksFilterDate" class="form-control form-control-sm" style="width:110px;" onchange="applyMarksFilters()"><select id="marksFilterCourse" class="form-select form-select-sm" style="width:100px;" onchange="applyMarksFilters()"><option value="">All Courses</option></select><select id="marksFilterSection" class="form-select form-select-sm" style="width:100px;" onchange="applyMarksFilters()"><option value="">All Sections</option></select><select id="marksFilterSubject" class="form-select form-select-sm" style="width:100px;" onchange="applyMarksFilters()"><option value="">All Subjects</option></select><button class="btn btn-sm btn-outline-secondary" onclick="clearAllMarksFilters()"><i class="fas fa-times"></i> Clear</button><button class="btn btn-primary btn-sm" onclick="enterMarks()"><i class="fas fa-plus"></i> Add</button></div></div><div class="table-responsive"><table class="table-modern"><thead><tr><th>Date</th><th>Exam</th><th>Course</th><th>Section</th><th>Student</th><th>Subject</th><th>Marks</th><th>%</th><th>Grade</th></tr></thead><tbody id="marksTableBody"></tbody></table></div><div class="mt-2 text-muted small">Showing <span id="marksDisplayedCount">0</span> of <span id="marksTotalCount">0</span></div></div></div>
         <div id="pdfsContent" style="display:none;"><div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2"><h4 class="fw-bold fs-5 mb-0"><i class="fas fa-file-pdf me-2"></i>PDF Materials</h4><button class="btn btn-primary btn-sm" onclick="uploadPdf()"><i class="fas fa-upload"></i> Upload PDF</button></div><div class="pdf-grid-modern" id="pdfsContainer"></div></div>
         <div id="studentsContent" style="display:none;"><div class="table-container-modern"><div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3"><h5 class="fw-bold fs-6 mb-0"><i class="fas fa-users me-2"></i>My Students</h5><div class="d-flex gap-2 flex-wrap"><input type="text" id="studentSearch" class="form-control form-control-sm" style="width:140px;" placeholder="Search..." onkeyup="applyStudentsFilters()"><select id="studentCourseFilter" class="form-select form-select-sm" style="width:110px;" onchange="applyStudentsFilters()"><option value="">All Courses</option></select><select id="studentSectionFilter" class="form-select form-select-sm" style="width:110px;" onchange="applyStudentsFilters()"><option value="">All Sections</option></select><button class="btn btn-sm btn-outline-secondary" onclick="clearStudentsFilters()"><i class="fas fa-times"></i> Clear</button></div></div><div class="table-responsive"><table class="table-modern"><thead><tr><th>#</th><th>ID</th><th>Name</th><th>Course</th><th>Section</th></tr></thead><tbody id="studentsTableBody"></tbody></table></div><div class="mt-2 text-muted small">Showing <span id="studentsDisplayedCount">0</span> of <span id="studentsTotalCount">0</span> students</div></div></div>
         <div id="notificationsContent" style="display:none;"><div class="table-container-modern"><div class="d-flex justify-content-between align-items-center mb-3"><h5 class="fw-bold fs-6 mb-0"><i class="fas fa-bell me-2"></i>All Notifications</h5><button class="btn btn-primary btn-sm" onclick="markAllNotificationsRead()"><i class="fas fa-check-double"></i> Mark All Read</button></div><div id="allNotificationsList"></div></div></div>
@@ -269,7 +283,7 @@
 
     <div class="alert-container" id="alertContainer"></div>
 
-    <!-- PDF Viewer Modal - In-Page View -->
+    <!-- PDF Viewer Modal -->
     <div class="modal fade pdf-viewer-modal" id="pdfViewerModal" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -374,6 +388,9 @@
         let allAttendanceRecords = [], allMarksRecords = [], allStudentsList = [];
         let filteredAttendanceRecords = [], filteredMarksRecords = [], filteredStudentsList = [];
         let pendingLeaveAction = null;
+        
+        // Current active section for refresh
+        let currentActiveSection = 'dashboard';
 
         // Global Loading Functions
         function showGlobalLoading() { document.getElementById('globalLoadingOverlay').style.display = 'flex'; }
@@ -447,7 +464,9 @@
         });
         
         document.querySelectorAll('.nav-link-modern').forEach(link => {
-            link.addEventListener('click', function() { if (window.innerWidth <= 991) setTimeout(closeSidebar, 150); });
+            link.addEventListener('click', function() { 
+                if (window.innerWidth <= 991) setTimeout(closeSidebar, 150);
+            });
         });
 
         function hideAllContent() {
@@ -458,14 +477,104 @@
             document.querySelectorAll('.nav-link-modern').forEach(l => l.classList.remove('active'));
         }
 
-        function showDashboard() { hideAllContent(); document.getElementById('dashboardContent').style.display = 'block'; document.querySelector('.nav-link-modern[data-section="dashboard"]').classList.add('active'); loadDashboardData(); }
-        function showMySections() { hideAllContent(); document.getElementById('sectionsContent').style.display = 'block'; document.querySelector('.nav-link-modern[data-section="sections"]').classList.add('active'); displayTeacherSections(); }
-        function showAttendance() { hideAllContent(); document.getElementById('attendanceContent').style.display = 'block'; document.querySelector('.nav-link-modern[data-section="attendance"]').classList.add('active'); loadAttendanceRecords(); }
-        function showMarks() { hideAllContent(); document.getElementById('marksContent').style.display = 'block'; document.querySelector('.nav-link-modern[data-section="marks"]').classList.add('active'); loadMarksRecords(); }
-        function showPdfs() { hideAllContent(); document.getElementById('pdfsContent').style.display = 'block'; document.querySelector('.nav-link-modern[data-section="pdfs"]').classList.add('active'); loadPdfRecords(); }
-        function showStudents() { hideAllContent(); document.getElementById('studentsContent').style.display = 'block'; document.querySelector('.nav-link-modern[data-section="students"]').classList.add('active'); loadMyStudents(); }
-        function showAllNotifications() { hideAllContent(); document.getElementById('notificationsContent').style.display = 'block'; document.querySelector('.nav-link-modern[data-section="notices"]').classList.add('active'); loadNotifications(); displayAllNotifications(); }
-        function showTimetable() { hideAllContent(); document.getElementById('timetableContent').style.display = 'block'; document.querySelector('.nav-link-modern[data-section="timetable"]').classList.add('active'); loadTeacherTimetable(); }
+        // Refresh current section function - stays on same page
+        function refreshCurrentSection() {
+            console.log('Refreshing section:', currentActiveSection);
+            switch(currentActiveSection) {
+                case 'dashboard': loadDashboardData(); break;
+                case 'sections': displayTeacherSections(); break;
+                case 'attendance': loadAttendanceRecords(); break;
+                case 'marks': loadMarksRecords(); break;
+                case 'pdfs': loadPdfRecords(); break;
+                case 'students': loadMyStudents(); break;
+                case 'notices': loadNotifications(); displayAllNotifications(); break;
+                case 'timetable': loadTeacherTimetable(); break;
+                default: loadDashboardData();
+            }
+            showAlert('Refreshed successfully', 'success');
+        }
+
+        function showDashboard() { 
+            hideAllContent(); 
+            document.getElementById('dashboardContent').style.display = 'block'; 
+            document.querySelector('.nav-link-modern[data-section="dashboard"]').classList.add('active');
+            currentActiveSection = 'dashboard';
+            loadDashboardData(); 
+        }
+        
+        function showMySections() { 
+            hideAllContent(); 
+            document.getElementById('sectionsContent').style.display = 'block'; 
+            document.querySelector('.nav-link-modern[data-section="sections"]').classList.add('active');
+            currentActiveSection = 'sections';
+            displayTeacherSections(); 
+        }
+        
+        function showAttendance() { 
+            hideAllContent(); 
+            document.getElementById('attendanceContent').style.display = 'block'; 
+            document.querySelector('.nav-link-modern[data-section="attendance"]').classList.add('active');
+            currentActiveSection = 'attendance';
+            loadAttendanceRecords(); 
+        }
+        
+        function showMarks() { 
+            hideAllContent(); 
+            document.getElementById('marksContent').style.display = 'block'; 
+            document.querySelector('.nav-link-modern[data-section="marks"]').classList.add('active');
+            currentActiveSection = 'marks';
+            loadMarksRecords(); 
+        }
+        
+        function showPdfs() { 
+            hideAllContent(); 
+            document.getElementById('pdfsContent').style.display = 'block'; 
+            document.querySelector('.nav-link-modern[data-section="pdfs"]').classList.add('active');
+            currentActiveSection = 'pdfs';
+            loadPdfRecords(); 
+        }
+        
+        function showStudents() { 
+            hideAllContent(); 
+            document.getElementById('studentsContent').style.display = 'block'; 
+            document.querySelector('.nav-link-modern[data-section="students"]').classList.add('active');
+            currentActiveSection = 'students';
+            loadMyStudents(); 
+        }
+        
+        function showAllNotifications() { 
+            hideAllContent(); 
+            document.getElementById('notificationsContent').style.display = 'block'; 
+            document.querySelector('.nav-link-modern[data-section="notices"]').classList.add('active');
+            currentActiveSection = 'notices';
+            loadNotifications(); 
+            displayAllNotifications(); 
+        }
+        
+        function showTimetable() { 
+            hideAllContent(); 
+            document.getElementById('timetableContent').style.display = 'block'; 
+            document.querySelector('.nav-link-modern[data-section="timetable"]').classList.add('active');
+            currentActiveSection = 'timetable';
+            loadTeacherTimetable(); 
+        }
+
+        // Pull to refresh handler - stays on same page
+        let touchStartY = 0;
+        let isRefreshing = false;
+        
+        document.querySelector('.main-content').addEventListener('touchstart', (e) => {
+            touchStartY = e.touches[0].clientY;
+        });
+        
+        document.querySelector('.main-content').addEventListener('touchmove', (e) => {
+            const scrollTop = document.querySelector('.main-content').scrollTop;
+            if (scrollTop === 0 && e.touches[0].clientY > touchStartY + 50 && !isRefreshing) {
+                isRefreshing = true;
+                refreshCurrentSection();
+                setTimeout(() => { isRefreshing = false; }, 1000);
+            }
+        });
 
         function showLogoutConfirmModal() { new bootstrap.Modal(document.getElementById('logoutConfirmModal')).show(); }
         function confirmLogout() { localStorage.clear(); window.location.href = 'teacher-login.html'; }
