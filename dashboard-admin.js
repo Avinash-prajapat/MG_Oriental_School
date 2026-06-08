@@ -10270,7 +10270,83 @@ window.assignTeacherToSection = assignTeacherToSection;
 
 console.log('✅ Section Management JavaScript loaded successfully!');
 
+// ==================== FIX FOR TEACHER ASSIGNMENT ====================
 
+window.loadSubjectsForTeacherAssignment = async function() {
+    console.log('Function called');
+    
+    const courseSelect = document.getElementById('assignCourse');
+    const sectionSelect = document.getElementById('assignSectionId');
+    const subjectSelect = document.getElementById('assignSubject');
+    
+    if (!courseSelect) return;
+    
+    const courseCode = courseSelect.value;
+    
+    if (!courseCode) {
+        if (sectionSelect) {
+            sectionSelect.innerHTML = '<option value="">Select course first...</option>';
+            sectionSelect.disabled = true;
+        }
+        return;
+    }
+    
+    // Load sections
+    if (sectionSelect) {
+        sectionSelect.innerHTML = '<option value="">Loading sections...</option>';
+        sectionSelect.disabled = true;
+        
+        try {
+            const res = await fetch(`https://avinashprajapati.pythonanywhere.com/api/sections/course/${courseCode}`);
+            const data = await res.json();
+            
+            if (data.success && data.sections && data.sections.length > 0) {
+                let options = '<option value="">Select section...</option>';
+                data.sections.forEach(s => {
+                    options += `<option value="${s.section_id}">${s.section_name}</option>`;
+                });
+                sectionSelect.innerHTML = options;
+                sectionSelect.disabled = false;
+            } else {
+                sectionSelect.innerHTML = '<option value="">No sections found</option>';
+            }
+        } catch(e) {
+            sectionSelect.innerHTML = '<option value="">Error loading sections</option>';
+        }
+    }
+    
+    // Load subjects
+    if (subjectSelect) {
+        subjectSelect.innerHTML = '<option value="">Loading subjects...</option>';
+        
+        try {
+            const res = await fetch(`https://avinashprajapati.pythonanywhere.com/api/syllabus-subjects/${courseCode}`);
+            const data = await res.json();
+            
+            if (data.success && data.subjects && data.subjects.length > 0) {
+                let options = '<option value="">-- Select from syllabus --</option>';
+                data.subjects.forEach(s => {
+                    options += `<option value="${s.name}">📚 ${s.name}</option>`;
+                });
+                options += '<option value="__MANUAL__">✏️ Type custom subject</option>';
+                subjectSelect.innerHTML = options;
+            } else {
+                subjectSelect.innerHTML = '<option value="__MANUAL__">✏️ Type custom subject</option>';
+            }
+        } catch(e) {
+            subjectSelect.innerHTML = '<option value="__MANUAL__">✏️ Type custom subject</option>';
+        }
+    }
+};
+
+// Attach event to course dropdown
+document.addEventListener('DOMContentLoaded', function() {
+    const courseSelect = document.getElementById('assignCourse');
+    if (courseSelect) {
+        courseSelect.onchange = window.loadSubjectsForTeacherAssignment;
+        console.log('✅ Fixed! Course change will now load sections and subjects');
+    }
+});
 
 // announcements section
 function formatDateDisplay(dateString) {
