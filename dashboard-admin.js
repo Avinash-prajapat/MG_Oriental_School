@@ -4380,12 +4380,196 @@ async function deleteStudent(studentId) {
 }
 
 
-// ==================== VIEW STUDENT - EDIT BUTTON FIXED ====================
+// // ==================== VIEW STUDENT - EDIT BUTTON FIXED ====================
+// async function viewStudent(studentId) {
+//     console.log('👁️ VIEW STUDENT CALLED FOR:', studentId);
+    
+//     try {
+//         const response = await fetch(`https://avinashprajapati.pythonanywhere.com/api/student-profile/${studentId}`);
+//         const result = await response.json();
+        
+//         if (!result.success || !result.student) {
+//             showError('Student not found!');
+//             return;
+//         }
+        
+//         const student = result.student;
+        
+//         // Update local cache
+//         const index = studentsData.findIndex(s => s.student_id === studentId);
+//         if (index !== -1) {
+//             studentsData[index] = student;
+//         }
+        
+//         // Get fee details
+//         let feeHistory = [];
+//         let totalPaid = student.paid_amount || 0;
+//         let dueAmount = student.due_amount || (student.fee_amount - totalPaid);
+        
+//         try {
+//             const feeResponse = await fetch(`https://avinashprajapati.pythonanywhere.com/api/student-fee-details/${studentId}`);
+//             const feeResult = await feeResponse.json();
+//             if (feeResult.success) {
+//                 feeHistory = feeResult.fee_history || [];
+//                 totalPaid = feeResult.fee_summary?.paid_amount || totalPaid;
+//                 dueAmount = feeResult.fee_summary?.due_amount || dueAmount;
+//             }
+//         } catch(e) { console.warn('Fee fetch failed:', e); }
+        
+//         // Build qualifications HTML
+//         let qualificationsHtml = '';
+//         if (student.qualifications && student.qualifications.length > 0) {
+//             let qualRows = '';
+//             for (let i = 0; i < student.qualifications.length; i++) {
+//                 const q = student.qualifications[i];
+//                 qualRows += `<tr><td><strong>${q.level || '-'}</strong></td><td>${q.institute || '-'}</td><td>${q.board || '-'}</td><td>${q.marks || '-'}</td><td>${q.year || '-'}</td></tr>`;
+//             }
+//             qualificationsHtml = `
+//                 <div class="card mb-3">
+//                     <div class="card-header bg-light"><h6 class="mb-0"><i class="fas fa-graduation-cap me-2"></i>Qualifications</h6></div>
+//                     <div class="card-body p-0">
+//                         <div class="table-responsive">
+//                             <table class="table table-sm table-bordered mb-0">
+//                                 <thead class="table-light"><tr><th>Level</th><th>Institute</th><th>Board</th><th>Marks</th><th>Year</th></tr></thead>
+//                                 <tbody>${qualRows}</tbody>
+//                             </table>
+//                         </div>
+//                     </div>
+//                 </div>
+//             `;
+//         }
+        
+//         // Build photo HTML
+//         let photoHtml = '';
+//         if (student.student_photo && student.student_photo !== 'null') {
+//             photoHtml = `
+//                 <div class="card mb-3">
+//                     <div class="card-header bg-light"><h6 class="mb-0"><i class="fas fa-camera me-2"></i>Student Photo</h6></div>
+//                     <div class="card-body text-center">
+//                         <img src="${student.student_photo}" style="max-width: 150px; max-height: 150px; border-radius: 10px;">
+//                     </div>
+//                 </div>
+//             `;
+//         }
+        
+//         // Final modal HTML - ✅ FIXED EDIT BUTTON
+//         const modalHTML = `
+//             <div class="modal fade" id="viewModal" tabindex="-1">
+//                 <div class="modal-dialog modal-lg">
+//                     <div class="modal-content">
+//                         <div class="modal-header bg-primary text-white">
+//                             <h5 class="modal-title"><i class="fas fa-user-graduate me-2"></i>${student.name} - Student Details</h5>
+//                             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+//                         </div>
+//                         <div class="modal-body">
+//                             <div class="row">
+//                                 <div class="col-md-6">
+//                                     <div class="card mb-3">
+//                                         <div class="card-header bg-light"><h6 class="mb-0"><i class="fas fa-info-circle me-2"></i>Basic Information</h6></div>
+//                                         <div class="card-body">
+//                                             <table class="table table-sm table-borderless mb-0">
+//                                                 <tr><th width="40%">Student ID:</th><td><span class="badge bg-dark">${student.student_id}</span></td></tr>
+//                                                 <tr><th>Full Name:</th><td><strong>${student.name}</strong></td></tr>
+//                                                 <tr><th>Parent Name:</th><td>${student.parent_name || 'N/A'}</td></tr>
+//                                                 <tr><th>Course:</th><td><span class="badge bg-primary">${student.course || 'N/A'}</span></td></tr>
+//                                                 <tr><th>Join Date:</th><td>${formatDate(student.join_date)}</td></tr>
+//                                             </table>
+//                                         </div>
+//                                     </div>
+                                    
+//                                     <div class="card mb-3">
+//                                         <div class="card-header bg-light"><h6 class="mb-0"><i class="fas fa-user-plus me-2"></i>Additional Information</h6></div>
+//                                         <div class="card-body">
+//                                             <table class="table table-sm table-borderless mb-0">
+//                                                 <tr><th width="40%">Date of Birth:</th><td>${student.dob ? new Date(student.dob).toLocaleDateString('en-IN') : 'Not provided'}</td></tr>
+//                                                 <tr><th>Gender:</th><td>${student.gender || 'Not provided'}</td></tr>
+//                                                 <tr><th>Category:</th><td>${student.category ? `<span class="badge bg-info">${student.category}</span>` : 'Not provided'}</td></tr>
+//                                                 <tr><th>Father's Mobile:</th><td>${student.father_mobile || 'Not provided'}</td></tr>
+//                                                 <tr><th>Father's Occupation:</th><td>${student.father_occupation || 'Not provided'}</td></tr>
+//                                             </table>
+//                                         </div>
+//                                     </div>
+//                                 </div>
+                                
+//                                 <div class="col-md-6">
+//                                     <div class="card mb-3">
+//                                         <div class="card-header bg-light"><h6 class="mb-0"><i class="fas fa-address-card me-2"></i>Contact Information</h6></div>
+//                                         <div class="card-body">
+//                                             <table class="table table-sm table-borderless mb-0">
+//                                                 <tr><th width="40%">Phone:</th><td><i class="fas fa-phone text-success me-1"></i> ${student.phone || 'N/A'}</td></tr>
+//                                                 <tr><th>Email:</th><td><i class="fas fa-envelope text-primary me-1"></i> ${student.email || 'N/A'}</td></tr>
+//                                                 <tr><th>Address:</th><td>${student.address || 'N/A'}</td></tr>
+//                                             </table>
+//                                         </div>
+//                                     </div>
+                                    
+//                                     <div class="card mb-3">
+//                                         <div class="card-header bg-light"><h6 class="mb-0"><i class="fas fa-money-bill-wave me-2"></i>Fee Information</h6></div>
+//                                         <div class="card-body">
+//                                             <table class="table table-sm table-borderless mb-0">
+//                                                 <tr><th>Total Fee:</th><td class="text-end fw-bold">₹${(student.fee_amount || 0).toLocaleString()}</td></tr>
+//                                                 <tr><th>Paid Amount:</th><td class="text-end text-success fw-bold">₹${totalPaid.toLocaleString()}</td></tr>
+//                                                 <tr><th>Due Amount:</th><td class="text-end ${dueAmount > 0 ? 'text-danger' : 'text-success'} fw-bold">₹${dueAmount.toLocaleString()}</td></tr>
+//                                                 <tr><th>Status:</th><td class="text-end"><span class="badge ${getFeeStatusClass(student.fee_status)}">${student.fee_status || 'Unknown'}</span></td></tr>
+//                                             </table>
+//                                             <div class="progress mt-2" style="height: 6px;">
+//                                                 <div class="progress-bar bg-${dueAmount > 0 ? 'warning' : 'success'}" style="width: ${(totalPaid / (student.fee_amount || 1)) * 100}%"></div>
+//                                             </div>
+//                                         </div>
+//                                     </div>
+                                    
+//                                     ${photoHtml}
+//                                 </div>
+//                             </div>
+                            
+//                             ${qualificationsHtml}
+//                         </div>
+//                         <div class="modal-footer">
+//                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+//                             <button type="button" class="btn btn-warning" id="editFromViewBtn" data-student-id="${student.student_id}">
+//                                 <i class="fas fa-edit me-1"></i> Edit
+//                             </button>
+//                         </div>
+//                     </div>
+//                 </div>
+//             </div>
+//         `;
+        
+//         // Remove existing modal
+//         const existingModal = document.getElementById('viewModal');
+//         if (existingModal) existingModal.remove();
+        
+//         // Add modal to body
+//         document.body.insertAdjacentHTML('beforeend', modalHTML);
+        
+//         // ✅ FIXED: Add event listener for edit button (not onclick attribute)
+//         const modal = new bootstrap.Modal(document.getElementById('viewModal'));
+//         modal.show();
+        
+//         // ✅ Add event listener for edit button
+//         const editBtn = document.getElementById('editFromViewBtn');
+//         if (editBtn) {
+//             editBtn.addEventListener('click', function() {
+//                 const studentId = this.getAttribute('data-student-id');
+//                 modal.hide();  // Close view modal first
+//                 setTimeout(() => {
+//                     editStudent(studentId);  // Then open edit modal
+//                 }, 300);
+//             });
+//         }
+        
+//     } catch (error) {
+//         console.error('Error viewing student:', error);
+//         showError('Failed to load student details: ' + error.message);
+//     }
+// }
+
+// ==================== VIEW STUDENT - WITH AADHAR NUMBER ====================
 async function viewStudent(studentId) {
     console.log('👁️ VIEW STUDENT CALLED FOR:', studentId);
     
     try {
-        const response = await fetch(`https://avinashprajapati.pythonanywhere.com/api/student-profile/${studentId}`);
+        const response = await fetch(`${API_URL}/api/student-profile/${studentId}`);
         const result = await response.json();
         
         if (!result.success || !result.student) {
@@ -4407,7 +4591,7 @@ async function viewStudent(studentId) {
         let dueAmount = student.due_amount || (student.fee_amount - totalPaid);
         
         try {
-            const feeResponse = await fetch(`https://avinashprajapati.pythonanywhere.com/api/student-fee-details/${studentId}`);
+            const feeResponse = await fetch(`${API_URL}/api/student-fee-details/${studentId}`);
             const feeResult = await feeResponse.json();
             if (feeResult.success) {
                 feeHistory = feeResult.fee_history || [];
@@ -4422,15 +4606,33 @@ async function viewStudent(studentId) {
             let qualRows = '';
             for (let i = 0; i < student.qualifications.length; i++) {
                 const q = student.qualifications[i];
-                qualRows += `<tr><td><strong>${q.level || '-'}</strong></td><td>${q.institute || '-'}</td><td>${q.board || '-'}</td><td>${q.marks || '-'}</td><td>${q.year || '-'}</td></tr>`;
+                qualRows += `
+                    <tr>
+                        <td><strong>${q.level || '-'}</strong></td>
+                        <td>${q.institute || '-'}</td>
+                        <td>${q.board || '-'}</td>
+                        <td>${q.marks || '-'}</td>
+                        <td>${q.year || '-'}</td>
+                    </tr>
+                `;
             }
             qualificationsHtml = `
                 <div class="card mb-3">
-                    <div class="card-header bg-light"><h6 class="mb-0"><i class="fas fa-graduation-cap me-2"></i>Qualifications</h6></div>
+                    <div class="card-header bg-light">
+                        <h6 class="mb-0"><i class="fas fa-graduation-cap me-2"></i>Qualifications</h6>
+                    </div>
                     <div class="card-body p-0">
                         <div class="table-responsive">
                             <table class="table table-sm table-bordered mb-0">
-                                <thead class="table-light"><tr><th>Level</th><th>Institute</th><th>Board</th><th>Marks</th><th>Year</th></tr></thead>
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Level</th>
+                                        <th>Institute</th>
+                                        <th>Board</th>
+                                        <th>Marks</th>
+                                        <th>Year</th>
+                                    </tr>
+                                </thead>
                                 <tbody>${qualRows}</tbody>
                             </table>
                         </div>
@@ -4444,7 +4646,9 @@ async function viewStudent(studentId) {
         if (student.student_photo && student.student_photo !== 'null') {
             photoHtml = `
                 <div class="card mb-3">
-                    <div class="card-header bg-light"><h6 class="mb-0"><i class="fas fa-camera me-2"></i>Student Photo</h6></div>
+                    <div class="card-header bg-light">
+                        <h6 class="mb-0"><i class="fas fa-camera me-2"></i>Student Photo</h6>
+                    </div>
                     <div class="card-body text-center">
                         <img src="${student.student_photo}" style="max-width: 150px; max-height: 150px; border-radius: 10px;">
                     </div>
@@ -4452,20 +4656,31 @@ async function viewStudent(studentId) {
             `;
         }
         
-        // Final modal HTML - ✅ FIXED EDIT BUTTON
+        // Calculate fee percentage for progress bar
+        const feePercentage = student.fee_amount > 0 ? (totalPaid / student.fee_amount) * 100 : 0;
+        const feeProgressClass = dueAmount > 0 ? 'warning' : 'success';
+        
+        // Final modal HTML
         const modalHTML = `
             <div class="modal fade" id="viewModal" tabindex="-1">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="modal-header bg-primary text-white">
-                            <h5 class="modal-title"><i class="fas fa-user-graduate me-2"></i>${student.name} - Student Details</h5>
+                            <h5 class="modal-title">
+                                <i class="fas fa-user-graduate me-2"></i>
+                                ${student.name} - Student Details
+                            </h5>
                             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                         </div>
                         <div class="modal-body">
                             <div class="row">
+                                <!-- Left Column -->
                                 <div class="col-md-6">
+                                    <!-- Basic Information -->
                                     <div class="card mb-3">
-                                        <div class="card-header bg-light"><h6 class="mb-0"><i class="fas fa-info-circle me-2"></i>Basic Information</h6></div>
+                                        <div class="card-header bg-light">
+                                            <h6 class="mb-0"><i class="fas fa-info-circle me-2"></i>Basic Information</h6>
+                                        </div>
                                         <div class="card-body">
                                             <table class="table table-sm table-borderless mb-0">
                                                 <tr><th width="40%">Student ID:</th><td><span class="badge bg-dark">${student.student_id}</span></td></tr>
@@ -4477,8 +4692,11 @@ async function viewStudent(studentId) {
                                         </div>
                                     </div>
                                     
+                                    <!-- Additional Information - WITH AADHAR NUMBER -->
                                     <div class="card mb-3">
-                                        <div class="card-header bg-light"><h6 class="mb-0"><i class="fas fa-user-plus me-2"></i>Additional Information</h6></div>
+                                        <div class="card-header bg-light">
+                                            <h6 class="mb-0"><i class="fas fa-user-plus me-2"></i>Additional Information</h6>
+                                        </div>
                                         <div class="card-body">
                                             <table class="table table-sm table-borderless mb-0">
                                                 <tr><th width="40%">Date of Birth:</th><td>${student.dob ? new Date(student.dob).toLocaleDateString('en-IN') : 'Not provided'}</td></tr>
@@ -4486,14 +4704,20 @@ async function viewStudent(studentId) {
                                                 <tr><th>Category:</th><td>${student.category ? `<span class="badge bg-info">${student.category}</span>` : 'Not provided'}</td></tr>
                                                 <tr><th>Father's Mobile:</th><td>${student.father_mobile || 'Not provided'}</td></tr>
                                                 <tr><th>Father's Occupation:</th><td>${student.father_occupation || 'Not provided'}</td></tr>
+                                                <!-- ✅ AADHAR NUMBER ROW ADDED HERE -->
+                                                <tr><th>Aadhar Number:</th><td><strong>${student.aadhar_number || 'Not provided'}</strong></td></tr>
                                             </table>
                                         </div>
                                     </div>
                                 </div>
                                 
+                                <!-- Right Column -->
                                 <div class="col-md-6">
+                                    <!-- Contact Information -->
                                     <div class="card mb-3">
-                                        <div class="card-header bg-light"><h6 class="mb-0"><i class="fas fa-address-card me-2"></i>Contact Information</h6></div>
+                                        <div class="card-header bg-light">
+                                            <h6 class="mb-0"><i class="fas fa-address-card me-2"></i>Contact Information</h6>
+                                        </div>
                                         <div class="card-body">
                                             <table class="table table-sm table-borderless mb-0">
                                                 <tr><th width="40%">Phone:</th><td><i class="fas fa-phone text-success me-1"></i> ${student.phone || 'N/A'}</td></tr>
@@ -4503,8 +4727,11 @@ async function viewStudent(studentId) {
                                         </div>
                                     </div>
                                     
+                                    <!-- Fee Information -->
                                     <div class="card mb-3">
-                                        <div class="card-header bg-light"><h6 class="mb-0"><i class="fas fa-money-bill-wave me-2"></i>Fee Information</h6></div>
+                                        <div class="card-header bg-light">
+                                            <h6 class="mb-0"><i class="fas fa-money-bill-wave me-2"></i>Fee Information</h6>
+                                        </div>
                                         <div class="card-body">
                                             <table class="table table-sm table-borderless mb-0">
                                                 <tr><th>Total Fee:</th><td class="text-end fw-bold">₹${(student.fee_amount || 0).toLocaleString()}</td></tr>
@@ -4513,7 +4740,7 @@ async function viewStudent(studentId) {
                                                 <tr><th>Status:</th><td class="text-end"><span class="badge ${getFeeStatusClass(student.fee_status)}">${student.fee_status || 'Unknown'}</span></td></tr>
                                             </table>
                                             <div class="progress mt-2" style="height: 6px;">
-                                                <div class="progress-bar bg-${dueAmount > 0 ? 'warning' : 'success'}" style="width: ${(totalPaid / (student.fee_amount || 1)) * 100}%"></div>
+                                                <div class="progress-bar bg-${feeProgressClass}" style="width: ${feePercentage}%"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -4535,25 +4762,25 @@ async function viewStudent(studentId) {
             </div>
         `;
         
-        // Remove existing modal
+        // Remove existing modal if any
         const existingModal = document.getElementById('viewModal');
         if (existingModal) existingModal.remove();
         
         // Add modal to body
         document.body.insertAdjacentHTML('beforeend', modalHTML);
         
-        // ✅ FIXED: Add event listener for edit button (not onclick attribute)
+        // Show modal
         const modal = new bootstrap.Modal(document.getElementById('viewModal'));
         modal.show();
         
-        // ✅ Add event listener for edit button
+        // Add event listener for edit button
         const editBtn = document.getElementById('editFromViewBtn');
         if (editBtn) {
             editBtn.addEventListener('click', function() {
-                const studentId = this.getAttribute('data-student-id');
-                modal.hide();  // Close view modal first
+                const sid = this.getAttribute('data-student-id');
+                modal.hide();
                 setTimeout(() => {
-                    editStudent(studentId);  // Then open edit modal
+                    editStudent(sid);
                 }, 300);
             });
         }
