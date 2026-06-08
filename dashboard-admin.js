@@ -3285,7 +3285,125 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // ==================== END NEW FUNCTIONS ====================
 
-// ==================== SAVE STUDENT - UPDATED ====================
+// // ==================== SAVE STUDENT - UPDATED ====================
+// async function saveStudent() {
+//     const form = document.getElementById('studentForm');
+//     if (!form) {
+//         showError('Student form not found');
+//         return;
+//     }
+    
+//     const formData = new FormData(form);
+    
+//     const requiredFields = ['fullName', 'parentName', 'phone', 'course', 'fee'];
+//     const missingFields = requiredFields.filter(field => !formData.get(field));
+    
+//     if (missingFields.length > 0) {
+//         showError('Please fill all required fields: ' + missingFields.join(', '));
+//         return;
+//     }
+    
+//     const button = document.getElementById('studentSaveBtn');
+//     const originalText = button.innerHTML;
+    
+//     try {
+//         button.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span> Saving...';
+//         button.disabled = true;
+        
+//         // Basic fields
+//         const fullName = formData.get('fullName');
+//         const parentName = formData.get('parentName');
+//         const phone = formData.get('phone');
+//         const email = formData.get('email');
+//         const course = formData.get('course');
+//         const fee = formData.get('fee');
+//         const address = formData.get('address');
+        
+//         // New fields
+//         const dob = document.getElementById('studentDob')?.value || null;
+//         const gender = document.getElementById('studentGender')?.value || null;
+//         const category = document.getElementById('studentCategory')?.value || null;
+//         const fatherMobile = document.getElementById('studentFatherMobile')?.value || null;
+//         const fatherOccupation = document.getElementById('studentFatherOccupation')?.value || null;
+        
+//         // Get qualifications from all entries
+//         const qualifications = getQualificationsData();
+//         console.log('📚 Saving qualifications:', qualifications);
+        
+//         // Handle photo
+//         let studentPhoto = null;
+//         const photoFile = document.getElementById('studentPhoto')?.files[0];
+        
+//         if (photoFile) {
+//             studentPhoto = await convertToBase64(photoFile);
+//             console.log('📸 New photo uploaded');
+//         } else if (currentEditId) {
+//             const existingStudent = studentsData.find(s => s.student_id === currentEditId);
+//             if (existingStudent && existingStudent.student_photo) {
+//                 studentPhoto = existingStudent.student_photo;
+//             }
+//         }
+        
+//         const requestBody = {
+//             fullName: fullName,
+//             parentName: parentName,
+//             phone: phone,
+//             email: email,
+//             course: course,
+//             fee: parseFloat(fee),
+//             address: address,
+//             dob: dob,
+//             gender: gender,
+//             category: category,
+//             fatherMobile: fatherMobile,
+//             fatherOccupation: fatherOccupation,
+//             studentPhoto: studentPhoto,
+//             qualifications: qualifications
+//         };
+        
+//         console.log('📤 Sending to server:', requestBody);
+        
+//         const url = currentEditId 
+//             ? `https://avinashprajapati.pythonanywhere.com/api/update-student/${currentEditId}`
+//             : 'https://avinashprajapati.pythonanywhere.com/api/add-student';
+//         const method = currentEditId ? 'PUT' : 'POST';
+        
+//         const response = await fetch(url, {
+//             method: method,
+//             headers: { 'Content-Type': 'application/json' },
+//             body: JSON.stringify(requestBody)
+//         });
+        
+//         const result = await response.json();
+        
+//         button.innerHTML = originalText;
+//         button.disabled = false;
+        
+//         if (result.success) {
+//             showSuccess(currentEditId ? 'Student updated successfully!' : 'Student added successfully!');
+            
+//             const modal = bootstrap.Modal.getInstance(document.getElementById('studentModal'));
+//             if (modal) modal.hide();
+            
+//             document.getElementById('studentForm').reset();
+//             document.getElementById('photoPreview').style.display = 'none';
+            
+//             resetQualificationsContainer();
+            
+//             currentEditId = null;
+//             await loadDashboardData();
+//         } else {
+//             showError('Error: ' + (result.message || 'Unknown error'));
+//         }
+        
+//     } catch (error) {
+//         console.error('Error saving student:', error);
+//         showError('Failed to save student: ' + error.message);
+//         button.innerHTML = originalText;
+//         button.disabled = false;
+//     }
+// }
+
 async function saveStudent() {
     const form = document.getElementById('studentForm');
     if (!form) {
@@ -3319,6 +3437,9 @@ async function saveStudent() {
         const fee = formData.get('fee');
         const address = formData.get('address');
         
+        // ✅ ADD AADHAR NUMBER - YEH LINE ADD KARO
+        const aadharNumber = document.getElementById('studentAadhar')?.value || '';
+        
         // New fields
         const dob = document.getElementById('studentDob')?.value || null;
         const gender = document.getElementById('studentGender')?.value || null;
@@ -3326,7 +3447,7 @@ async function saveStudent() {
         const fatherMobile = document.getElementById('studentFatherMobile')?.value || null;
         const fatherOccupation = document.getElementById('studentFatherOccupation')?.value || null;
         
-        // Get qualifications from all entries
+        // Get qualifications
         const qualifications = getQualificationsData();
         console.log('📚 Saving qualifications:', qualifications);
         
@@ -3358,7 +3479,8 @@ async function saveStudent() {
             fatherMobile: fatherMobile,
             fatherOccupation: fatherOccupation,
             studentPhoto: studentPhoto,
-            qualifications: qualifications
+            qualifications: qualifications,
+            aadharNumber: aadharNumber  // ✅ YEH LINE ADD KARO
         };
         
         console.log('📤 Sending to server:', requestBody);
@@ -3387,6 +3509,10 @@ async function saveStudent() {
             
             document.getElementById('studentForm').reset();
             document.getElementById('photoPreview').style.display = 'none';
+            
+            // ✅ Clear Aadhar field
+            const aadharInput = document.getElementById('studentAadhar');
+            if (aadharInput) aadharInput.value = '';
             
             resetQualificationsContainer();
             
