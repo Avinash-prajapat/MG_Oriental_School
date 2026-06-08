@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard - Educational Institute</title>
+    <title>Admin Dashboard - M.G. ORIENTAL</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" href="logo.png" type="image/png">
@@ -4419,6 +4419,7 @@
         </div>
     </div>
 
+    <!-- Assign Teacher Modal - NEW VERSION -->
     <div class="modal fade" id="assignTeacherModal" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -4430,35 +4431,44 @@
                 </div>
                 <div class="modal-body">
                     <form id="assignTeacherForm">
-                        <!-- Teacher dropdown -->
                         <div class="mb-3">
                             <label class="form-label">Select Teacher *</label>
                             <select class="form-select" id="assignTeacherId" required>
                                 <option value="">Choose teacher...</option>
                             </select>
                         </div>
-
-                        <!-- Course dropdown - with onchange -->
+    
                         <div class="mb-3">
                             <label class="form-label">Select Course *</label>
-                            <select class="form-select" id="assignCourse" required onchange="loadSectionsForTeacher()">
+                            <select class="form-select" id="assignCourse" required onchange="loadSubjectsForTeacherAssignment()">
                                 <option value="">Choose course...</option>
                             </select>
                         </div>
-
-                        <!-- Section dropdown -->
+    
                         <div class="mb-3">
                             <label class="form-label">Select Section *</label>
                             <select class="form-select" id="assignSectionId" required disabled>
                                 <option value="">Select course first...</option>
                             </select>
                         </div>
-
-                        <!-- Subject input -->
+    
+                        <!-- Subject with dropdown + manual option -->
                         <div class="mb-3">
-                            <label class="form-label">Subject</label>
-                            <input type="text" class="form-control" id="assignSubject" 
-                                placeholder="e.g., Computer Science, Mathematics">
+                            <label class="form-label">Select Subject *</label>
+                            <div class="input-group">
+                                <select class="form-select" id="assignSubject" required onchange="handleSubjectSelection()">
+                                    <option value="">-- Select from syllabus --</option>
+                                </select>
+                                <button class="btn btn-outline-secondary" type="button" onclick="toggleManualSubjectInput()">
+                                    <i class="fas fa-pencil-alt"></i>
+                                </button>
+                            </div>
+                            <div id="manualSubjectInput" style="display: none; margin-top: 10px;">
+                                <input type="text" class="form-control" id="manualSubjectText" 
+                                    placeholder="Or type custom subject name...">
+                                <small class="text-muted">Type any subject name manually</small>
+                            </div>
+                            <small class="text-muted" id="subjectLoadStatus"></small>
                         </div>
                     </form>
                 </div>
