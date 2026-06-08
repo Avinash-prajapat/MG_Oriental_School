@@ -3941,146 +3941,290 @@ function logout() {
     }
 }
 
-// ==================== EDIT STUDENT - COURSE AUTO-SELECT FIXED ====================
+// // ==================== EDIT STUDENT - COURSE AUTO-SELECT FIXED ====================
+// async function editStudent(studentId) {
+//     console.log('✏️ EDIT STUDENT CALLED FOR:', studentId);
+    
+//     // Force fresh data fetch from server
+//     try {
+//         const response = await fetch(`https://avinashprajapati.pythonanywhere.com/api/student-profile/${studentId}`);
+//         const freshData = await response.json();
+        
+//         if (freshData.success && freshData.student) {
+//             const index = studentsData.findIndex(s => s.student_id === studentId);
+//             if (index !== -1) {
+//                 studentsData[index] = freshData.student;
+//             } else {
+//                 studentsData.push(freshData.student);
+//             }
+//             console.log('✅ Fresh data fetched for edit');
+//         }
+//     } catch (error) {
+//         console.warn('Could not fetch fresh data:', error);
+//     }
+    
+//     const student = studentsData.find(s => s.student_id === studentId);
+//     if (!student) {
+//         showError('Student not found!');
+//         return;
+//     }
+
+//     console.log('📦 Student course:', student.course);
+//     console.log('📦 Student qualifications:', student.qualifications);
+
+//     const modal = document.getElementById('studentModal');
+//     const form = document.getElementById('studentForm');
+    
+//     if (!form) {
+//         showError('Student form not found');
+//         return;
+//     }
+
+//     // ========== BASIC FIELDS ==========
+//     form.querySelector('input[name="fullName"]').value = student.name || '';
+//     form.querySelector('input[name="parentName"]').value = student.parent_name || '';
+//     form.querySelector('input[name="phone"]').value = student.phone || '';
+//     form.querySelector('input[name="email"]').value = student.email || '';
+//     form.querySelector('input[name="fee"]').value = student.fee_amount || '';
+//     form.querySelector('textarea[name="address"]').value = student.address || '';
+    
+//     // ========== COURSE DROPDOWN - FIXED AUTO-SELECT ==========
+//     const courseSelect = form.querySelector('select[name="course"]');
+//     if (courseSelect) {
+//         // Ensure courses are loaded
+//         if (coursesData.length === 0) {
+//             await loadDashboardData();
+//         }
+        
+//         // Clear and repopulate
+//         courseSelect.innerHTML = '<option value="">Select Course</option>';
+        
+//         let courseFound = false;
+//         for (let i = 0; i < coursesData.length; i++) {
+//             const course = coursesData[i];
+//             const option = document.createElement('option');
+//             option.value = course.course_code;
+//             option.textContent = `${course.course_name} (${course.course_code})`;
+            
+//             // ✅ COMPARE AS STRINGS - CRITICAL FIX
+//             if (String(course.course_code).trim() === String(student.course).trim()) {
+//                 option.selected = true;
+//                 courseFound = true;
+//                 console.log('✅ Course auto-selected:', course.course_code);
+//             }
+//             courseSelect.appendChild(option);
+//         }
+        
+//         // ✅ FORCE SET VALUE - BACKUP METHOD
+//         if (!courseFound && student.course) {
+//             courseSelect.value = student.course;
+//             console.log('📌 Force set course value:', courseSelect.value);
+//         }
+        
+//         // ✅ VERIFY SELECTED VALUE
+//         console.log('📌 Final selected course:', courseSelect.value);
+//     }
+    
+//     // ========== NEW FIELDS ==========
+//     const dobInput = document.getElementById('studentDob');
+//     const genderSelect = document.getElementById('studentGender');
+//     const categorySelect = document.getElementById('studentCategory');
+//     const fatherMobileInput = document.getElementById('studentFatherMobile');
+//     const fatherOccupationInput = document.getElementById('studentFatherOccupation');
+    
+//     if (dobInput) dobInput.value = student.dob || '';
+//     if (genderSelect) genderSelect.value = student.gender || '';
+//     if (categorySelect) categorySelect.value = student.category || '';
+//     if (fatherMobileInput) fatherMobileInput.value = student.father_mobile || '';
+//     if (fatherOccupationInput) fatherOccupationInput.value = student.father_occupation || '';
+    
+//     // ========== STUDENT PHOTO ==========
+//     if (student.student_photo && student.student_photo !== 'null') {
+//         const previewDiv = document.getElementById('photoPreview');
+//         const previewImg = document.getElementById('previewImage');
+//         if (previewDiv && previewImg) {
+//             previewImg.src = student.student_photo;
+//             previewDiv.style.display = 'block';
+//         }
+//     } else {
+//         const previewDiv = document.getElementById('photoPreview');
+//         if (previewDiv) previewDiv.style.display = 'none';
+//     }
+    
+//     // Clear file input
+//     const photoInput = document.getElementById('studentPhoto');
+//     if (photoInput) photoInput.value = '';
+    
+//     // ========== QUALIFICATIONS ==========
+//     if (student.qualifications && student.qualifications.length > 0) {
+//         setQualificationsData(student.qualifications);
+//     } else {
+//         resetQualificationsContainer();
+//     }
+
+//     // ========== UPDATE MODAL TITLE ==========
+//     const title = modal.querySelector('.modal-title');
+//     const saveBtn = modal.querySelector('.btn-primary');
+    
+//     if (title) title.textContent = '✏️ Edit Student';
+//     if (saveBtn) saveBtn.textContent = 'Update Student';
+
+//     currentEditId = studentId;
+    
+//     // ✅ CLOSE ANY OPEN MODAL FIRST
+//     if (modal.classList.contains('show')) {
+//         bootstrap.Modal.getInstance(modal).hide();
+//     }
+    
+//     // Show modal
+//     const bsModal = new bootstrap.Modal(modal);
+//     bsModal.show();
+    
+//     console.log('✅ Edit modal opened for student:', studentId);
+// }
+
+// ==================== EDIT STUDENT - WITH COURSE AUTO-SELECT FIX ====================
 async function editStudent(studentId) {
     console.log('✏️ EDIT STUDENT CALLED FOR:', studentId);
     
-    // Force fresh data fetch from server
     try {
+        // Fetch fresh student data
         const response = await fetch(`https://avinashprajapati.pythonanywhere.com/api/student-profile/${studentId}`);
         const freshData = await response.json();
         
-        if (freshData.success && freshData.student) {
-            const index = studentsData.findIndex(s => s.student_id === studentId);
-            if (index !== -1) {
-                studentsData[index] = freshData.student;
-            } else {
-                studentsData.push(freshData.student);
+        if (!freshData.success || !freshData.student) {
+            showError('Student not found!');
+            return;
+        }
+        
+        const student = freshData.student;
+        
+        // Update local cache
+        const index = studentsData.findIndex(s => s.student_id === studentId);
+        if (index !== -1) {
+            studentsData[index] = student;
+        } else {
+            studentsData.push(student);
+        }
+        
+        console.log('📦 Student course:', student.course);
+        console.log('📦 Student qualifications:', student.qualifications);
+        
+        const modal = document.getElementById('studentModal');
+        const form = document.getElementById('studentForm');
+        
+        if (!form) {
+            showError('Student form not found');
+            return;
+        }
+        
+        // ========== BASIC FIELDS ==========
+        form.querySelector('input[name="fullName"]').value = student.name || '';
+        form.querySelector('input[name="parentName"]').value = student.parent_name || '';
+        form.querySelector('input[name="phone"]').value = student.phone || '';
+        form.querySelector('input[name="email"]').value = student.email || '';
+        form.querySelector('input[name="fee"]').value = student.fee_amount || '';
+        form.querySelector('textarea[name="address"]').value = student.address || '';
+        
+        // ========== 🔥 COURSE DROPDOWN - FIXED AUTO-SELECT ==========
+        const courseSelect = form.querySelector('select[name="course"]');
+        if (courseSelect) {
+            // Ensure courses are loaded
+            if (coursesData.length === 0) {
+                await loadDashboardData();
             }
-            console.log('✅ Fresh data fetched for edit');
-        }
-    } catch (error) {
-        console.warn('Could not fetch fresh data:', error);
-    }
-    
-    const student = studentsData.find(s => s.student_id === studentId);
-    if (!student) {
-        showError('Student not found!');
-        return;
-    }
-
-    console.log('📦 Student course:', student.course);
-    console.log('📦 Student qualifications:', student.qualifications);
-
-    const modal = document.getElementById('studentModal');
-    const form = document.getElementById('studentForm');
-    
-    if (!form) {
-        showError('Student form not found');
-        return;
-    }
-
-    // ========== BASIC FIELDS ==========
-    form.querySelector('input[name="fullName"]').value = student.name || '';
-    form.querySelector('input[name="parentName"]').value = student.parent_name || '';
-    form.querySelector('input[name="phone"]').value = student.phone || '';
-    form.querySelector('input[name="email"]').value = student.email || '';
-    form.querySelector('input[name="fee"]').value = student.fee_amount || '';
-    form.querySelector('textarea[name="address"]').value = student.address || '';
-    
-    // ========== COURSE DROPDOWN - FIXED AUTO-SELECT ==========
-    const courseSelect = form.querySelector('select[name="course"]');
-    if (courseSelect) {
-        // Ensure courses are loaded
-        if (coursesData.length === 0) {
-            await loadDashboardData();
-        }
-        
-        // Clear and repopulate
-        courseSelect.innerHTML = '<option value="">Select Course</option>';
-        
-        let courseFound = false;
-        for (let i = 0; i < coursesData.length; i++) {
-            const course = coursesData[i];
-            const option = document.createElement('option');
-            option.value = course.course_code;
-            option.textContent = `${course.course_name} (${course.course_code})`;
             
-            // ✅ COMPARE AS STRINGS - CRITICAL FIX
-            if (String(course.course_code).trim() === String(student.course).trim()) {
-                option.selected = true;
-                courseFound = true;
-                console.log('✅ Course auto-selected:', course.course_code);
+            // Clear and repopulate
+            courseSelect.innerHTML = '<option value="">Select Course</option>';
+            
+            let courseFound = false;
+            for (let i = 0; i < coursesData.length; i++) {
+                const course = coursesData[i];
+                const option = document.createElement('option');
+                option.value = course.course_code;
+                option.textContent = `${course.course_name} (${course.course_code})`;
+                
+                // ✅ IMPORTANT: Compare as strings
+                if (String(course.course_code).trim() === String(student.course).trim()) {
+                    option.selected = true;
+                    courseFound = true;
+                    console.log('✅ Course auto-selected:', course.course_code);
+                }
+                courseSelect.appendChild(option);
             }
-            courseSelect.appendChild(option);
+            
+            // ✅ Backup: Force set value
+            if (!courseFound && student.course) {
+                courseSelect.value = student.course;
+                console.log('📌 Force set course value:', courseSelect.value);
+            }
+            
+            console.log('📌 Final selected course:', courseSelect.value);
         }
         
-        // ✅ FORCE SET VALUE - BACKUP METHOD
-        if (!courseFound && student.course) {
-            courseSelect.value = student.course;
-            console.log('📌 Force set course value:', courseSelect.value);
+        // ========== NEW FIELDS ==========
+        const dobInput = document.getElementById('studentDob');
+        const genderSelect = document.getElementById('studentGender');
+        const categorySelect = document.getElementById('studentCategory');
+        const fatherMobileInput = document.getElementById('studentFatherMobile');
+        const fatherOccupationInput = document.getElementById('studentFatherOccupation');
+        const aadharInput = document.getElementById('studentAadhar');
+        
+        if (dobInput) dobInput.value = student.dob || '';
+        if (genderSelect) genderSelect.value = student.gender || '';
+        if (categorySelect) categorySelect.value = student.category || '';
+        if (fatherMobileInput) fatherMobileInput.value = student.father_mobile || '';
+        if (fatherOccupationInput) fatherOccupationInput.value = student.father_occupation || '';
+        if (aadharInput) aadharInput.value = student.aadhar_number || '';
+        
+        // ========== STUDENT PHOTO ==========
+        if (student.student_photo && student.student_photo !== 'null') {
+            const previewDiv = document.getElementById('photoPreview');
+            const previewImg = document.getElementById('previewImage');
+            if (previewDiv && previewImg) {
+                previewImg.src = student.student_photo;
+                previewDiv.style.display = 'block';
+            }
+        } else {
+            const previewDiv = document.getElementById('photoPreview');
+            if (previewDiv) previewDiv.style.display = 'none';
         }
         
-        // ✅ VERIFY SELECTED VALUE
-        console.log('📌 Final selected course:', courseSelect.value);
-    }
-    
-    // ========== NEW FIELDS ==========
-    const dobInput = document.getElementById('studentDob');
-    const genderSelect = document.getElementById('studentGender');
-    const categorySelect = document.getElementById('studentCategory');
-    const fatherMobileInput = document.getElementById('studentFatherMobile');
-    const fatherOccupationInput = document.getElementById('studentFatherOccupation');
-    
-    if (dobInput) dobInput.value = student.dob || '';
-    if (genderSelect) genderSelect.value = student.gender || '';
-    if (categorySelect) categorySelect.value = student.category || '';
-    if (fatherMobileInput) fatherMobileInput.value = student.father_mobile || '';
-    if (fatherOccupationInput) fatherOccupationInput.value = student.father_occupation || '';
-    
-    // ========== STUDENT PHOTO ==========
-    if (student.student_photo && student.student_photo !== 'null') {
-        const previewDiv = document.getElementById('photoPreview');
-        const previewImg = document.getElementById('previewImage');
-        if (previewDiv && previewImg) {
-            previewImg.src = student.student_photo;
-            previewDiv.style.display = 'block';
+        // Clear file input
+        const photoInput = document.getElementById('studentPhoto');
+        if (photoInput) photoInput.value = '';
+        
+        // ========== QUALIFICATIONS ==========
+        if (student.qualifications && student.qualifications.length > 0) {
+            setQualificationsData(student.qualifications);
+        } else {
+            resetQualificationsContainer();
         }
-    } else {
-        const previewDiv = document.getElementById('photoPreview');
-        if (previewDiv) previewDiv.style.display = 'none';
+        
+        // ========== UPDATE MODAL TITLE ==========
+        const title = modal.querySelector('.modal-title');
+        const saveBtn = modal.querySelector('.btn-primary');
+        
+        if (title) title.textContent = '✏️ Edit Student';
+        if (saveBtn) saveBtn.textContent = 'Update Student';
+        
+        currentEditId = studentId;
+        
+        // ✅ Close any open modal first
+        if (modal.classList.contains('show')) {
+            bootstrap.Modal.getInstance(modal).hide();
+        }
+        
+        // Show modal
+        const bsModal = new bootstrap.Modal(modal);
+        bsModal.show();
+        
+        console.log('✅ Edit modal opened for student:', studentId);
+        
+    } catch (error) {
+        console.error('Error editing student:', error);
+        showError('Failed to load student details: ' + error.message);
     }
-    
-    // Clear file input
-    const photoInput = document.getElementById('studentPhoto');
-    if (photoInput) photoInput.value = '';
-    
-    // ========== QUALIFICATIONS ==========
-    if (student.qualifications && student.qualifications.length > 0) {
-        setQualificationsData(student.qualifications);
-    } else {
-        resetQualificationsContainer();
-    }
-
-    // ========== UPDATE MODAL TITLE ==========
-    const title = modal.querySelector('.modal-title');
-    const saveBtn = modal.querySelector('.btn-primary');
-    
-    if (title) title.textContent = '✏️ Edit Student';
-    if (saveBtn) saveBtn.textContent = 'Update Student';
-
-    currentEditId = studentId;
-    
-    // ✅ CLOSE ANY OPEN MODAL FIRST
-    if (modal.classList.contains('show')) {
-        bootstrap.Modal.getInstance(modal).hide();
-    }
-    
-    // Show modal
-    const bsModal = new bootstrap.Modal(modal);
-    bsModal.show();
-    
-    console.log('✅ Edit modal opened for student:', studentId);
 }
 
 // Edit Teacher Function
