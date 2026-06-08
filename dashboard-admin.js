@@ -4083,7 +4083,7 @@ function logout() {
 //     console.log('✅ Edit modal opened for student:', studentId);
 // }
 
-// ==================== EDIT STUDENT - WORKING PROPERLY ====================
+// ==================== EDIT STUDENT - FINAL WORKING ====================
 async function editStudent(studentId) {
     console.log('✏️ EDIT STUDENT CALLED FOR:', studentId);
     
@@ -4106,7 +4106,7 @@ async function editStudent(studentId) {
             return;
         }
         
-        // ========== BASIC FIELDS ==========
+        // Fill basic fields
         form.querySelector('input[name="fullName"]').value = student.name || '';
         form.querySelector('input[name="parentName"]').value = student.parent_name || '';
         form.querySelector('input[name="phone"]').value = student.phone || '';
@@ -4114,20 +4114,32 @@ async function editStudent(studentId) {
         form.querySelector('input[name="fee"]').value = student.fee_amount || '';
         form.querySelector('textarea[name="address"]').value = student.address || '';
         
-        // ========== COURSE SELECTION - MAIN FIX ==========
+        // ========== 🔥 COURSE DROPDOWN - MANUALLY POPULATE AND SELECT ==========
         const courseSelect = form.querySelector('select[name="course"]');
-        if (courseSelect && student.course) {
-            // Set value directly
+        if (courseSelect) {
+            // First, populate the dropdown with courses
+            courseSelect.innerHTML = '<option value="">Select Course</option>';
+            
+            // Add all courses
+            for (let i = 0; i < coursesData.length; i++) {
+                const course = coursesData[i];
+                const option = document.createElement('option');
+                option.value = course.course_code;
+                option.textContent = `${course.course_name} (${course.course_code})`;
+                courseSelect.appendChild(option);
+            }
+            
+            // Now select the student's course
             courseSelect.value = student.course;
             
             // Trigger change event
             const changeEvent = new Event('change', { bubbles: true });
             courseSelect.dispatchEvent(changeEvent);
             
-            console.log('Course selected:', courseSelect.value);
+            console.log('✅ Course dropdown populated and set to:', courseSelect.value);
         }
         
-        // ========== ADDITIONAL FIELDS ==========
+        // Fill additional fields
         const dobInput = document.getElementById('studentDob');
         const genderSelect = document.getElementById('studentGender');
         const categorySelect = document.getElementById('studentCategory');
@@ -4142,7 +4154,7 @@ async function editStudent(studentId) {
         if (fatherOccupationInput) fatherOccupationInput.value = student.father_occupation || '';
         if (aadharInput) aadharInput.value = student.aadhar_number || '';
         
-        // ========== STUDENT PHOTO ==========
+        // Handle photo
         if (student.student_photo && student.student_photo !== 'null') {
             const previewDiv = document.getElementById('photoPreview');
             const previewImg = document.getElementById('previewImage');
@@ -4155,18 +4167,17 @@ async function editStudent(studentId) {
             if (previewDiv) previewDiv.style.display = 'none';
         }
         
-        // Clear file input
         const photoInput = document.getElementById('studentPhoto');
         if (photoInput) photoInput.value = '';
         
-        // ========== QUALIFICATIONS ==========
+        // Qualifications
         if (student.qualifications && student.qualifications.length > 0) {
             setQualificationsData(student.qualifications);
         } else {
             resetQualificationsContainer();
         }
         
-        // ========== UPDATE MODAL TITLE ==========
+        // Update modal title
         const modal = document.getElementById('studentModal');
         const title = modal.querySelector('.modal-title');
         const saveBtn = modal.querySelector('.btn-primary');
@@ -4176,17 +4187,9 @@ async function editStudent(studentId) {
         
         currentEditId = studentId;
         
-        // ========== SHOW MODAL ==========
+        // Show modal
         const bsModal = new bootstrap.Modal(modal);
         bsModal.show();
-        
-        // ========== FINAL CHECK AFTER MODAL OPENS ==========
-        setTimeout(() => {
-            if (courseSelect && courseSelect.value !== student.course) {
-                courseSelect.value = student.course;
-                console.log('Post-fix: Course set to', courseSelect.value);
-            }
-        }, 300);
         
         console.log('✅ Edit modal opened for:', studentId);
         
@@ -4195,7 +4198,6 @@ async function editStudent(studentId) {
         showError('Failed to load student details: ' + error.message);
     }
 }
-
 // Edit Teacher Function
 async function editTeacher(teacherId) {
     const teacher = teachersData.find(t => t.teacher_id === teacherId);
