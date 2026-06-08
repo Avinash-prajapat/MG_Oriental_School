@@ -4083,12 +4083,10 @@ function logout() {
 //     console.log('✅ Edit modal opened for student:', studentId);
 // }
 
-// ==================== EDIT STUDENT - FINAL WORKING ====================
 async function editStudent(studentId) {
     console.log('✏️ EDIT STUDENT CALLED FOR:', studentId);
     
     try {
-        // Fetch student data
         const response = await fetch(`${API_URL}/api/student-profile/${studentId}`);
         const result = await response.json();
         
@@ -4114,13 +4112,13 @@ async function editStudent(studentId) {
         form.querySelector('input[name="fee"]').value = student.fee_amount || '';
         form.querySelector('textarea[name="address"]').value = student.address || '';
         
-        // ========== 🔥 COURSE DROPDOWN - MANUALLY POPULATE AND SELECT ==========
+        // ========== 🔥 COURSE DROPDOWN ==========
         const courseSelect = form.querySelector('select[name="course"]');
+        
         if (courseSelect) {
-            // First, populate the dropdown with courses
+            // Populate dropdown
             courseSelect.innerHTML = '<option value="">Select Course</option>';
             
-            // Add all courses
             for (let i = 0; i < coursesData.length; i++) {
                 const course = coursesData[i];
                 const option = document.createElement('option');
@@ -4129,17 +4127,20 @@ async function editStudent(studentId) {
                 courseSelect.appendChild(option);
             }
             
-            // Now select the student's course
-            courseSelect.value = student.course;
-            
-            // Trigger change event
-            const changeEvent = new Event('change', { bubbles: true });
-            courseSelect.dispatchEvent(changeEvent);
-            
-            console.log('✅ Course dropdown populated and set to:', courseSelect.value);
+            // ⭐ IMPORTANT: Wait a bit before setting value
+            setTimeout(() => {
+                if (student.course) {
+                    courseSelect.value = student.course;
+                    console.log('✅ Course set to:', courseSelect.value);
+                    
+                    // Trigger change event
+                    const changeEvent = new Event('change', { bubbles: true });
+                    courseSelect.dispatchEvent(changeEvent);
+                }
+            }, 100);
         }
         
-        // Fill additional fields
+        // Fill additional fields (rest of the code...)
         const dobInput = document.getElementById('studentDob');
         const genderSelect = document.getElementById('studentGender');
         const categorySelect = document.getElementById('studentCategory');
@@ -4154,7 +4155,7 @@ async function editStudent(studentId) {
         if (fatherOccupationInput) fatherOccupationInput.value = student.father_occupation || '';
         if (aadharInput) aadharInput.value = student.aadhar_number || '';
         
-        // Handle photo
+        // Photo
         if (student.student_photo && student.student_photo !== 'null') {
             const previewDiv = document.getElementById('photoPreview');
             const previewImg = document.getElementById('previewImage');
@@ -4177,7 +4178,7 @@ async function editStudent(studentId) {
             resetQualificationsContainer();
         }
         
-        // Update modal title
+        // Update modal
         const modal = document.getElementById('studentModal');
         const title = modal.querySelector('.modal-title');
         const saveBtn = modal.querySelector('.btn-primary');
@@ -4187,9 +4188,16 @@ async function editStudent(studentId) {
         
         currentEditId = studentId;
         
-        // Show modal
         const bsModal = new bootstrap.Modal(modal);
         bsModal.show();
+        
+        // ⭐ Extra check after modal opens
+        setTimeout(() => {
+            if (courseSelect && courseSelect.value !== student.course) {
+                courseSelect.value = student.course;
+                console.log('🔄 Post-open fix, course set to:', courseSelect.value);
+            }
+        }, 500);
         
         console.log('✅ Edit modal opened for:', studentId);
         
