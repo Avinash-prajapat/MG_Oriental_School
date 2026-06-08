@@ -207,10 +207,10 @@ function setupModalListeners() {
         populateStudentDropdown('marksForm');
     });
 
-    document.getElementById('studentModal').addEventListener('show.bs.modal', function() {
-        console.log('Student modal opened');
-        populateCourseDropdown('studentForm', 'course');
-    });
+    // document.getElementById('studentModal').addEventListener('show.bs.modal', function() {
+    //     console.log('Student modal opened');
+    //     populateCourseDropdown('studentForm', 'course');
+    // });
 
     
 
@@ -4083,41 +4083,30 @@ function logout() {
 //     console.log('✅ Edit modal opened for student:', studentId);
 // }
 
-// ==================== EDIT STUDENT - COMPLETE FIXED VERSION ====================
+// ==================== EDIT STUDENT - WORKING PROPERLY ====================
 async function editStudent(studentId) {
     console.log('✏️ EDIT STUDENT CALLED FOR:', studentId);
     
     try {
-        // Step 1: Fetch fresh student data
-        const response = await fetch(`https://avinashprajapati.pythonanywhere.com/api/student-profile/${studentId}`);
-        const freshData = await response.json();
+        // Fetch student data
+        const response = await fetch(`${API_URL}/api/student-profile/${studentId}`);
+        const result = await response.json();
         
-        if (!freshData.success || !freshData.student) {
+        if (!result.success || !result.student) {
             showError('Student not found!');
             return;
         }
         
-        const student = freshData.student;
-        console.log('📦 Student course:', student.course);
+        const student = result.student;
+        console.log('Student course:', student.course);
         
-        // Step 2: Update local cache
-        const index = studentsData.findIndex(s => s.student_id === studentId);
-        if (index !== -1) {
-            studentsData[index] = student;
-        } else {
-            studentsData.push(student);
-        }
-        
-        // Step 3: Get modal and form elements
-        const modal = document.getElementById('studentModal');
         const form = document.getElementById('studentForm');
-        
         if (!form) {
             showError('Student form not found');
             return;
         }
         
-        // Step 4: Fill basic fields
+        // ========== BASIC FIELDS ==========
         form.querySelector('input[name="fullName"]').value = student.name || '';
         form.querySelector('input[name="parentName"]').value = student.parent_name || '';
         form.querySelector('input[name="phone"]').value = student.phone || '';
@@ -4125,49 +4114,20 @@ async function editStudent(studentId) {
         form.querySelector('input[name="fee"]').value = student.fee_amount || '';
         form.querySelector('textarea[name="address"]').value = student.address || '';
         
-        // Step 5: 🔥 COURSE DROPDOWN - FIXED AUTO-SELECT 🔥
+        // ========== COURSE SELECTION - MAIN FIX ==========
         const courseSelect = form.querySelector('select[name="course"]');
-        if (courseSelect) {
-            // Ensure courses are loaded
-            if (coursesData.length === 0) {
-                await loadDashboardData();
-            }
+        if (courseSelect && student.course) {
+            // Set value directly
+            courseSelect.value = student.course;
             
-            console.log('Available courses for dropdown:', coursesData.map(c => c.course_code));
+            // Trigger change event
+            const changeEvent = new Event('change', { bubbles: true });
+            courseSelect.dispatchEvent(changeEvent);
             
-            // Clear and repopulate dropdown
-            courseSelect.innerHTML = '<option value="">Select Course</option>';
-            
-            let courseFound = false;
-            const studentCourseCode = student.course;
-            
-            // Populate dropdown and try to select student's course
-            for (let i = 0; i < coursesData.length; i++) {
-                const course = coursesData[i];
-                const option = document.createElement('option');
-                option.value = course.course_code;
-                option.textContent = `${course.course_name} (${course.course_code})`;
-                
-                // Compare course codes
-                if (String(course.course_code).trim() === String(studentCourseCode).trim()) {
-                    option.selected = true;
-                    courseFound = true;
-                    console.log('✅ Course auto-selected:', course.course_code);
-                }
-                courseSelect.appendChild(option);
-            }
-            
-            // If still not found, try direct value set
-            if (!courseFound && studentCourseCode) {
-                courseSelect.value = studentCourseCode;
-                console.log('📌 Force set course value:', courseSelect.value);
-            }
-            
-            // Final verification
-            console.log('📌 Final selected course:', courseSelect.value);
+            console.log('Course selected:', courseSelect.value);
         }
         
-        // Step 6: Fill additional fields
+        // ========== ADDITIONAL FIELDS ==========
         const dobInput = document.getElementById('studentDob');
         const genderSelect = document.getElementById('studentGender');
         const categorySelect = document.getElementById('studentCategory');
@@ -4182,7 +4142,7 @@ async function editStudent(studentId) {
         if (fatherOccupationInput) fatherOccupationInput.value = student.father_occupation || '';
         if (aadharInput) aadharInput.value = student.aadhar_number || '';
         
-        // Step 7: Student Photo
+        // ========== STUDENT PHOTO ==========
         if (student.student_photo && student.student_photo !== 'null') {
             const previewDiv = document.getElementById('photoPreview');
             const previewImg = document.getElementById('previewImage');
@@ -4199,14 +4159,15 @@ async function editStudent(studentId) {
         const photoInput = document.getElementById('studentPhoto');
         if (photoInput) photoInput.value = '';
         
-        // Step 8: Qualifications
+        // ========== QUALIFICATIONS ==========
         if (student.qualifications && student.qualifications.length > 0) {
             setQualificationsData(student.qualifications);
         } else {
             resetQualificationsContainer();
         }
         
-        // Step 9: Update modal title and button
+        // ========== UPDATE MODAL TITLE ==========
+        const modal = document.getElementById('studentModal');
         const title = modal.querySelector('.modal-title');
         const saveBtn = modal.querySelector('.btn-primary');
         
@@ -4215,22 +4176,22 @@ async function editStudent(studentId) {
         
         currentEditId = studentId;
         
-        // Step 10: Close if already open, then show modal
-        if (modal.classList.contains('show')) {
-            bootstrap.Modal.getInstance(modal).hide();
-            setTimeout(() => {
-                const bsModal = new bootstrap.Modal(modal);
-                bsModal.show();
-            }, 300);
-        } else {
-            const bsModal = new bootstrap.Modal(modal);
-            bsModal.show();
-        }
+        // ========== SHOW MODAL ==========
+        const bsModal = new bootstrap.Modal(modal);
+        bsModal.show();
         
-        console.log('✅ Edit modal opened for student:', studentId);
+        // ========== FINAL CHECK AFTER MODAL OPENS ==========
+        setTimeout(() => {
+            if (courseSelect && courseSelect.value !== student.course) {
+                courseSelect.value = student.course;
+                console.log('Post-fix: Course set to', courseSelect.value);
+            }
+        }, 300);
+        
+        console.log('✅ Edit modal opened for:', studentId);
         
     } catch (error) {
-        console.error('Error editing student:', error);
+        console.error('Error:', error);
         showError('Failed to load student details: ' + error.message);
     }
 }
