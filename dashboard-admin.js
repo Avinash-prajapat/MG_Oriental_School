@@ -9175,103 +9175,103 @@ async function loadCoursesForSection() {
     }
 }
 
-// 7. Load Teachers for Assignment Dropdown
-async function loadTeachersForAssignment() {
-    try {
-        const response = await fetch(`${SECTION_API_URL}/api/teachers`);
-        const data = await response.json();
+// // 7. Load Teachers for Assignment Dropdown
+// async function loadTeachersForAssignment() {
+//     try {
+//         const response = await fetch(`${SECTION_API_URL}/api/teachers`);
+//         const data = await response.json();
         
-        const select = document.getElementById('assignTeacherId');
-        if (select && data.teachers) {
-            select.innerHTML = '<option value="">Choose teacher...</option>' +
-                data.teachers.map(t => `<option value="${t.teacher_id}">${t.name} (${t.teacher_id})</option>`).join('');
-        }
-    } catch (error) {
-        console.error('Error loading teachers:', error);
-        showError('Failed to load teachers');
-    }
-}
+//         const select = document.getElementById('assignTeacherId');
+//         if (select && data.teachers) {
+//             select.innerHTML = '<option value="">Choose teacher...</option>' +
+//                 data.teachers.map(t => `<option value="${t.teacher_id}">${t.name} (${t.teacher_id})</option>`).join('');
+//         }
+//     } catch (error) {
+//         console.error('Error loading teachers:', error);
+//         showError('Failed to load teachers');
+//     }
+// }
 
-// 8. Load Courses for Assignment Dropdown
-async function loadCoursesForAssignment() {
-    try {
-        const response = await fetch(`${SECTION_API_URL}/api/courses`);
-        const data = await response.json();
+// // 8. Load Courses for Assignment Dropdown
+// async function loadCoursesForAssignment() {
+//     try {
+//         const response = await fetch(`${SECTION_API_URL}/api/courses`);
+//         const data = await response.json();
         
-        const select = document.getElementById('assignCourse');
-        if (select && data.courses) {
-            const activeCourses = data.courses.filter(c => c.is_active !== false);
-            select.innerHTML = '<option value="">Choose course...</option>' +
-                activeCourses.map(c => `<option value="${c.course_code}">${c.course_code} - ${c.course_name}</option>`).join('');
-        }
-    } catch (error) {
-        console.error('Error loading courses:', error);
-        showError('Failed to load courses');
-    }
-}
+//         const select = document.getElementById('assignCourse');
+//         if (select && data.courses) {
+//             const activeCourses = data.courses.filter(c => c.is_active !== false);
+//             select.innerHTML = '<option value="">Choose course...</option>' +
+//                 activeCourses.map(c => `<option value="${c.course_code}">${c.course_code} - ${c.course_name}</option>`).join('');
+//         }
+//     } catch (error) {
+//         console.error('Error loading courses:', error);
+//         showError('Failed to load courses');
+//     }
+// }
 
-// ✅ ADD THIS NEW FUNCTION - Teacher ke liye sections load karega
-async function loadSectionsForTeacher() {
-    console.log('🔍 Loading sections for teacher modal');
+// // ✅ ADD THIS NEW FUNCTION - Teacher ke liye sections load karega
+// async function loadSectionsForTeacher() {
+//     console.log('🔍 Loading sections for teacher modal');
     
-    const courseSelect = document.getElementById('assignCourse');
-    const sectionSelect = document.getElementById('assignSectionId');
+//     const courseSelect = document.getElementById('assignCourse');
+//     const sectionSelect = document.getElementById('assignSectionId');
     
-    if (!courseSelect || !sectionSelect) {
-        console.error('❌ Elements not found');
-        return;
-    }
+//     if (!courseSelect || !sectionSelect) {
+//         console.error('❌ Elements not found');
+//         return;
+//     }
     
-    const courseCode = courseSelect.value;
-    console.log('📚 Course selected:', courseCode);
+//     const courseCode = courseSelect.value;
+//     console.log('📚 Course selected:', courseCode);
     
-    if (!courseCode) {
-        sectionSelect.innerHTML = '<option value="">Select course first...</option>';
-        sectionSelect.disabled = true;
-        return;
-    }
+//     if (!courseCode) {
+//         sectionSelect.innerHTML = '<option value="">Select course first...</option>';
+//         sectionSelect.disabled = true;
+//         return;
+//     }
     
-    // Show loading
-    sectionSelect.innerHTML = '<option value="">Loading sections...</option>';
-    sectionSelect.disabled = true;
+//     // Show loading
+//     sectionSelect.innerHTML = '<option value="">Loading sections...</option>';
+//     sectionSelect.disabled = true;
     
-    try {
-        const response = await fetch(`${API_URL}/api/sections/course/${courseCode}`);
-        const data = await response.json();
+//     try {
+//         const response = await fetch(`${API_URL}/api/sections/course/${courseCode}`);
+//         const data = await response.json();
         
-        if (data.success && data.sections) {
-            const activeSections = data.sections.filter(s => s.is_active);
+//         if (data.success && data.sections) {
+//             const activeSections = data.sections.filter(s => s.is_active);
             
-            if (activeSections.length === 0) {
-                sectionSelect.innerHTML = '<option value="">No active sections</option>';
-                sectionSelect.disabled = true;
-                return;
-            }
+//             if (activeSections.length === 0) {
+//                 sectionSelect.innerHTML = '<option value="">No active sections</option>';
+//                 sectionSelect.disabled = true;
+//                 return;
+//             }
             
-            let options = '<option value="">Select section...</option>';
-            activeSections.forEach(section => {
-                const current = section.current_students || 0;
-                const max = section.max_students || 60;
-                const available = max - current;
+//             let options = '<option value="">Select section...</option>';
+//             activeSections.forEach(section => {
+//                 const current = section.current_students || 0;
+//                 const max = section.max_students || 60;
+//                 const available = max - current;
                 
-                options += `<option value="${section.section_id}">
-                    ${section.section_name} (${current}/${max}) - ${available} slots
-                </option>`;
-            });
+//                 options += `<option value="${section.section_id}">
+//                     ${section.section_name} (${current}/${max}) - ${available} slots
+//                 </option>`;
+//             });
             
-            sectionSelect.innerHTML = options;
-            sectionSelect.disabled = false;
-            console.log('✅ Sections loaded successfully');
-        } else {
-            sectionSelect.innerHTML = '<option value="">No sections found</option>';
-            sectionSelect.disabled = true;
-        }
-    } catch (error) {
-        console.error('❌ Error loading sections:', error);
-        sectionSelect.innerHTML = '<option value="">Error loading sections</option>';
-        sectionSelect.disabled = true;
-    }
-}
+//             sectionSelect.innerHTML = options;
+//             sectionSelect.disabled = false;
+//             console.log('✅ Sections loaded successfully');
+//         } else {
+//             sectionSelect.innerHTML = '<option value="">No sections found</option>';
+//             sectionSelect.disabled = true;
+//         }
+//     } catch (error) {
+//         console.error('❌ Error loading sections:', error);
+//         sectionSelect.innerHTML = '<option value="">Error loading sections</option>';
+//         sectionSelect.disabled = true;
+//     }
+// }
 
 // 10. Save Section
 async function saveSection() {
@@ -9352,69 +9352,316 @@ async function saveSection() {
     }
 }
 
-// 11. Assign Teacher to Section
-async function assignTeacherToSection() {
+// // 11. Assign Teacher to Section
+// async function assignTeacherToSection() {
+//     try {
+//         const teacherId = document.getElementById('assignTeacherId').value;
+//         const sectionId = document.getElementById('assignSectionId').value;
+//         const subject = document.getElementById('assignSubject').value.trim();
+        
+//         // Validation
+//         if (!teacherId) {
+//             showError('Please select a teacher');
+//             return;
+//         }
+//         if (!sectionId) {
+//             showError('Please select a section');
+//             return;
+//         }
+        
+//         const payload = {
+//             teacher_id: teacherId,
+//             section_id: sectionId,
+//             subject: subject || 'General'
+//         };
+        
+//         // Show loading on assign button
+//         const assignBtn = document.querySelector('#assignTeacherModal .modal-footer .btn-success');
+//         const originalText = assignBtn.innerHTML;
+//         assignBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i> Assigning...';
+//         assignBtn.disabled = true;
+        
+//         const response = await fetch(`${SECTION_API_URL}/api/teacher-sections/assign`, {
+//             method: 'POST',
+//             headers: { 
+//                 'Content-Type': 'application/json',
+//                 'Accept': 'application/json'
+//             },
+//             body: JSON.stringify(payload)
+//         });
+        
+//         const data = await response.json();
+        
+//         // Reset button
+//         assignBtn.innerHTML = originalText;
+//         assignBtn.disabled = false;
+        
+//         if (data.success) {
+//             showSuccess(data.message);
+//             bootstrap.Modal.getInstance(document.getElementById('assignTeacherModal')).hide();
+//             loadTeacherMappings();
+//         } else {
+//             showError(data.message);
+//         }
+//     } catch (error) {
+//         console.error('Error assigning teacher:', error);
+        
+//         // Reset button
+//         const assignBtn = document.querySelector('#assignTeacherModal .modal-footer .btn-success');
+//         if (assignBtn) {
+//             assignBtn.innerHTML = '<i class="fas fa-check me-1"></i>Assign Teacher';
+//             assignBtn.disabled = false;
+//         }
+        
+//         showError('Error assigning teacher: ' + error.message);
+//     }
+// }
+
+
+// ==================== NEW FUNCTIONS FOR TEACHER ASSIGNMENT ====================
+
+let isManualSubject = false;
+
+// Load subjects from syllabus when course is selected
+async function loadSubjectsForTeacherAssignment() {
+    const courseSelect = document.getElementById('assignCourse');
+    const subjectSelect = document.getElementById('assignSubject');
+    const sectionSelect = document.getElementById('assignSectionId');
+    const loadStatus = document.getElementById('subjectLoadStatus');
+    
+    const courseCode = courseSelect.value;
+    
+    if (!courseCode) {
+        subjectSelect.innerHTML = '<option value="">-- Select course first --</option>';
+        sectionSelect.innerHTML = '<option value="">Select course first...</option>';
+        sectionSelect.disabled = true;
+        return;
+    }
+    
+    // Load sections
     try {
-        const teacherId = document.getElementById('assignTeacherId').value;
-        const sectionId = document.getElementById('assignSectionId').value;
-        const subject = document.getElementById('assignSubject').value.trim();
+        sectionSelect.innerHTML = '<option value="">Loading sections...</option>';
+        sectionSelect.disabled = true;
         
-        // Validation
-        if (!teacherId) {
-            showError('Please select a teacher');
-            return;
-        }
-        if (!sectionId) {
-            showError('Please select a section');
-            return;
-        }
+        const sectionsResponse = await fetch(`${API_URL}/api/sections/course/${courseCode}`);
+        const sectionsData = await sectionsResponse.json();
         
-        const payload = {
-            teacher_id: teacherId,
-            section_id: sectionId,
-            subject: subject || 'General'
-        };
-        
-        // Show loading on assign button
-        const assignBtn = document.querySelector('#assignTeacherModal .modal-footer .btn-success');
-        const originalText = assignBtn.innerHTML;
-        assignBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i> Assigning...';
-        assignBtn.disabled = true;
-        
-        const response = await fetch(`${SECTION_API_URL}/api/teacher-sections/assign`, {
-            method: 'POST',
-            headers: { 
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            },
-            body: JSON.stringify(payload)
-        });
-        
-        const data = await response.json();
-        
-        // Reset button
-        assignBtn.innerHTML = originalText;
-        assignBtn.disabled = false;
-        
-        if (data.success) {
-            showSuccess(data.message);
-            bootstrap.Modal.getInstance(document.getElementById('assignTeacherModal')).hide();
-            loadTeacherMappings();
+        if (sectionsData.success && sectionsData.sections) {
+            let options = '<option value="">Select section...</option>';
+            sectionsData.sections.forEach(section => {
+                if (section.is_active) {
+                    options += `<option value="${section.section_id}">${section.section_name}</option>`;
+                }
+            });
+            sectionSelect.innerHTML = options;
+            sectionSelect.disabled = false;
         } else {
-            showError(data.message);
+            sectionSelect.innerHTML = '<option value="">No sections found</option>';
+            sectionSelect.disabled = true;
         }
     } catch (error) {
-        console.error('Error assigning teacher:', error);
-        
-        // Reset button
-        const assignBtn = document.querySelector('#assignTeacherModal .modal-footer .btn-success');
-        if (assignBtn) {
-            assignBtn.innerHTML = '<i class="fas fa-check me-1"></i>Assign Teacher';
-            assignBtn.disabled = false;
-        }
-        
-        showError('Error assigning teacher: ' + error.message);
+        console.error('Error loading sections:', error);
+        sectionSelect.innerHTML = '<option value="">Error loading sections</option>';
+        sectionSelect.disabled = true;
     }
+    
+    // Load syllabus subjects
+    loadStatus.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i> Loading subjects...';
+    subjectSelect.innerHTML = '<option value="">Loading subjects...</option>';
+    
+    try {
+        const response = await fetch(`${API_URL}/api/syllabus-subjects/${courseCode}`);
+        const data = await response.json();
+        
+        if (data.success && data.subjects && data.subjects.length > 0) {
+            let options = '<option value="">-- Select from syllabus --</option>';
+            data.subjects.forEach(subject => {
+                options += `<option value="${escapeHtml(subject.name)}">📚 ${escapeHtml(subject.name)}</option>`;
+            });
+            options += '<option value="__MANUAL__">✏️ Type custom subject (click pencil)</option>';
+            subjectSelect.innerHTML = options;
+            loadStatus.innerHTML = `<i class="fas fa-check-circle text-success me-1"></i> ${data.subjects.length} subjects loaded`;
+        } else {
+            subjectSelect.innerHTML = '<option value="__MANUAL__">✏️ Type custom subject</option>';
+            loadStatus.innerHTML = '<i class="fas fa-info-circle text-warning me-1"></i> No syllabus found';
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        subjectSelect.innerHTML = '<option value="__MANUAL__">✏️ Type custom subject</option>';
+        loadStatus.innerHTML = '<i class="fas fa-exclamation-circle text-danger me-1"></i> Error loading';
+    }
+    
+    resetManualSubjectInput();
+}
+
+function handleSubjectSelection() {
+    const subjectSelect = document.getElementById('assignSubject');
+    const manualInputDiv = document.getElementById('manualSubjectInput');
+    const manualInput = document.getElementById('manualSubjectText');
+    
+    if (subjectSelect.value === '__MANUAL__') {
+        manualInputDiv.style.display = 'block';
+        manualInput.focus();
+        isManualSubject = true;
+        subjectSelect.value = '';
+    } else {
+        manualInputDiv.style.display = 'none';
+        manualInput.value = '';
+        isManualSubject = false;
+    }
+}
+
+function toggleManualSubjectInput() {
+    const manualInputDiv = document.getElementById('manualSubjectInput');
+    const subjectSelect = document.getElementById('assignSubject');
+    const manualInput = document.getElementById('manualSubjectText');
+    
+    if (manualInputDiv.style.display === 'none') {
+        manualInputDiv.style.display = 'block';
+        manualInput.focus();
+        isManualSubject = true;
+        subjectSelect.value = '';
+    } else {
+        manualInputDiv.style.display = 'none';
+        manualInput.value = '';
+        isManualSubject = false;
+    }
+}
+
+function resetManualSubjectInput() {
+    const manualInputDiv = document.getElementById('manualSubjectInput');
+    const manualInput = document.getElementById('manualSubjectText');
+    if (manualInputDiv) manualInputDiv.style.display = 'none';
+    if (manualInput) manualInput.value = '';
+    isManualSubject = false;
+}
+
+// Updated assign function
+async function assignTeacherToSection() {
+    const teacherId = document.getElementById('assignTeacherId').value;
+    const sectionId = document.getElementById('assignSectionId').value;
+    
+    let subject = '';
+    if (isManualSubject) {
+        subject = document.getElementById('manualSubjectText').value.trim();
+    } else {
+        subject = document.getElementById('assignSubject').value;
+    }
+    
+    if (!teacherId) { showError('Select teacher'); return; }
+    if (!sectionId) { showError('Select section'); return; }
+    if (!subject || subject === '__MANUAL__') { showError('Select or type subject'); return; }
+    
+    try {
+        const btn = document.querySelector('#assignTeacherModal .btn-success');
+        const originalText = btn.innerHTML;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i> Assigning...';
+        btn.disabled = true;
+        
+        const response = await fetch(`${API_URL}/api/teacher-sections/assign`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ teacher_id: teacherId, section_id: sectionId, subject: subject })
+        });
+        
+        const result = await response.json();
+        
+        btn.innerHTML = originalText;
+        btn.disabled = false;
+        
+        if (result.success) {
+            showSuccess(`Teacher assigned for "${subject}"!`);
+            document.getElementById('assignTeacherForm').reset();
+            resetManualSubjectInput();
+            const modal = bootstrap.Modal.getInstance(document.getElementById('assignTeacherModal'));
+            modal.hide();
+            if (typeof loadTeacherMappings === 'function') loadTeacherMappings();
+        } else {
+            showError(result.message);
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        showError('Failed to assign teacher');
+    }
+}
+
+// Updated load functions
+async function loadTeachersForAssignment() {
+    try {
+        const response = await fetch(`${API_URL}/api/teachers/all`);
+        const data = await response.json();
+        const select = document.getElementById('assignTeacherId');
+        if (select && data.success && data.teachers) {
+            let options = '<option value="">Choose teacher...</option>';
+            data.teachers.forEach(t => {
+                options += `<option value="${t.teacher_id}">${t.name} (${t.teacher_id})</option>`;
+            });
+            select.innerHTML = options;
+        }
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
+async function loadCoursesForAssignment() {
+    try {
+        const response = await fetch(`${API_URL}/api/courses/all`);
+        const data = await response.json();
+        const select = document.getElementById('assignCourse');
+        if (select && data.success && data.courses) {
+            let options = '<option value="">Choose course...</option>';
+            data.courses.forEach(course => {
+                options += `<option value="${course.course_code}">${course.course_name} (${course.course_code})</option>`;
+            });
+            select.innerHTML = options;
+        }
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
+async function loadSectionsForTeacher() {
+    const courseSelect = document.getElementById('assignCourse');
+    const sectionSelect = document.getElementById('assignSectionId');
+    
+    const courseCode = courseSelect.value;
+    
+    if (!courseCode) {
+        sectionSelect.innerHTML = '<option value="">Select course first...</option>';
+        sectionSelect.disabled = true;
+        return;
+    }
+    
+    try {
+        sectionSelect.innerHTML = '<option value="">Loading sections...</option>';
+        sectionSelect.disabled = true;
+        
+        const response = await fetch(`${API_URL}/api/sections/course/${courseCode}`);
+        const data = await response.json();
+        
+        if (data.success && data.sections) {
+            let options = '<option value="">Select section...</option>';
+            data.sections.forEach(section => {
+                if (section.is_active) {
+                    options += `<option value="${section.section_id}">${section.section_name}</option>`;
+                }
+            });
+            sectionSelect.innerHTML = options;
+            sectionSelect.disabled = false;
+        } else {
+            sectionSelect.innerHTML = '<option value="">No sections found</option>';
+            sectionSelect.disabled = true;
+        }
+    } catch (error) {
+        console.error('Error loading sections:', error);
+        sectionSelect.innerHTML = '<option value="">Error loading sections</option>';
+        sectionSelect.disabled = true;
+    }
+}
+
+function escapeHtml(text) {
+    if (!text) return '';
+    return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }
 
 // 12. Delete Section
