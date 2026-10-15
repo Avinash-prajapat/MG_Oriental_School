@@ -40,7 +40,7 @@
             --transition: all 0.3s ease;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
         html { scroll-behavior: smooth; scroll-padding-top: 80px; }
 
@@ -51,9 +51,13 @@
             line-height: 1.6;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
         }
 
         h1, h2, h3, h4, h5, h6 { font-family: 'Playfair Display', serif; font-weight: 700; line-height: 1.25; }
+
+        img { max-width: 100%; height: auto; }
 
         /* ===== PRELOADER ===== */
         #preloader {
@@ -61,7 +65,7 @@
             z-index: 99999; display: flex; align-items: center; justify-content: center;
             flex-direction: column; gap: 24px; transition: opacity 0.6s, visibility 0.6s;
         }
-        #preloader.hidden { opacity: 0; visibility: hidden; }
+        #preloader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
         .preloader-icon {
             color: var(--gold); font-size: 3rem;
             animation: pulseIcon 1.8s ease-in-out infinite;
@@ -79,7 +83,8 @@
         #scrollProgress {
             position: fixed; top: 0; left: 0; height: 3px; width: 0%;
             background: var(--gold); z-index: 10000;
-            transition: width 0.1s;
+            transition: width 0.1s linear;
+            will-change: width;
         }
 
         /* ===== TOP BAR ===== */
@@ -107,15 +112,24 @@
             background: var(--white) !important;
             box-shadow: var(--shadow-sm);
             padding: 12px 0;
-            transition: var(--transition);
+            transition: padding 0.3s ease, box-shadow 0.3s ease;
+            z-index: 1030;
         }
         .navbar.scrolled { padding: 8px 0; box-shadow: var(--shadow-md); }
+        .navbar .container {
+            display: flex; align-items: center; justify-content: space-between;
+            gap: 12px;
+        }
         .navbar-brand {
             display: flex; align-items: center; gap: 10px;
             font-family: 'Playfair Display', serif;
             font-weight: 800; color: var(--navy) !important;
             font-size: 1.15rem; line-height: 1.1;
             text-decoration: none;
+            flex: 1; justify-content: center;
+        }
+        @media (min-width: 992px) {
+            .navbar-brand { flex: 0 0 auto; justify-content: flex-start; }
         }
         .navbar-brand img { height: 42px; width: auto; border-radius: 8px; }
         .navbar-brand span small {
@@ -133,9 +147,11 @@
             background: none; border: none; font-size: 1.5rem;
             color: var(--navy); cursor: pointer; padding: 6px;
             width: 42px; height: 42px; border-radius: 10px;
-            transition: var(--transition);
+            transition: var(--transition); flex-shrink: 0;
+            display: flex; align-items: center; justify-content: center;
         }
         .mobile-toggle:hover { background: var(--gray-100); }
+        .mobile-toggle:active { transform: scale(0.95); }
 
         .desktop-menu { display: none; }
         @media (min-width: 992px) { .desktop-menu { display: flex; align-items: center; gap: 4px; } .mobile-toggle { display: none; } }
@@ -144,6 +160,7 @@
             color: var(--gray-800); font-weight: 500; font-size: 0.88rem;
             text-decoration: none; padding: 8px 14px; border-radius: 8px;
             transition: var(--transition); position: relative;
+            white-space: nowrap;
         }
         .nav-item-link:hover, .nav-item-link.active { color: var(--navy); background: var(--gray-50); }
         .nav-item-link.active::after {
@@ -157,25 +174,28 @@
             padding: 9px 22px; border-radius: 8px; font-weight: 600;
             font-size: 0.82rem; text-decoration: none;
             transition: var(--transition); border: 2px solid var(--navy);
-            margin-left: 8px;
+            margin-left: 8px; white-space: nowrap;
         }
         .btn-cta:hover { background: var(--gold); border-color: var(--gold); transform: translateY(-1px); }
 
-        /* ===== MOBILE MENU ===== */
+        /* ===== MOBILE MENU (LEFT SIDE) ===== */
         .mobile-menu-overlay {
             position: fixed; inset: 0; background: rgba(13,59,102,0.5);
-            z-index: 1050; visibility: hidden; opacity: 0; transition: var(--transition);
-            backdrop-filter: blur(4px);
+            z-index: 1050; visibility: hidden; opacity: 0;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
         }
         .mobile-menu-overlay.active { visibility: visible; opacity: 1; }
 
         .mobile-menu {
-            position: fixed; top: 0; right: -320px; width: 300px; height: 100%;
+            position: fixed; top: 0; left: -320px; width: 300px; max-width: 85vw; height: 100%;
             background: white; z-index: 1051;
-            transition: right 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-            overflow-y: auto; box-shadow: -10px 0 30px rgba(0,0,0,0.1);
+            transition: left 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow-y: auto; overflow-x: hidden;
+            box-shadow: 10px 0 30px rgba(0,0,0,0.15);
+            -webkit-overflow-scrolling: touch;
         }
-        .mobile-menu.open { right: 0; }
+        .mobile-menu.open { left: 0; }
 
         .mobile-menu-head {
             background: var(--navy); color: white;
@@ -192,22 +212,24 @@
             width: 32px; height: 32px; border-radius: 50%;
             color: white; cursor: pointer; font-size: 0.9rem;
             transition: var(--transition);
+            display: flex; align-items: center; justify-content: center;
         }
-        .mobile-menu-close:hover { background: rgba(255,255,255,0.3); }
+        .mobile-menu-close:hover { background: rgba(255,255,255,0.3); transform: rotate(90deg); }
 
         .mobile-menu-list { list-style: none; padding: 12px 0; margin: 0; }
         .mobile-menu-list li a {
             display: flex; align-items: center; gap: 14px;
             padding: 13px 22px; color: var(--gray-800);
             text-decoration: none; font-size: 0.9rem; font-weight: 500;
-            transition: var(--transition); border-left: 3px solid transparent;
+            transition: all 0.25s ease; border-left: 3px solid transparent;
         }
-        .mobile-menu-list li a i { width: 20px; color: var(--navy); }
+        .mobile-menu-list li a i { width: 20px; color: var(--navy); transition: transform 0.25s ease; }
         .mobile-menu-list li a:hover {
             background: var(--gray-50);
             border-left-color: var(--gold);
             color: var(--navy);
         }
+        .mobile-menu-list li a:hover i { transform: translateX(3px); }
         .mobile-menu-foot { padding: 20px; border-top: 1px solid var(--gray-200); }
         .mobile-menu-foot .btn-login {
             display: block; text-align: center;
@@ -228,11 +250,13 @@
             content: ''; position: absolute; inset: 0;
             background-image: radial-gradient(circle at 20% 30%, rgba(212,160,23,0.15) 0%, transparent 40%),
                               radial-gradient(circle at 80% 70%, rgba(30,90,153,0.3) 0%, transparent 45%);
+            pointer-events: none;
         }
         .hero::after {
-            content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+            content: ''; position: absolute; bottom: -1px; left: 0; right: 0;
             height: 60px; background: white;
             clip-path: polygon(0 100%, 100% 0, 100% 100%);
+            pointer-events: none;
         }
         @media (min-width: 768px) { .hero { padding: 100px 0 120px; } }
 
@@ -313,7 +337,9 @@
             background: linear-gradient(135deg, var(--navy), var(--navy-light));
             color: white; display: inline-flex; align-items: center;
             justify-content: center; font-size: 1.2rem; margin-bottom: 12px;
+            transition: transform 0.3s ease;
         }
+        .quick-item:hover .qi-icon { transform: translateY(-4px) rotate(-5deg); }
         .quick-item h6 {
             font-family: 'Inter', sans-serif;
             font-size: 0.9rem; font-weight: 700;
@@ -353,7 +379,7 @@
             background: white; border-radius: var(--radius-lg);
             padding: 28px 24px; height: 100%;
             border: 1px solid var(--gray-200);
-            transition: var(--transition);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
             box-shadow: var(--shadow-sm);
         }
         .card-clean:hover {
@@ -399,6 +425,7 @@
         .detail-row i {
             width: 22px; color: var(--navy);
             margin-top: 3px; margin-right: 10px; font-size: 0.9rem;
+            flex-shrink: 0;
         }
         .detail-row strong { color: var(--gray-800); }
 
@@ -407,7 +434,7 @@
             display: flex; align-items: flex-start; gap: 10px;
             padding: 6px 0; font-size: 0.85rem; color: var(--gray-600);
         }
-        .check-list li i { color: var(--success); margin-top: 4px; font-size: 0.8rem; }
+        .check-list li i { color: var(--success); margin-top: 4px; font-size: 0.8rem; flex-shrink: 0; }
 
         /* ===== CTA BANNER ===== */
         .cta-banner {
@@ -420,6 +447,7 @@
             content: ''; position: absolute; top: -50px; right: -50px;
             width: 200px; height: 200px; border-radius: 50%;
             background: rgba(212,160,23,0.15);
+            pointer-events: none;
         }
         .cta-banner h3 {
             color: white; font-size: clamp(1.3rem, 3.5vw, 1.8rem);
@@ -449,7 +477,7 @@
             padding: 24px; height: 100%;
             border: 1px solid var(--gray-200);
             border-top: 4px solid var(--navy);
-            transition: var(--transition);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
             display: flex; flex-direction: column;
         }
         .course-item.accent { border-top-color: var(--gold); }
@@ -469,6 +497,7 @@
             display: flex; justify-content: space-between;
             padding-top: 14px; border-top: 1px solid var(--gray-100);
             font-size: 0.78rem; color: var(--gray-600);
+            gap: 8px; flex-wrap: wrap;
         }
         .course-meta span i { color: var(--navy); margin-right: 5px; }
         .course-fee { color: var(--gold); font-weight: 700; font-size: 0.95rem; }
@@ -484,15 +513,17 @@
             position: relative; border-radius: var(--radius);
             overflow: hidden; aspect-ratio: 1; cursor: pointer;
             box-shadow: var(--shadow-sm);
+            background: var(--gray-200);
         }
-        .gallery-thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+        .gallery-thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; display: block; }
         .gallery-thumb:hover img { transform: scale(1.08); }
         .gallery-thumb::after {
             content: '\f00e'; font-family: 'Font Awesome 6 Free';
             font-weight: 900; position: absolute; inset: 0;
             background: rgba(13,59,102,0.75); color: white;
             display: flex; align-items: center; justify-content: center;
-            font-size: 1.5rem; opacity: 0; transition: var(--transition);
+            font-size: 1.5rem; opacity: 0; transition: opacity 0.3s ease;
+            pointer-events: none;
         }
         .gallery-thumb:hover::after { opacity: 1; }
 
@@ -502,9 +533,9 @@
             padding: 30px 26px; height: 100%;
             border: 1px solid var(--gray-200);
             position: relative;
-            transition: var(--transition);
+            transition: box-shadow 0.3s ease, transform 0.3s ease;
         }
-        .testimonial:hover { box-shadow: var(--shadow-md); }
+        .testimonial:hover { box-shadow: var(--shadow-md); transform: translateY(-4px); }
         .testimonial .quote {
             font-size: 2.5rem; color: var(--gold); opacity: 0.4;
             font-family: 'Playfair Display', serif;
@@ -518,6 +549,7 @@
             display: flex; align-items: center; justify-content: center;
             color: white; font-weight: 700; font-size: 1rem;
             font-family: 'Playfair Display', serif;
+            flex-shrink: 0;
         }
         .testimonial-author h6 { font-family: 'Inter', sans-serif; font-size: 0.88rem; font-weight: 700; margin: 0; color: var(--navy); }
         .testimonial-author span { font-size: 0.72rem; color: var(--gray-400); }
@@ -527,7 +559,7 @@
         .faq-box {
             background: white; border-radius: var(--radius);
             margin-bottom: 12px; border: 1px solid var(--gray-200);
-            overflow: hidden; transition: var(--transition);
+            overflow: hidden; transition: box-shadow 0.3s ease, border-color 0.3s ease;
         }
         .faq-box.active { box-shadow: var(--shadow-md); border-color: var(--navy); }
         .faq-q {
@@ -535,18 +567,19 @@
             display: flex; justify-content: space-between;
             align-items: center; gap: 15px;
             font-weight: 600; font-size: 0.9rem;
-            color: var(--navy); transition: var(--transition);
+            color: var(--navy); transition: background 0.25s ease;
+            user-select: none;
         }
         .faq-q:hover { background: var(--gray-50); }
-        .faq-q i { color: var(--gold); transition: transform 0.3s; flex-shrink: 0; }
+        .faq-q i { color: var(--gold); transition: transform 0.3s ease; flex-shrink: 0; }
         .faq-box.active .faq-q i { transform: rotate(180deg); }
         .faq-a {
             max-height: 0; overflow: hidden;
-            transition: max-height 0.4s ease, padding 0.3s;
+            transition: max-height 0.4s ease, padding 0.3s ease;
             padding: 0 22px; font-size: 0.85rem;
             color: var(--gray-600); line-height: 1.7;
         }
-        .faq-box.active .faq-a { max-height: 250px; padding: 0 22px 20px; }
+        .faq-box.active .faq-a { max-height: 300px; padding: 0 22px 20px; }
 
         /* ===== CONTACT ===== */
         .contact-card {
@@ -564,8 +597,9 @@
         .form-input {
             width: 100%; border: 1.5px solid var(--gray-200);
             border-radius: 10px; padding: 12px 14px;
-            font-size: 0.88rem; transition: var(--transition);
+            font-size: 0.88rem; transition: border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
             background: var(--gray-50); font-family: 'Inter', sans-serif;
+            color: var(--gray-800);
         }
         .form-input:focus {
             outline: none; border-color: var(--navy);
@@ -576,12 +610,14 @@
             border: none; padding: 13px 28px;
             border-radius: 10px; font-weight: 600;
             font-size: 0.88rem; cursor: pointer;
-            transition: var(--transition); width: 100%;
+            transition: background 0.25s ease, transform 0.25s ease;
+            width: 100%;
             display: inline-flex; align-items: center;
             justify-content: center; gap: 8px;
         }
-        .btn-submit:hover { background: var(--gold); }
-        .btn-submit:disabled { opacity: 0.7; cursor: not-allowed; }
+        .btn-submit:hover { background: var(--gold); transform: translateY(-1px); }
+        .btn-submit:active { transform: translateY(0); }
+        .btn-submit:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
 
         .contact-info-item {
             display: flex; gap: 14px;
@@ -602,7 +638,7 @@
             font-weight: 600; margin-bottom: 3px;
             text-transform: uppercase; letter-spacing: 0.5px;
         }
-        .contact-info-item p { font-size: 0.88rem; color: var(--gray-800); margin: 0; font-weight: 500; }
+        .contact-info-item p { font-size: 0.88rem; color: var(--gray-800); margin: 0; font-weight: 500; word-break: break-word; }
 
         /* ===== MAP ===== */
         .map-wrap {
@@ -633,7 +669,7 @@
         .footer ul li a {
             color: rgba(255,255,255,0.7);
             text-decoration: none; font-size: 0.82rem;
-            transition: var(--transition);
+            transition: color 0.25s ease, padding 0.25s ease;
             display: inline-flex; align-items: center; gap: 8px;
         }
         .footer ul li a:hover { color: var(--gold); padding-left: 4px; }
@@ -645,7 +681,7 @@
             color: white; display: inline-flex;
             align-items: center; justify-content: center;
             margin-right: 8px; text-decoration: none;
-            font-size: 0.85rem; transition: var(--transition);
+            font-size: 0.85rem; transition: background 0.25s ease, transform 0.25s ease;
         }
         .footer-social a:hover { background: var(--gold); transform: translateY(-3px); }
 
@@ -657,25 +693,45 @@
         .footer-bottom a { color: var(--gold); text-decoration: none; }
 
         /* ===== FLOATING BUTTONS ===== */
-        .float-btns { position: fixed; bottom: 22px; right: 20px; z-index: 999; display: flex; flex-direction: column; gap: 12px; }
+        .float-btns {
+            position: fixed; bottom: 22px; right: 20px;
+            z-index: 999; display: flex; flex-direction: column; gap: 12px;
+        }
         .float-btn {
             width: 52px; height: 52px; border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
             color: white; text-decoration: none; font-size: 1.3rem;
             box-shadow: 0 6px 20px rgba(0,0,0,0.2);
-            transition: var(--transition); border: none; cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: none; cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
         }
         .float-btn:hover { transform: scale(1.1) translateY(-3px); color: white; }
+        .float-btn:active { transform: scale(1); }
         .float-wa { background: #25d366; position: relative; }
         .float-wa::before {
             content: ''; position: absolute; inset: 0;
             border-radius: 50%; background: #25d366;
             animation: ripple 2s infinite; z-index: -1;
+            pointer-events: none;
         }
-        @keyframes ripple { 0%{transform:scale(1);opacity:0.6;} 100%{transform:scale(1.6);opacity:0;} }
+        @keyframes ripple { 
+            0% { transform: scale(1); opacity: 0.6; } 
+            100% { transform: scale(1.6); opacity: 0; } 
+        }
         .float-call { background: var(--navy); }
-        .float-top { background: var(--gold); opacity: 0; visibility: hidden; }
-        .float-top.show { opacity: 1; visibility: visible; }
+        .float-top { 
+            background: var(--gold); 
+            opacity: 0; visibility: hidden; 
+            transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+            pointer-events: none;
+        }
+        .float-top.show { opacity: 1; visibility: visible; pointer-events: auto; }
+
+        @media (max-width: 480px) {
+            .float-btns { bottom: 16px; right: 14px; gap: 10px; }
+            .float-btn { width: 46px; height: 46px; font-size: 1.15rem; }
+        }
 
         /* ===== MODAL ===== */
         .modal-content { border-radius: var(--radius-lg); border: none; overflow: hidden; }
@@ -685,11 +741,26 @@
         .modal-body { padding: 24px; }
 
         /* ===== ANIMATION ===== */
-        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.7s ease; }
+        .reveal { 
+            opacity: 0; 
+            transform: translateY(30px); 
+            transition: opacity 0.7s ease, transform 0.7s ease;
+            will-change: opacity, transform;
+        }
         .reveal.visible { opacity: 1; transform: translateY(0); }
+        
+        /* Reduced motion support */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
 
         /* ===== SCROLLBAR ===== */
-        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar { width: 10px; height: 10px; }
         ::-webkit-scrollbar-track { background: var(--gray-100); }
         ::-webkit-scrollbar-thumb { background: var(--navy); border-radius: 5px; }
         ::-webkit-scrollbar-thumb:hover { background: var(--navy-light); }
@@ -697,6 +768,39 @@
         /* ===== UTILITY ===== */
         .text-navy { color: var(--navy) !important; }
         .text-gold { color: var(--gold) !important; }
+
+        /* ===== MOBILE FIXES ===== */
+        @media (max-width: 575px) {
+            .section { padding: 50px 0; }
+            .section-head { margin-bottom: 35px; }
+            .hero { padding: 55px 0 70px; }
+            .quick-strip { padding: 20px 16px; margin-bottom: 40px; }
+            .quick-item .qi-icon { width: 44px; height: 44px; font-size: 1rem; }
+            .quick-item h6 { font-size: 0.82rem; }
+            .quick-item p { font-size: 0.72rem; }
+            .card-clean { padding: 22px 18px; }
+            .info-panel { padding: 24px 20px; }
+            .cta-banner { padding: 30px 22px; }
+            .contact-card { padding: 24px 20px; }
+            .course-item { padding: 20px 18px; }
+            .testimonial { padding: 24px 20px; }
+            .price-tag .new { font-size: 2rem; }
+        }
+
+        /* Tablet adjustments */
+        @media (min-width: 576px) and (max-width: 991px) {
+            .hero { padding: 80px 0 100px; }
+        }
+
+        /* Prevent overflow on very small screens */
+        @media (max-width: 360px) {
+            .navbar-brand { font-size: 0.85rem; gap: 6px; }
+            .navbar-brand img { height: 30px; }
+            .navbar-brand span small { font-size: 0.55rem; }
+            .hero h1 { font-size: 1.5rem; }
+            .btn-hero-primary, .btn-hero-outline { padding: 11px 20px; font-size: 0.82rem; }
+            .hero-feature { font-size: 0.7rem; padding: 6px 12px; }
+        }
     </style>
 </head>
 <body>
@@ -731,7 +835,7 @@
 <!-- Navbar -->
 <nav class="navbar sticky-top" id="mainNavbar">
     <div class="container">
-        <button class="mobile-toggle" id="mobileToggle" aria-label="Menu"><i class="fas fa-bars"></i></button>
+        <button class="mobile-toggle" id="mobileToggle" aria-label="Open menu"><i class="fas fa-bars"></i></button>
 
         <a class="navbar-brand" href="#home">
             <img src="logo.png" alt="Logo" onerror="this.style.display='none'">
@@ -754,13 +858,13 @@
     </div>
 </nav>
 
-<!-- Mobile Menu -->
+<!-- Mobile Menu (LEFT SIDE) -->
 <div class="mobile-menu-overlay" id="mobileOverlay"></div>
 <div class="mobile-menu" id="mobileMenu">
     <div class="mobile-menu-head">
         <h5><i class="fas fa-graduation-cap"></i> M.G. Oriental School</h5>
         <p>& New Era Coaching Centre</p>
-        <button class="mobile-menu-close" id="mobileClose"><i class="fas fa-times"></i></button>
+        <button class="mobile-menu-close" id="mobileClose" aria-label="Close menu"><i class="fas fa-times"></i></button>
     </div>
     <ul class="mobile-menu-list">
         <li><a href="#home"><i class="fas fa-home"></i> Home</a></li>
@@ -954,10 +1058,10 @@
         <div class="row g-4 align-items-stretch">
             <div class="col-lg-5 reveal order-lg-2">
                 <div class="cta-banner h-100 d-flex flex-column justify-content-center" style="background: linear-gradient(135deg, #a37a0e, var(--gold));">
-                    <div style="background: rgba(255,255,255,0.15); padding: 8px 18px; border-radius: 50px; display: inline-block; font-size: 0.75rem; font-weight: 700; letter-spacing: 1px; margin-bottom: 20px;">🔥 LIMITED TIME OFFER</div>
+                    <div style="background: rgba(255,255,255,0.15); padding: 8px 18px; border-radius: 50px; display: inline-block; font-size: 0.75rem; font-weight: 700; letter-spacing: 1px; margin-bottom: 20px; align-self: center;">🔥 LIMITED TIME OFFER</div>
                     <h3>Crash Course</h3>
                     <p>All Subjects | New Batch Starting 10th November</p>
-                    <div class="price-tag">
+                    <div class="price-tag" style="justify-content: center;">
                         <span class="old" style="color: rgba(255,255,255,0.7);">₹1250</span>
                         <span class="new" style="color: white;">₹1000</span>
                     </div>
@@ -1279,7 +1383,7 @@
                     </div>
                     <div class="mt-4">
                         <h6 style="font-family: 'Inter', sans-serif; font-size: 0.78rem; color: var(--gray-400); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px;">Follow Us</h6>
-                        <div class="d-flex gap-2">
+                        <div class="d-flex gap-2 flex-wrap">
                             <a href="#" class="float-btn float-call" style="width: 42px; height: 42px; font-size: 1rem; position: static;"><i class="fab fa-facebook-f"></i></a>
                             <a href="#" class="float-btn" style="width: 42px; height: 42px; font-size: 1rem; position: static; background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045);"><i class="fab fa-instagram"></i></a>
                             <a href="#" class="float-btn" style="width: 42px; height: 42px; font-size: 1rem; position: static; background: #ff0000;"><i class="fab fa-youtube"></i></a>
@@ -1367,206 +1471,290 @@
 <div class="float-btns">
     <a href="https://wa.me/919934795178" target="_blank" class="float-btn float-wa" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
     <a href="tel:9934795178" class="float-btn float-call" aria-label="Call"><i class="fas fa-phone-alt"></i></a>
-    <button class="float-btn float-top" id="topBtn" aria-label="Top"><i class="fas fa-arrow-up"></i></button>
+    <button class="float-btn float-top" id="topBtn" aria-label="Back to top"><i class="fas fa-arrow-up"></i></button>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-    const API_BASE_URL = 'https://avinashprajapati.pythonanywhere.com/api';
-    let allSchoolCourses = [], allCoachingCourses = [];
+    (function() {
+        'use strict';
+        
+        const API_BASE_URL = 'https://avinashprajapati.pythonanywhere.com/api';
+        let allSchoolCourses = [], allCoachingCourses = [];
 
-    // Preloader
-    window.addEventListener('load', () => {
-        setTimeout(() => document.getElementById('preloader').classList.add('hidden'), 400);
-    });
-
-    // Scroll Progress + Top Button
-    const scrollProgress = document.getElementById('scrollProgress');
-    const topBtn = document.getElementById('topBtn');
-    const mainNavbar = document.getElementById('mainNavbar');
-    window.addEventListener('scroll', () => {
-        const st = window.scrollY;
-        const dh = document.documentElement.scrollHeight - window.innerHeight;
-        scrollProgress.style.width = ((st / dh) * 100) + '%';
-        if (st > 400) topBtn.classList.add('show'); else topBtn.classList.remove('show');
-        if (st > 30) mainNavbar.classList.add('scrolled'); else mainNavbar.classList.remove('scrolled');
-    });
-    topBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-
-    // Mobile Menu
-    const mobileToggle = document.getElementById('mobileToggle');
-    const mobileMenu = document.getElementById('mobileMenu');
-    const mobileOverlay = document.getElementById('mobileOverlay');
-    const mobileClose = document.getElementById('mobileClose');
-    function openMenu() { mobileMenu.classList.add('open'); mobileOverlay.classList.add('active'); document.body.style.overflow = 'hidden'; }
-    function closeMenu() { mobileMenu.classList.remove('open'); mobileOverlay.classList.remove('active'); document.body.style.overflow = ''; }
-    mobileToggle?.addEventListener('click', openMenu);
-    mobileClose?.addEventListener('click', closeMenu);
-    mobileOverlay?.addEventListener('click', closeMenu);
-    document.querySelectorAll('.mobile-menu-list a').forEach(l => l.addEventListener('click', closeMenu));
-
-    // Reveal animations
-    const obs = new IntersectionObserver((entries) => {
-        entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-    }, { threshold: 0.12 });
-    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
-
-    // FAQ
-    document.querySelectorAll('.faq-q').forEach(q => {
-        q.addEventListener('click', () => {
-            const box = q.parentElement;
-            const isActive = box.classList.contains('active');
-            document.querySelectorAll('.faq-box').forEach(b => b.classList.remove('active'));
-            if (!isActive) box.classList.add('active');
+        // ===== PRELOADER =====
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const pre = document.getElementById('preloader');
+                if (pre) pre.classList.add('hidden');
+            }, 400);
         });
-    });
 
-    // Smooth scroll for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(a => {
-        a.addEventListener('click', function(e) {
-            const href = this.getAttribute('href');
-            if (href && href !== '#') {
-                const target = document.querySelector(href);
-                if (target) {
-                    e.preventDefault();
-                    target.scrollIntoView({ behavior: 'smooth' });
+        // ===== SCROLL PROGRESS & TOP BUTTON (throttled for performance) =====
+        const scrollProgress = document.getElementById('scrollProgress');
+        const topBtn = document.getElementById('topBtn');
+        const mainNavbar = document.getElementById('mainNavbar');
+        let ticking = false;
+        
+        function onScroll() {
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    const st = window.scrollY;
+                    const dh = document.documentElement.scrollHeight - window.innerHeight;
+                    if (scrollProgress && dh > 0) scrollProgress.style.width = ((st / dh) * 100) + '%';
+                    if (topBtn) {
+                        if (st > 400) topBtn.classList.add('show');
+                        else topBtn.classList.remove('show');
+                    }
+                    if (mainNavbar) {
+                        if (st > 30) mainNavbar.classList.add('scrolled');
+                        else mainNavbar.classList.remove('scrolled');
+                    }
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        }
+        window.addEventListener('scroll', onScroll, { passive: true });
+        
+        if (topBtn) {
+            topBtn.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        }
+
+        // ===== MOBILE MENU (LEFT SIDE) =====
+        const mobileToggle = document.getElementById('mobileToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileOverlay = document.getElementById('mobileOverlay');
+        const mobileClose = document.getElementById('mobileClose');
+        
+        function openMenu() {
+            if (mobileMenu) mobileMenu.classList.add('open');
+            if (mobileOverlay) mobileOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeMenu() {
+            if (mobileMenu) mobileMenu.classList.remove('open');
+            if (mobileOverlay) mobileOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        
+        if (mobileToggle) mobileToggle.addEventListener('click', openMenu);
+        if (mobileClose) mobileClose.addEventListener('click', closeMenu);
+        if (mobileOverlay) mobileOverlay.addEventListener('click', closeMenu);
+        document.querySelectorAll('.mobile-menu-list a').forEach(l => {
+            l.addEventListener('click', closeMenu);
+        });
+
+        // ===== REVEAL ANIMATIONS =====
+        const obs = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    e.target.classList.add('visible');
+                    obs.unobserve(e.target);
                 }
-            }
-        });
-    });
+            });
+        }, { threshold: 0.12, rootMargin: '0px 0px -50px 0px' });
+        document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
-    // Active nav highlight
-    const sections = document.querySelectorAll('section[id]');
-    window.addEventListener('scroll', () => {
-        const scrollY = window.scrollY + 120;
-        sections.forEach(section => {
-            const top = section.offsetTop;
-            const height = section.offsetHeight;
-            const id = section.getAttribute('id');
-            const link = document.querySelector(`.nav-item-link[href="#${id}"]`);
-            if (link) {
-                if (scrollY >= top && scrollY < top + height) link.classList.add('active');
-                else link.classList.remove('active');
-            }
-        });
-    });
-
-    // Load Announcements (kept minimal for now — can add a marquee later)
-    async function loadAnnouncements() {
-        try {
-            const r = await fetch(`${API_BASE_URL}/announcements/all?is_active=true`);
-            if (!r.ok) return;
-            const d = await r.json();
-            // reserved for future marquee
-        } catch(e) {}
-    }
-
-    // Load Courses
-    async function loadCourses() {
-        try {
-            const r = await fetch(`${API_BASE_URL}/courses`);
-            if (!r.ok) throw new Error();
-            const d = await r.json();
-            if (d.success && d.courses && d.courses.length > 0) {
-                allSchoolCourses = d.courses.filter(c => c.category === 'academic' && c.is_active !== false);
-                allCoachingCourses = d.courses.filter(c => c.category === 'coaching' && c.is_active !== false);
-                renderCourses();
-            } else { showCoursesError(); }
-        } catch (e) { showCoursesError(); }
-    }
-
-    function durationText(d) {
-        if (d === 12) return '12 Months';
-        if (d === 6) return '6 Months';
-        if (d === 3) return '3 Months';
-        if (d === 1) return '1 Month';
-        return d ? `${d} Months` : 'Full Year';
-    }
-
-    function renderCourses() {
-        const s = document.getElementById('schoolCoursesLimited');
-        const c = document.getElementById('coachingCoursesLimited');
-
-        if (allSchoolCourses.length > 0) {
-            s.innerHTML = allSchoolCourses.slice(0, 4).map(course => {
-                const fee = parseFloat(course.fee_amount || 0);
-                return `<div class="col-md-6 col-lg-3"><div class="course-item"><h5>${esc(course.course_name)}</h5><p>${esc(course.description || 'Quality academic program with focus on overall development')}</p><div class="course-meta"><span><i class="far fa-clock"></i> ${durationText(course.duration)}</span><span class="course-fee">₹${fee.toLocaleString('en-IN')}</span></div></div></div>`;
-            }).join('');
-        } else {
-            s.innerHTML = `<div class="col-12"><div class="text-center py-4"><i class="fas fa-database" style="font-size:2rem; color: var(--gray-400);"></i><p class="mt-2 text-muted">No school courses available</p></div></div>`;
-        }
-
-        if (allCoachingCourses.length > 0) {
-            c.innerHTML = allCoachingCourses.slice(0, 4).map(course => {
-                const fee = parseFloat(course.fee_amount || 0);
-                return `<div class="col-md-6 col-lg-3"><div class="course-item accent"><h5>${esc(course.course_name)}</h5><p>${esc(course.description || 'Comprehensive coaching with expert faculty and regular tests')}</p><div class="course-meta"><span><i class="far fa-clock"></i> ${durationText(course.duration)}</span><span class="course-fee">₹${fee.toLocaleString('en-IN')}</span></div></div></div>`;
-            }).join('');
-        } else {
-            c.innerHTML = `<div class="col-12"><div class="text-center py-4"><i class="fas fa-database" style="font-size:2rem; color: var(--gray-400);"></i><p class="mt-2 text-muted">No coaching courses available</p></div></div>`;
-        }
-
-        // Modals
-        const sm = document.getElementById('allSchoolModalBody');
-        const cm = document.getElementById('allCoachingModalBody');
-        sm.innerHTML = allSchoolCourses.length ? `<div class="row g-3">${allSchoolCourses.map(course => { const fee = parseFloat(course.fee_amount || 0); return `<div class="col-md-6"><div class="course-item"><h5>${esc(course.course_name)}</h5><p>${esc(course.description || 'Academic program')}</p><div class="course-meta"><span><i class="far fa-clock"></i> ${durationText(course.duration)}</span><span class="course-fee">₹${fee.toLocaleString('en-IN')}</span></div></div></div>`; }).join('')}</div>` : '<p class="text-center py-4 text-muted">No courses available</p>';
-        cm.innerHTML = allCoachingCourses.length ? `<div class="row g-3">${allCoachingCourses.map(course => { const fee = parseFloat(course.fee_amount || 0); return `<div class="col-md-6"><div class="course-item accent"><h5>${esc(course.course_name)}</h5><p>${esc(course.description || 'Coaching program')}</p><div class="course-meta"><span><i class="far fa-clock"></i> ${durationText(course.duration)}</span><span class="course-fee">₹${fee.toLocaleString('en-IN')}</span></div></div></div>`; }).join('')}</div>` : '<p class="text-center py-4 text-muted">No courses available</p>';
-    }
-
-    function showCoursesError() {
-        const err = `<div class="col-12"><div class="text-center py-4"><i class="fas fa-exclamation-triangle" style="font-size:2rem; color: var(--danger);"></i><p class="mt-2 text-muted">Failed to load courses</p><button class="btn-submit" style="width:auto; padding:8px 20px;" onclick="loadCourses()">Retry</button></div></div>`;
-        document.getElementById('schoolCoursesLimited').innerHTML = err;
-        document.getElementById('coachingCoursesLimited').innerHTML = err;
-    }
-
-    // Gallery
-    const galleryImages = ['image_1.png', 'image_2.png', 'image_3.png', 'image_4.png', 'image_5.png', 'image_6.png'];
-    function renderGallery() {
-        const lim = document.getElementById('galleryLimited');
-        const all = document.getElementById('allGalleryGrid');
-        const html = arr => arr.map(img => `<div class="gallery-thumb" data-img="${img}"><img src="${img}" alt="Gallery" loading="lazy"></div>`).join('');
-        lim.innerHTML = html(galleryImages.slice(0, 6));
-        all.innerHTML = html(galleryImages);
-        document.querySelectorAll('.gallery-thumb').forEach(t => {
-            t.addEventListener('click', function() {
-                document.getElementById('singleImage').src = this.dataset.img;
-                new bootstrap.Modal(document.getElementById('singleImageModal')).show();
+        // ===== FAQ =====
+        document.querySelectorAll('.faq-q').forEach(q => {
+            q.addEventListener('click', () => {
+                const box = q.parentElement;
+                const isActive = box.classList.contains('active');
+                document.querySelectorAll('.faq-box').forEach(b => b.classList.remove('active'));
+                if (!isActive) box.classList.add('active');
             });
         });
-    }
 
-    // Contact Form
-    document.getElementById('contactForm').addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const btn = document.getElementById('submitBtn');
-        const data = {
-            full_name: document.getElementById('fullName').value.trim(),
-            email: document.getElementById('email').value.trim(),
-            phone: document.getElementById('phone').value.trim(),
-            subject: document.getElementById('subject').value,
-            message: document.getElementById('message').value.trim()
-        };
-        if (!data.full_name || !data.email || !data.phone || !data.subject || !data.message) { showMsg('Please fill all fields.', 'danger'); return; }
-        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) { showMsg('Please enter a valid email.', 'danger'); return; }
-        if (!/^[0-9]{10}$/.test(data.phone)) { showMsg('Please enter a valid 10-digit phone number.', 'danger'); return; }
+        // ===== SMOOTH SCROLL =====
+        document.querySelectorAll('a[href^="#"]').forEach(a => {
+            a.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                if (href && href !== '#') {
+                    const target = document.querySelector(href);
+                    if (target) {
+                        e.preventDefault();
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                }
+            });
+        });
 
-        try {
-            btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
-            const r = await fetch(`${API_BASE_URL}/contact`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
-            if (r.ok) { showMsg('✅ Thank you! We will contact you soon.', 'success'); document.getElementById('contactForm').reset(); }
-            else { showMsg('Network error. Please call 9934795178', 'danger'); }
-        } catch(e) { showMsg('Network error. Please call 9934795178', 'danger'); }
-        finally { btn.disabled = false; btn.innerHTML = 'Send Message <i class="fas fa-paper-plane"></i>'; }
-    });
+        // ===== ACTIVE NAV HIGHLIGHT (throttled) =====
+        const sections = document.querySelectorAll('section[id]');
+        let navTicking = false;
+        window.addEventListener('scroll', () => {
+            if (!navTicking) {
+                window.requestAnimationFrame(() => {
+                    const scrollY = window.scrollY + 120;
+                    sections.forEach(section => {
+                        const top = section.offsetTop;
+                        const height = section.offsetHeight;
+                        const id = section.getAttribute('id');
+                        const link = document.querySelector(`.nav-item-link[href="#${id}"]`);
+                        if (link) {
+                            if (scrollY >= top && scrollY < top + height) link.classList.add('active');
+                            else link.classList.remove('active');
+                        }
+                    });
+                    navTicking = false;
+                });
+                navTicking = true;
+            }
+        }, { passive: true });
 
-    function showMsg(msg, type) {
-        const d = document.getElementById('formMessage');
-        d.innerHTML = `<div class="alert alert-${type} py-2 small mb-0" style="border-radius:10px;">${msg}</div>`;
-        setTimeout(() => d.innerHTML = '', 5000);
-    }
+        // ===== LOAD COURSES =====
+        async function loadCourses() {
+            try {
+                const r = await fetch(`${API_BASE_URL}/courses`);
+                if (!r.ok) throw new Error();
+                const d = await r.json();
+                if (d.success && d.courses && d.courses.length > 0) {
+                    allSchoolCourses = d.courses.filter(c => c.category === 'academic' && c.is_active !== false);
+                    allCoachingCourses = d.courses.filter(c => c.category === 'coaching' && c.is_active !== false);
+                    renderCourses();
+                } else {
+                    showCoursesError();
+                }
+            } catch (e) {
+                showCoursesError();
+            }
+        }
 
-    function esc(s) { if (!s) return ''; return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
+        function durationText(d) {
+            if (d === 12) return '12 Months';
+            if (d === 6) return '6 Months';
+            if (d === 3) return '3 Months';
+            if (d === 1) return '1 Month';
+            return d ? `${d} Months` : 'Full Year';
+        }
 
-    document.addEventListener('DOMContentLoaded', () => { loadAnnouncements(); loadCourses(); renderGallery(); });
+        function renderCourses() {
+            const s = document.getElementById('schoolCoursesLimited');
+            const c = document.getElementById('coachingCoursesLimited');
+
+            if (allSchoolCourses.length > 0) {
+                s.innerHTML = allSchoolCourses.slice(0, 4).map(course => {
+                    const fee = parseFloat(course.fee_amount || 0);
+                    return `<div class="col-md-6 col-lg-3"><div class="course-item"><h5>${esc(course.course_name)}</h5><p>${esc(course.description || 'Quality academic program with focus on overall development')}</p><div class="course-meta"><span><i class="far fa-clock"></i> ${durationText(course.duration)}</span><span class="course-fee">₹${fee.toLocaleString('en-IN')}</span></div></div></div>`;
+                }).join('');
+            } else {
+                s.innerHTML = `<div class="col-12"><div class="text-center py-4"><i class="fas fa-database" style="font-size:2rem; color: var(--gray-400);"></i><p class="mt-2 text-muted">No school courses available</p></div></div>`;
+            }
+
+            if (allCoachingCourses.length > 0) {
+                c.innerHTML = allCoachingCourses.slice(0, 4).map(course => {
+                    const fee = parseFloat(course.fee_amount || 0);
+                    return `<div class="col-md-6 col-lg-3"><div class="course-item accent"><h5>${esc(course.course_name)}</h5><p>${esc(course.description || 'Comprehensive coaching with expert faculty and regular tests')}</p><div class="course-meta"><span><i class="far fa-clock"></i> ${durationText(course.duration)}</span><span class="course-fee">₹${fee.toLocaleString('en-IN')}</span></div></div></div>`;
+                }).join('');
+            } else {
+                c.innerHTML = `<div class="col-12"><div class="text-center py-4"><i class="fas fa-database" style="font-size:2rem; color: var(--gray-400);"></i><p class="mt-2 text-muted">No coaching courses available</p></div></div>`;
+            }
+
+            // Modals
+            const sm = document.getElementById('allSchoolModalBody');
+            const cm = document.getElementById('allCoachingModalBody');
+            sm.innerHTML = allSchoolCourses.length 
+                ? `<div class="row g-3">${allSchoolCourses.map(course => { const fee = parseFloat(course.fee_amount || 0); return `<div class="col-md-6"><div class="course-item"><h5>${esc(course.course_name)}</h5><p>${esc(course.description || 'Academic program')}</p><div class="course-meta"><span><i class="far fa-clock"></i> ${durationText(course.duration)}</span><span class="course-fee">₹${fee.toLocaleString('en-IN')}</span></div></div></div>`; }).join('')}</div>` 
+                : '<p class="text-center py-4 text-muted">No courses available</p>';
+            cm.innerHTML = allCoachingCourses.length 
+                ? `<div class="row g-3">${allCoachingCourses.map(course => { const fee = parseFloat(course.fee_amount || 0); return `<div class="col-md-6"><div class="course-item accent"><h5>${esc(course.course_name)}</h5><p>${esc(course.description || 'Coaching program')}</p><div class="course-meta"><span><i class="far fa-clock"></i> ${durationText(course.duration)}</span><span class="course-fee">₹${fee.toLocaleString('en-IN')}</span></div></div></div>`; }).join('')}</div>` 
+                : '<p class="text-center py-4 text-muted">No courses available</p>';
+        }
+
+        function showCoursesError() {
+            const err = `<div class="col-12"><div class="text-center py-4"><i class="fas fa-exclamation-triangle" style="font-size:2rem; color: var(--danger);"></i><p class="mt-2 text-muted">Failed to load courses</p><button class="btn-submit" style="width:auto; padding:8px 20px;" onclick="loadCourses()">Retry</button></div></div>`;
+            document.getElementById('schoolCoursesLimited').innerHTML = err;
+            document.getElementById('coachingCoursesLimited').innerHTML = err;
+        }
+
+        // ===== GALLERY =====
+        const galleryImages = ['image_1.png', 'image_2.png', 'image_3.png', 'image_4.png', 'image_5.png', 'image_6.png'];
+        function renderGallery() {
+            const lim = document.getElementById('galleryLimited');
+            const all = document.getElementById('allGalleryGrid');
+            const html = arr => arr.map(img => `<div class="gallery-thumb" data-img="${img}"><img src="${img}" alt="Gallery" loading="lazy"></div>`).join('');
+            lim.innerHTML = html(galleryImages.slice(0, 6));
+            all.innerHTML = html(galleryImages);
+            document.querySelectorAll('.gallery-thumb').forEach(t => {
+                t.addEventListener('click', function() {
+                    const img = document.getElementById('singleImage');
+                    if (img) img.src = this.dataset.img;
+                    const modal = new bootstrap.Modal(document.getElementById('singleImageModal'));
+                    modal.show();
+                });
+            });
+        }
+
+        // ===== CONTACT FORM =====
+        const contactForm = document.getElementById('contactForm');
+        if (contactForm) {
+            contactForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const btn = document.getElementById('submitBtn');
+                const data = {
+                    full_name: document.getElementById('fullName').value.trim(),
+                    email: document.getElementById('email').value.trim(),
+                    phone: document.getElementById('phone').value.trim(),
+                    subject: document.getElementById('subject').value,
+                    message: document.getElementById('message').value.trim()
+                };
+                
+                if (!data.full_name || !data.email || !data.phone || !data.subject || !data.message) {
+                    showMsg('Please fill all fields.', 'danger'); return;
+                }
+                if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
+                    showMsg('Please enter a valid email.', 'danger'); return;
+                }
+                if (!/^[0-9]{10}$/.test(data.phone)) {
+                    showMsg('Please enter a valid 10-digit phone number.', 'danger'); return;
+                }
+
+                try {
+                    btn.disabled = true;
+                    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+                    const r = await fetch(`${API_BASE_URL}/contact`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(data)
+                    });
+                    if (r.ok) {
+                        showMsg('✅ Thank you! We will contact you soon.', 'success');
+                        contactForm.reset();
+                    } else {
+                        showMsg('Network error. Please call 9934795178', 'danger');
+                    }
+                } catch (err) {
+                    showMsg('Network error. Please call 9934795178', 'danger');
+                } finally {
+                    btn.disabled = false;
+                    btn.innerHTML = 'Send Message <i class="fas fa-paper-plane"></i>';
+                }
+            });
+        }
+
+        function showMsg(msg, type) {
+            const d = document.getElementById('formMessage');
+            d.innerHTML = `<div class="alert alert-${type} py-2 small mb-0" style="border-radius:10px;">${msg}</div>`;
+            setTimeout(() => { d.innerHTML = ''; }, 5000);
+        }
+
+        function esc(s) {
+            if (!s) return '';
+            return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+        }
+
+        // ===== INIT =====
+        document.addEventListener('DOMContentLoaded', () => {
+            loadCourses();
+            renderGallery();
+        });
+        
+        // Expose loadCourses globally for retry button
+        window.loadCourses = loadCourses;
+    })();
 </script>
 </body>
 </html>
