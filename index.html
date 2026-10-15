@@ -3,1142 +3,1570 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
-    <title>M.G. Oriental School & New Era Coaching Centre</title>
+    <title>M.G. Oriental School & New Era Coaching Centre | Patepur, Vaishali</title>
     <meta name="keywords" content="M.G. Oriental School, New Era Coaching, Zaif Akhtar, school in Patepur, coaching in Vaishali, CBSE school, 22 mile chowk">
     <meta name="description" content="M.G. Oriental School (Nursery to VIII, CBSE) & New Era Coaching Centre (Class 1 to 12) by Zaif Akhtar. Located at 22 Mile Chowk, Tejpurwa, Patepur, Vaishali.">
+    <meta name="theme-color" content="#0d3b66">
     
-    <link rel="preload" as="style" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
     <link rel="icon" href="logo.png" type="image/png">
 
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        :root {
+            --navy: #0d3b66;
+            --navy-dark: #092a4a;
+            --navy-light: #1e5a99;
+            --gold: #d4a017;
+            --gold-light: #f0b429;
+            --cream: #fefbf5;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-400: #9ca3af;
+            --gray-600: #4b5563;
+            --gray-800: #1f2937;
+            --white: #ffffff;
+            --success: #16a34a;
+            --danger: #dc2626;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+            --shadow-md: 0 4px 20px rgba(13,59,102,0.08);
+            --shadow-lg: 0 15px 40px rgba(13,59,102,0.12);
+            --radius: 12px;
+            --radius-lg: 20px;
+            --transition: all 0.3s ease;
         }
-        
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+
         body {
-            font-family: 'Inter', 'Poppins', sans-serif;
-            padding-top: 70px;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            font-family: 'Inter', sans-serif;
+            color: var(--gray-800);
+            background: var(--white);
+            line-height: 1.6;
             overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
         }
-        
-        /* Floating Buttons - Smaller */
-        .floating-buttons {
-            position: fixed;
-            bottom: 20px;
-            left: 0;
-            right: 0;
-            z-index: 9999;
-            pointer-events: none;
+
+        h1, h2, h3, h4, h5, h6 { font-family: 'Playfair Display', serif; font-weight: 700; line-height: 1.25; }
+
+        /* ===== PRELOADER ===== */
+        #preloader {
+            position: fixed; inset: 0; background: var(--navy);
+            z-index: 99999; display: flex; align-items: center; justify-content: center;
+            flex-direction: column; gap: 24px; transition: opacity 0.6s, visibility 0.6s;
         }
-        
-        .floating-buttons .call-btn,
-        .floating-buttons .whatsapp-btn {
-            pointer-events: auto;
-            position: fixed;
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.3rem;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-            transition: all 0.3s ease;
+        #preloader.hidden { opacity: 0; visibility: hidden; }
+        .preloader-icon {
+            color: var(--gold); font-size: 3rem;
+            animation: pulseIcon 1.8s ease-in-out infinite;
+        }
+        @keyframes pulseIcon {
+            0%,100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+        .preloader-text {
+            color: white; font-family: 'Playfair Display', serif;
+            font-size: 1.2rem; letter-spacing: 2px; font-weight: 600;
+        }
+
+        /* ===== SCROLL PROGRESS ===== */
+        #scrollProgress {
+            position: fixed; top: 0; left: 0; height: 3px; width: 0%;
+            background: var(--gold); z-index: 10000;
+            transition: width 0.1s;
+        }
+
+        /* ===== TOP BAR ===== */
+        .top-bar {
+            background: var(--navy-dark);
+            color: rgba(255,255,255,0.85);
+            padding: 8px 0;
+            font-size: 0.78rem;
+            display: none;
+        }
+        @media (min-width: 768px) { .top-bar { display: block; } }
+        .top-bar i { color: var(--gold); margin-right: 6px; }
+        .top-bar a { color: rgba(255,255,255,0.85); text-decoration: none; transition: var(--transition); }
+        .top-bar a:hover { color: var(--gold); }
+        .top-bar .top-social a {
+            display: inline-flex; width: 26px; height: 26px;
+            align-items: center; justify-content: center;
+            background: rgba(255,255,255,0.08); border-radius: 50%;
+            margin-left: 6px; font-size: 0.7rem;
+        }
+        .top-bar .top-social a:hover { background: var(--gold); color: white; }
+
+        /* ===== NAVBAR ===== */
+        .navbar {
+            background: var(--white) !important;
+            box-shadow: var(--shadow-sm);
+            padding: 12px 0;
+            transition: var(--transition);
+        }
+        .navbar.scrolled { padding: 8px 0; box-shadow: var(--shadow-md); }
+        .navbar-brand {
+            display: flex; align-items: center; gap: 10px;
+            font-family: 'Playfair Display', serif;
+            font-weight: 800; color: var(--navy) !important;
+            font-size: 1.15rem; line-height: 1.1;
             text-decoration: none;
-            border: none;
-            cursor: pointer;
         }
-        
-        .floating-buttons .call-btn {
-            left: 15px;
-            bottom: 20px;
-            background: #3b82f6;
-            color: white;
+        .navbar-brand img { height: 42px; width: auto; border-radius: 8px; }
+        .navbar-brand span small {
+            display: block; font-family: 'Inter', sans-serif;
+            font-size: 0.65rem; font-weight: 500;
+            color: var(--gray-600); letter-spacing: 1px;
         }
-        
-        .floating-buttons .whatsapp-btn {
-            right: 15px;
-            bottom: 20px;
-            background: #25d366;
-            color: white;
+        @media (max-width: 400px) {
+            .navbar-brand { font-size: 0.95rem; }
+            .navbar-brand img { height: 34px; }
+            .navbar-brand span small { font-size: 0.58rem; }
         }
-        
-        .floating-buttons .call-btn:hover,
-        .floating-buttons .whatsapp-btn:hover {
-            transform: scale(1.1);
+
+        .mobile-toggle {
+            background: none; border: none; font-size: 1.5rem;
+            color: var(--navy); cursor: pointer; padding: 6px;
+            width: 42px; height: 42px; border-radius: 10px;
+            transition: var(--transition);
         }
-        
-        @media (min-width: 768px) {
-            .floating-buttons .call-btn,
-            .floating-buttons .whatsapp-btn {
-                width: 50px;
-                height: 50px;
-                font-size: 1.5rem;
-            }
-            .floating-buttons .call-btn { left: 20px; bottom: 25px; }
-            .floating-buttons .whatsapp-btn { right: 20px; bottom: 25px; }
+        .mobile-toggle:hover { background: var(--gray-100); }
+
+        .desktop-menu { display: none; }
+        @media (min-width: 992px) { .desktop-menu { display: flex; align-items: center; gap: 4px; } .mobile-toggle { display: none; } }
+
+        .nav-item-link {
+            color: var(--gray-800); font-weight: 500; font-size: 0.88rem;
+            text-decoration: none; padding: 8px 14px; border-radius: 8px;
+            transition: var(--transition); position: relative;
         }
-        
-        /* Mobile Drawer */
+        .nav-item-link:hover, .nav-item-link.active { color: var(--navy); background: var(--gray-50); }
+        .nav-item-link.active::after {
+            content: ''; position: absolute; bottom: 4px; left: 50%;
+            transform: translateX(-50%); width: 20px; height: 2px;
+            background: var(--gold); border-radius: 2px;
+        }
+
+        .btn-cta {
+            background: var(--navy); color: white !important;
+            padding: 9px 22px; border-radius: 8px; font-weight: 600;
+            font-size: 0.82rem; text-decoration: none;
+            transition: var(--transition); border: 2px solid var(--navy);
+            margin-left: 8px;
+        }
+        .btn-cta:hover { background: var(--gold); border-color: var(--gold); transform: translateY(-1px); }
+
+        /* ===== MOBILE MENU ===== */
         .mobile-menu-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 1050;
-            visibility: hidden;
-            opacity: 0;
-            transition: 0.3s;
+            position: fixed; inset: 0; background: rgba(13,59,102,0.5);
+            z-index: 1050; visibility: hidden; opacity: 0; transition: var(--transition);
+            backdrop-filter: blur(4px);
         }
         .mobile-menu-overlay.active { visibility: visible; opacity: 1; }
-        
-        .mobile-drawer {
-            position: fixed;
-            top: 0;
-            left: -280px;
-            width: 280px;
-            height: 100%;
-            background: linear-gradient(135deg, #ffffff, #f8fafc);
-            z-index: 1051;
-            transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            overflow-y: auto;
-            padding: 20px 0;
-            box-shadow: 4px 0 25px rgba(0, 0, 0, 0.15);
+
+        .mobile-menu {
+            position: fixed; top: 0; right: -320px; width: 300px; height: 100%;
+            background: white; z-index: 1051;
+            transition: right 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow-y: auto; box-shadow: -10px 0 30px rgba(0,0,0,0.1);
         }
-        .mobile-drawer.open { left: 0; }
-        
-        .drawer-header {
-            padding: 15px 20px;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-            text-align: center;
+        .mobile-menu.open { right: 0; }
+
+        .mobile-menu-head {
+            background: var(--navy); color: white;
+            padding: 24px 20px; position: relative;
         }
-        .drawer-logo {
-            width: 60px;
-            height: 60px;
-            object-fit: contain;
-            margin-bottom: 10px;
+        .mobile-menu-head h5 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.05rem; margin-bottom: 4px;
         }
-        .drawer-header h4 {
-            font-size: 1rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, #6366f1, #8b5cf6);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin: 5px 0;
+        .mobile-menu-head p { font-size: 0.72rem; opacity: 0.8; margin: 0; }
+        .mobile-menu-close {
+            position: absolute; top: 16px; right: 16px;
+            background: rgba(255,255,255,0.15); border: none;
+            width: 32px; height: 32px; border-radius: 50%;
+            color: white; cursor: pointer; font-size: 0.9rem;
+            transition: var(--transition);
         }
-        .drawer-header p {
-            font-size: 0.7rem;
-            color: #64748b;
+        .mobile-menu-close:hover { background: rgba(255,255,255,0.3); }
+
+        .mobile-menu-list { list-style: none; padding: 12px 0; margin: 0; }
+        .mobile-menu-list li a {
+            display: flex; align-items: center; gap: 14px;
+            padding: 13px 22px; color: var(--gray-800);
+            text-decoration: none; font-size: 0.9rem; font-weight: 500;
+            transition: var(--transition); border-left: 3px solid transparent;
         }
-        .drawer-close {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: none;
-            border: none;
-            font-size: 1.3rem;
-            color: #64748b;
-            cursor: pointer;
+        .mobile-menu-list li a i { width: 20px; color: var(--navy); }
+        .mobile-menu-list li a:hover {
+            background: var(--gray-50);
+            border-left-color: var(--gold);
+            color: var(--navy);
         }
-        .drawer-nav {
-            list-style: none;
-            padding: 0;
-            margin-top: 10px;
+        .mobile-menu-foot { padding: 20px; border-top: 1px solid var(--gray-200); }
+        .mobile-menu-foot .btn-login {
+            display: block; text-align: center;
+            background: var(--navy); color: white;
+            padding: 12px; border-radius: 10px;
+            text-decoration: none; font-weight: 600;
+            font-size: 0.85rem; transition: var(--transition);
         }
-        .drawer-nav li a {
-            display: flex;
-            align-items: center;
-            padding: 12px 20px;
-            gap: 14px;
-            color: #1e293b;
-            text-decoration: none;
-            font-weight: 500;
-            transition: 0.3s;
+        .mobile-menu-foot .btn-login:hover { background: var(--gold); }
+
+        /* ===== HERO ===== */
+        .hero {
+            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%);
+            color: white; padding: 70px 0 80px;
+            position: relative; overflow: hidden;
         }
-        .drawer-nav li a i {
-            width: 24px;
-            color: #6366f1;
+        .hero::before {
+            content: ''; position: absolute; inset: 0;
+            background-image: radial-gradient(circle at 20% 30%, rgba(212,160,23,0.15) 0%, transparent 40%),
+                              radial-gradient(circle at 80% 70%, rgba(30,90,153,0.3) 0%, transparent 45%);
         }
-        .drawer-nav li a:hover {
-            background: rgba(99, 102, 241, 0.08);
-            padding-left: 25px;
+        .hero::after {
+            content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+            height: 60px; background: white;
+            clip-path: polygon(0 100%, 100% 0, 100% 100%);
         }
-        .drawer-footer {
-            padding: 20px;
-            margin-top: 20px;
-            border-top: 1px solid rgba(0, 0, 0, 0.08);
-            text-align: center;
+        @media (min-width: 768px) { .hero { padding: 100px 0 120px; } }
+
+        .hero-inner { position: relative; z-index: 2; }
+
+        .hero-badge {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: rgba(212,160,23,0.2);
+            border: 1px solid rgba(212,160,23,0.4);
+            color: var(--gold-light);
+            padding: 7px 18px; border-radius: 50px;
+            font-size: 0.75rem; font-weight: 600;
+            letter-spacing: 0.5px; margin-bottom: 20px;
         }
-        .drawer-footer .btn-login {
-            background: linear-gradient(135deg, #6366f1, #8b5cf6);
-            color: white;
-            border: none;
-            padding: 10px;
-            border-radius: 50px;
-            font-weight: 600;
-            width: 100%;
-            display: block;
-            text-align: center;
-            text-decoration: none;
-            margin-bottom: 15px;
+        .hero-badge i { font-size: 0.7rem; }
+
+        .hero h1 {
+            font-size: clamp(1.8rem, 6vw, 3.2rem);
+            font-weight: 800; margin-bottom: 12px;
+            letter-spacing: -0.5px;
         }
-        .developer-credit {
-            margin-top: 15px;
-            padding-top: 15px;
-            border-top: 1px solid rgba(0, 0, 0, 0.08);
+        .hero h1 .gold { color: var(--gold-light); }
+
+        .hero p.lead {
+            font-size: clamp(0.95rem, 2.2vw, 1.1rem);
+            opacity: 0.9; margin-bottom: 28px;
+            max-width: 620px; margin-left: auto; margin-right: auto;
         }
-        .developer-credit p {
-            font-size: 0.7rem;
-            color: #64748b;
-            margin-bottom: 8px;
+
+        .hero-features {
+            display: flex; flex-wrap: wrap; gap: 10px;
+            justify-content: center; margin: 28px 0;
         }
-        .instagram-link {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045);
-            color: white;
-            padding: 8px 15px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-size: 0.75rem;
-            font-weight: 600;
-            transition: 0.3s;
+        .hero-feature {
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.15);
+            padding: 8px 16px; border-radius: 50px;
+            font-size: 0.78rem; font-weight: 500;
+            display: inline-flex; align-items: center; gap: 8px;
         }
-        .instagram-link:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            color: white;
+        .hero-feature i { color: var(--gold-light); font-size: 0.72rem; }
+
+        .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+        .btn-hero-primary {
+            background: var(--gold); color: var(--navy-dark) !important;
+            padding: 13px 30px; border-radius: 10px;
+            font-weight: 700; font-size: 0.9rem;
+            text-decoration: none; border: none;
+            transition: var(--transition);
+            display: inline-flex; align-items: center; gap: 8px;
         }
-        
-        /* Navbar */
-        .navbar {
-            background: rgba(255, 255, 255, 0.98) !important;
-            backdrop-filter: blur(20px);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-            padding: 8px 0;
+        .btn-hero-primary:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 10px 25px rgba(212,160,23,0.3); }
+        .btn-hero-outline {
+            background: transparent; color: white !important;
+            padding: 13px 30px; border-radius: 10px;
+            font-weight: 600; font-size: 0.9rem;
+            text-decoration: none; border: 2px solid rgba(255,255,255,0.3);
+            transition: var(--transition);
+            display: inline-flex; align-items: center; gap: 8px;
         }
-        .navbar-brand {
-            font-weight: 800;
-            font-size: 1rem;
-            background: linear-gradient(135deg, #6366f1, #8b5cf6);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+        .btn-hero-outline:hover { border-color: white; background: rgba(255,255,255,0.08); }
+
+        /* ===== QUICK INFO STRIP ===== */
+        .quick-strip {
+            background: var(--white);
+            margin-top: -50px;
+            position: relative; z-index: 5;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            padding: 28px 24px;
+            margin-bottom: 60px;
         }
-        .navbar-brand img {
-            height: 32px;
-            width: auto;
+        @media (min-width: 768px) { .quick-strip { padding: 35px 40px; margin-bottom: 80px; } }
+
+        .quick-item { text-align: center; padding: 10px 8px; }
+        .quick-item .qi-icon {
+            width: 52px; height: 52px; border-radius: 14px;
+            background: linear-gradient(135deg, var(--navy), var(--navy-light));
+            color: white; display: inline-flex; align-items: center;
+            justify-content: center; font-size: 1.2rem; margin-bottom: 12px;
         }
-        @media (min-width: 576px) {
-            .navbar-brand { font-size: 1.1rem; }
-            .navbar-brand img { height: 35px; }
+        .quick-item h6 {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem; font-weight: 700;
+            color: var(--navy); margin-bottom: 4px;
         }
-        @media (min-width: 768px) {
-            .navbar-brand { font-size: 1.2rem; }
-            .navbar-brand img { height: 38px; }
-        }
-        .mobile-menu-btn {
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            color: #6366f1;
-            cursor: pointer;
-            padding: 5px;
-        }
-        .desktop-nav { display: none !important; }
-        @media (min-width: 992px) {
-            .desktop-nav { display: flex !important; align-items: center; gap: 15px; }
-            .mobile-menu-btn { display: none !important; }
-        }
-        .nav-link-desktop {
-            color: #1e293b !important;
-            font-weight: 600;
-            font-size: 0.9rem;
-            position: relative;
-            text-decoration: none;
-            padding: 5px 0;
-        }
-        .nav-link-desktop::after {
-            content: '';
-            position: absolute;
-            bottom: -3px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(135deg, #6366f1, #8b5cf6);
-            transition: 0.3s;
-            border-radius: 2px;
-        }
-        .nav-link-desktop:hover::after {
-            width: 100%;
-        }
-        .btn-login-desktop {
-            background: linear-gradient(135deg, #6366f1, #8b5cf6);
-            color: white;
-            padding: 6px 18px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.8rem;
-            transition: 0.3s;
-        }
-        .btn-login-desktop:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(99,102,241,0.3);
-            color: white;
-        }
-        
-        /* Hero Section - Reduced Margins */
-        .hero-section {
-            background: linear-gradient(135deg, rgba(30, 58, 138, 0.85), rgba(234, 88, 12, 0.75)), #1e3a8a;
-            color: white;
-            padding: 50px 20px 40px;
-            text-align: center;
-            min-height: auto;
-            display: flex;
-            align-items: center;
-        }
-        @media (min-width: 768px) {
-            .hero-section { padding: 70px 0 50px; }
-        }
-        .badge-offer {
-            display: inline-block;
-            background: linear-gradient(135deg, #f59e0b, #dc2626);
-            padding: 5px 15px;
-            border-radius: 50px;
-            font-weight: 700;
-            font-size: 0.7rem;
+        .quick-item p { font-size: 0.78rem; color: var(--gray-600); margin: 0; }
+
+        /* ===== SECTION ===== */
+        .section { padding: 60px 0; }
+        @media (min-width: 768px) { .section { padding: 80px 0; } }
+        .section.bg-cream { background: var(--cream); }
+        .section.bg-gray { background: var(--gray-50); }
+
+        .section-head { text-align: center; margin-bottom: 45px; }
+        .section-tag {
+            display: inline-block; color: var(--gold);
+            font-size: 0.78rem; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 2px;
             margin-bottom: 12px;
-            animation: pulse 2s infinite;
         }
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.03); }
-        }
-        .hero-section h1 {
-            font-size: clamp(1.3rem, 4.5vw, 2.2rem);
+        .section-head h2 {
+            font-size: clamp(1.5rem, 4vw, 2.2rem);
+            color: var(--navy); margin-bottom: 12px;
             font-weight: 800;
-            margin-bottom: 5px;
         }
-        .hero-section h2 {
-            font-size: clamp(1rem, 3.5vw, 1.6rem);
-            font-weight: 600;
-            margin-bottom: 10px;
+        .section-head p {
+            color: var(--gray-600); font-size: 0.92rem;
+            max-width: 560px; margin: 0 auto;
         }
-        .hero-section .lead {
-            font-size: clamp(0.8rem, 2.5vw, 1rem);
-            margin-bottom: 10px;
+        .section-head .divider {
+            width: 60px; height: 3px; background: var(--gold);
+            margin: 18px auto; border-radius: 3px;
         }
-        .hero-section p {
+
+        /* ===== CARDS ===== */
+        .card-clean {
+            background: white; border-radius: var(--radius-lg);
+            padding: 28px 24px; height: 100%;
+            border: 1px solid var(--gray-200);
+            transition: var(--transition);
+            box-shadow: var(--shadow-sm);
+        }
+        .card-clean:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--gold);
+        }
+
+        .feature-icon-lg {
+            width: 60px; height: 60px; border-radius: 16px;
+            background: linear-gradient(135deg, var(--navy), var(--navy-light));
+            color: white; display: inline-flex; align-items: center;
+            justify-content: center; font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+        .card-clean h5 { font-size: 1.05rem; color: var(--navy); margin-bottom: 10px; }
+        .card-clean p { font-size: 0.85rem; color: var(--gray-600); margin: 0; }
+
+        /* ===== ABOUT / INFO ===== */
+        .info-panel {
+            background: white; border-radius: var(--radius-lg);
+            padding: 32px 28px; height: 100%;
+            border: 1px solid var(--gray-200);
+            box-shadow: var(--shadow-sm);
+        }
+        @media (min-width: 768px) { .info-panel { padding: 40px 36px; } }
+
+        .badge-tag {
+            display: inline-block; padding: 5px 14px;
+            border-radius: 50px; font-size: 0.72rem;
+            font-weight: 700; letter-spacing: 0.5px;
+            text-transform: uppercase; margin-bottom: 20px;
+        }
+        .badge-tag.navy { background: rgba(13,59,102,0.08); color: var(--navy); }
+        .badge-tag.gold { background: rgba(212,160,23,0.12); color: #a37a0e; }
+
+        .detail-row {
+            display: flex; align-items: flex-start;
+            padding: 11px 0; border-bottom: 1px dashed var(--gray-200);
             font-size: 0.85rem;
-            margin-bottom: 5px;
         }
-        .hero-section .btn {
-            padding: 8px 20px;
-            font-size: 0.85rem;
+        .detail-row:last-of-type { border-bottom: none; }
+        .detail-row i {
+            width: 22px; color: var(--navy);
+            margin-top: 3px; margin-right: 10px; font-size: 0.9rem;
         }
-        
-        /* Section Titles */
-        .section-title {
-            text-align: center;
-            margin-bottom: 30px;
-            font-weight: 800;
-            font-size: clamp(1.3rem, 4.5vw, 1.8rem);
-            position: relative;
+        .detail-row strong { color: var(--gray-800); }
+
+        .check-list { list-style: none; padding: 0; margin: 20px 0 0; }
+        .check-list li {
+            display: flex; align-items: flex-start; gap: 10px;
+            padding: 6px 0; font-size: 0.85rem; color: var(--gray-600);
         }
-        .section-title:after {
-            content: '';
-            display: block;
-            width: 60px;
-            height: 3px;
-            background: linear-gradient(135deg, #6366f1, #8b5cf6);
-            margin: 12px auto;
-            border-radius: 3px;
+        .check-list li i { color: var(--success); margin-top: 4px; font-size: 0.8rem; }
+
+        /* ===== CTA BANNER ===== */
+        .cta-banner {
+            background: linear-gradient(135deg, var(--navy), var(--navy-dark));
+            border-radius: var(--radius-lg);
+            padding: 40px 30px; color: white;
+            text-align: center; position: relative; overflow: hidden;
         }
-        
-        /* Feature Cards */
-        .feature-card {
-            background: rgba(255, 255, 255, 0.92);
-            backdrop-filter: blur(10px);
-            border-radius: 16px;
-            padding: 15px 10px;
-            text-align: center;
-            height: 100%;
-            transition: 0.3s;
+        .cta-banner::before {
+            content: ''; position: absolute; top: -50px; right: -50px;
+            width: 200px; height: 200px; border-radius: 50%;
+            background: rgba(212,160,23,0.15);
         }
-        .feature-icon {
-            font-size: 1.8rem;
-            background: linear-gradient(135deg, #6366f1, #8b5cf6);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 5px;
+        .cta-banner h3 {
+            color: white; font-size: clamp(1.3rem, 3.5vw, 1.8rem);
+            margin-bottom: 12px; position: relative;
         }
-        .feature-card h5 { font-size: 0.85rem; font-weight: 700; margin-bottom: 3px; }
-        .feature-card p { font-size: 0.65rem; margin: 0; }
-        @media (min-width: 768px) {
-            .feature-icon { font-size: 2.2rem; }
-            .feature-card h5 { font-size: 1rem; }
-            .feature-card p { font-size: 0.75rem; }
+        .cta-banner p { opacity: 0.85; font-size: 0.9rem; margin-bottom: 24px; position: relative; }
+        .price-tag {
+            display: inline-flex; align-items: baseline; gap: 12px;
+            margin: 16px 0; position: relative;
         }
-        
-        /* Info Cards */
-        .info-card {
-            background: rgba(255, 255, 255, 0.96);
-            border-radius: 18px;
-            padding: 18px;
-            height: 100%;
-            transition: 0.3s;
+        .price-tag .old { font-size: 1.1rem; opacity: 0.6; text-decoration: line-through; }
+        .price-tag .new { font-size: 2.4rem; font-weight: 800; color: var(--gold-light); font-family: 'Playfair Display', serif; }
+
+        .btn-banner {
+            background: var(--gold); color: var(--navy-dark) !important;
+            padding: 12px 32px; border-radius: 10px;
+            font-weight: 700; font-size: 0.88rem;
+            text-decoration: none; border: none;
+            transition: var(--transition); display: inline-flex;
+            align-items: center; gap: 8px; position: relative;
         }
-        @media (min-width: 768px) {
-            .info-card { padding: 22px; border-radius: 20px; }
+        .btn-banner:hover { background: var(--gold-light); transform: translateY(-2px); }
+
+        /* ===== COURSE CARD ===== */
+        .course-item {
+            background: white; border-radius: var(--radius);
+            padding: 24px; height: 100%;
+            border: 1px solid var(--gray-200);
+            border-top: 4px solid var(--navy);
+            transition: var(--transition);
+            display: flex; flex-direction: column;
         }
-        .school-badge, .coaching-badge {
-            display: inline-block;
-            padding: 4px 12px;
-            border-radius: 50px;
-            color: white;
-            font-weight: 700;
-            font-size: 0.65rem;
-            margin-bottom: 10px;
+        .course-item.accent { border-top-color: var(--gold); }
+        .course-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
         }
-        .info-detail {
-            margin: 6px 0;
-            padding: 4px 0;
-            border-bottom: 1px dashed rgba(0, 0, 0, 0.08);
-            font-size: 0.75rem;
+        .course-item h5 {
+            font-size: 1rem; color: var(--navy);
+            margin-bottom: 8px; font-weight: 700;
         }
-        @media (min-width: 768px) {
-            .info-detail { font-size: 0.85rem; margin: 8px 0; padding: 5px 0; }
+        .course-item p {
+            font-size: 0.82rem; color: var(--gray-600);
+            margin-bottom: 16px; flex-grow: 1;
         }
-        .info-detail i { width: 20px; color: #6366f1; }
-        
-        /* Course Cards */
-        .courses-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 18px;
-            margin: 20px 0;
+        .course-meta {
+            display: flex; justify-content: space-between;
+            padding-top: 14px; border-top: 1px solid var(--gray-100);
+            font-size: 0.78rem; color: var(--gray-600);
         }
-        @media (min-width: 576px) {
-            .courses-grid { grid-template-columns: repeat(2, 1fr); }
-        }
-        
-        .course-card, .class-card {
-            background: rgba(255, 255, 255, 0.96);
-            border-radius: 16px;
-            padding: 15px;
-            position: relative;
-            overflow: hidden;
-            transition: 0.3s;
-            height: 100%;
-        }
-        .course-card::before, .class-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(135deg, #6366f1, #8b5cf6);
-        }
-        .course-title {
-            font-size: 0.95rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, #6366f1, #8b5cf6);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 6px;
-        }
-        @media (min-width: 768px) {
-            .course-title { font-size: 1.1rem; }
-        }
-        
-        .view-more-btn {
-            background: linear-gradient(135deg, #6366f1, #8b5cf6);
-            color: white;
-            border: none;
-            border-radius: 50px;
-            padding: 6px 20px;
-            font-weight: 600;
-            font-size: 0.75rem;
-            margin-top: 10px;
-            transition: 0.3s;
-        }
-        
-        /* Gallery */
-        .gallery-grid-limited {
+        .course-meta span i { color: var(--navy); margin-right: 5px; }
+        .course-fee { color: var(--gold); font-weight: 700; font-size: 0.95rem; }
+
+        /* ===== GALLERY ===== */
+        .gallery-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-            margin: 20px 0;
+            gap: 12px;
         }
-        @media (min-width: 576px) {
-            .gallery-grid-limited { grid-template-columns: repeat(3, 1fr); gap: 12px; }
+        @media (min-width: 576px) { .gallery-grid { grid-template-columns: repeat(3, 1fr); gap: 16px; } }
+        .gallery-thumb {
+            position: relative; border-radius: var(--radius);
+            overflow: hidden; aspect-ratio: 1; cursor: pointer;
+            box-shadow: var(--shadow-sm);
         }
-        .gallery-item {
+        .gallery-thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+        .gallery-thumb:hover img { transform: scale(1.08); }
+        .gallery-thumb::after {
+            content: '\f00e'; font-family: 'Font Awesome 6 Free';
+            font-weight: 900; position: absolute; inset: 0;
+            background: rgba(13,59,102,0.75); color: white;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem; opacity: 0; transition: var(--transition);
+        }
+        .gallery-thumb:hover::after { opacity: 1; }
+
+        /* ===== TESTIMONIAL ===== */
+        .testimonial {
+            background: white; border-radius: var(--radius-lg);
+            padding: 30px 26px; height: 100%;
+            border: 1px solid var(--gray-200);
             position: relative;
-            border-radius: 12px;
-            overflow: hidden;
-            cursor: pointer;
-            aspect-ratio: 1;
+            transition: var(--transition);
         }
-        .gallery-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: 0.4s;
+        .testimonial:hover { box-shadow: var(--shadow-md); }
+        .testimonial .quote {
+            font-size: 2.5rem; color: var(--gold); opacity: 0.4;
+            font-family: 'Playfair Display', serif;
+            line-height: 1; margin-bottom: 10px;
         }
-        .gallery-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(99, 102, 241, 0.8);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: 0.3s;
+        .testimonial p { font-size: 0.87rem; color: var(--gray-600); font-style: italic; line-height: 1.7; margin-bottom: 20px; }
+        .testimonial-author { display: flex; align-items: center; gap: 12px; }
+        .author-avatar {
+            width: 46px; height: 46px; border-radius: 50%;
+            background: linear-gradient(135deg, var(--navy), var(--navy-light));
+            display: flex; align-items: center; justify-content: center;
+            color: white; font-weight: 700; font-size: 1rem;
+            font-family: 'Playfair Display', serif;
         }
-        .gallery-item:hover .gallery-overlay { opacity: 1; }
-        .gallery-overlay i { color: white; font-size: 1.3rem; }
-        
-        /* Contact Form */
-        .contact-form {
-            background: rgba(255, 255, 255, 0.96);
-            border-radius: 18px;
-            padding: 18px;
-            height: 100%;
+        .testimonial-author h6 { font-family: 'Inter', sans-serif; font-size: 0.88rem; font-weight: 700; margin: 0; color: var(--navy); }
+        .testimonial-author span { font-size: 0.72rem; color: var(--gray-400); }
+        .stars-gold { color: var(--gold); font-size: 0.75rem; margin-bottom: 10px; }
+
+        /* ===== FAQ ===== */
+        .faq-box {
+            background: white; border-radius: var(--radius);
+            margin-bottom: 12px; border: 1px solid var(--gray-200);
+            overflow: hidden; transition: var(--transition);
         }
-        .form-control {
-            border-radius: 10px;
-            padding: 8px 12px;
-            border: 2px solid rgba(99, 102, 241, 0.2);
-            font-size: 0.8rem;
+        .faq-box.active { box-shadow: var(--shadow-md); border-color: var(--navy); }
+        .faq-q {
+            padding: 18px 22px; cursor: pointer;
+            display: flex; justify-content: space-between;
+            align-items: center; gap: 15px;
+            font-weight: 600; font-size: 0.9rem;
+            color: var(--navy); transition: var(--transition);
         }
-        .btn-primary {
-            background: linear-gradient(135deg, #6366f1, #8b5cf6);
-            border: none;
-            border-radius: 50px;
-            padding: 8px 16px;
-            font-weight: 600;
-            font-size: 0.8rem;
+        .faq-q:hover { background: var(--gray-50); }
+        .faq-q i { color: var(--gold); transition: transform 0.3s; flex-shrink: 0; }
+        .faq-box.active .faq-q i { transform: rotate(180deg); }
+        .faq-a {
+            max-height: 0; overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.3s;
+            padding: 0 22px; font-size: 0.85rem;
+            color: var(--gray-600); line-height: 1.7;
         }
-        
-        /* Contact Icons - Fixed (not flipped) */
-        .contact-icon {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 32px;
+        .faq-box.active .faq-a { max-height: 250px; padding: 0 22px 20px; }
+
+        /* ===== CONTACT ===== */
+        .contact-card {
+            background: white; border-radius: var(--radius-lg);
+            padding: 32px 28px; height: 100%;
+            border: 1px solid var(--gray-200);
+            box-shadow: var(--shadow-sm);
         }
-        
-        /* Notification Carousel - Fixed Arrow Position */
-        .notification-section {
+        @media (min-width: 768px) { .contact-card { padding: 40px 36px; } }
+
+        .form-label-clean {
+            font-size: 0.82rem; font-weight: 600;
+            color: var(--gray-800); margin-bottom: 6px; display: block;
+        }
+        .form-input {
+            width: 100%; border: 1.5px solid var(--gray-200);
+            border-radius: 10px; padding: 12px 14px;
+            font-size: 0.88rem; transition: var(--transition);
+            background: var(--gray-50); font-family: 'Inter', sans-serif;
+        }
+        .form-input:focus {
+            outline: none; border-color: var(--navy);
+            background: white; box-shadow: 0 0 0 4px rgba(13,59,102,0.08);
+        }
+        .btn-submit {
+            background: var(--navy); color: white;
+            border: none; padding: 13px 28px;
+            border-radius: 10px; font-weight: 600;
+            font-size: 0.88rem; cursor: pointer;
+            transition: var(--transition); width: 100%;
+            display: inline-flex; align-items: center;
+            justify-content: center; gap: 8px;
+        }
+        .btn-submit:hover { background: var(--gold); }
+        .btn-submit:disabled { opacity: 0.7; cursor: not-allowed; }
+
+        .contact-info-item {
+            display: flex; gap: 14px;
+            padding: 14px 0;
+            border-bottom: 1px solid var(--gray-100);
+        }
+        .contact-info-item:last-child { border-bottom: none; }
+        .ci-icon {
+            width: 42px; height: 42px; border-radius: 12px;
+            background: rgba(13,59,102,0.06);
+            color: var(--navy); display: flex;
+            align-items: center; justify-content: center;
+            font-size: 1rem; flex-shrink: 0;
+        }
+        .contact-info-item h6 {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.78rem; color: var(--gray-400);
+            font-weight: 600; margin-bottom: 3px;
+            text-transform: uppercase; letter-spacing: 0.5px;
+        }
+        .contact-info-item p { font-size: 0.88rem; color: var(--gray-800); margin: 0; font-weight: 500; }
+
+        /* ===== MAP ===== */
+        .map-wrap {
+            border-radius: var(--radius-lg);
+            overflow: hidden; box-shadow: var(--shadow-md);
             position: relative;
-            padding: 30px 0;
         }
-        .carousel-container {
-            position: relative;
-            padding: 0 40px;
-        }
-        .carousel-control-prev,
-        .carousel-control-next {
-            width: 35px;
-            height: 35px;
-            background: white;
-            border-radius: 50%;
-            top: 50%;
-            transform: translateY(-50%);
-            opacity: 1;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-        .carousel-control-prev {
-            left: -10px;
-        }
-        .carousel-control-next {
-            right: -10px;
-        }
-        @media (min-width: 576px) {
-            .carousel-control-prev { left: -5px; }
-            .carousel-control-next { right: -5px; }
-        }
-        @media (min-width: 768px) {
-            .carousel-control-prev { left: 0; }
-            .carousel-control-next { right: 0; }
-        }
-        .carousel-control-prev-icon,
-        .carousel-control-next-icon {
-            width: 20px;
-            height: 20px;
-            background-size: 60%;
-        }
-        
-        /* Footer */
+        .map-wrap iframe { display: block; width: 100%; height: 350px; border: 0; }
+        @media (min-width: 768px) { .map-wrap iframe { height: 420px; } }
+
+        /* ===== FOOTER ===== */
         .footer {
-            background: linear-gradient(135deg, #0f172a, #1e293b);
-            color: white;
-            padding: 30px 0 15px;
-            margin-top: 40px;
+            background: var(--navy-dark); color: rgba(255,255,255,0.75);
+            padding: 60px 0 20px;
         }
-        .footer h5 { font-size: 0.9rem; font-weight: 700; margin-bottom: 12px; }
-        .footer p, .footer a { font-size: 0.7rem; color: #cbd5e0; text-decoration: none; }
-        .social-icons a {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 30px;
-            height: 30px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            margin-right: 6px;
-            color: white;
-            transition: 0.3s;
-            font-size: 0.8rem;
+        .footer h5 {
+            color: white; font-family: 'Playfair Display', serif;
+            font-size: 1.05rem; margin-bottom: 20px;
+            position: relative; padding-bottom: 12px;
         }
-        .developer-footer {
-            text-align: center;
-            padding-top: 12px;
-            margin-top: 12px;
+        .footer h5::after {
+            content: ''; position: absolute; bottom: 0; left: 0;
+            width: 40px; height: 2px; background: var(--gold);
+        }
+        .footer p { font-size: 0.82rem; line-height: 1.8; margin-bottom: 10px; }
+        .footer ul { list-style: none; padding: 0; }
+        .footer ul li { margin-bottom: 10px; }
+        .footer ul li a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none; font-size: 0.82rem;
+            transition: var(--transition);
+            display: inline-flex; align-items: center; gap: 8px;
+        }
+        .footer ul li a:hover { color: var(--gold); padding-left: 4px; }
+        .footer ul li a i { font-size: 0.7rem; color: var(--gold); }
+
+        .footer-social a {
+            width: 38px; height: 38px; border-radius: 10px;
+            background: rgba(255,255,255,0.08);
+            color: white; display: inline-flex;
+            align-items: center; justify-content: center;
+            margin-right: 8px; text-decoration: none;
+            font-size: 0.85rem; transition: var(--transition);
+        }
+        .footer-social a:hover { background: var(--gold); transform: translateY(-3px); }
+
+        .footer-bottom {
             border-top: 1px solid rgba(255,255,255,0.1);
-            font-size: 0.65rem;
+            padding-top: 22px; margin-top: 40px;
+            text-align: center; font-size: 0.78rem;
         }
-        
-        /* Error Box */
-        .error-box {
-            text-align: center;
-            padding: 25px 15px;
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 16px;
+        .footer-bottom a { color: var(--gold); text-decoration: none; }
+
+        /* ===== FLOATING BUTTONS ===== */
+        .float-btns { position: fixed; bottom: 22px; right: 20px; z-index: 999; display: flex; flex-direction: column; gap: 12px; }
+        .float-btn {
+            width: 52px; height: 52px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            color: white; text-decoration: none; font-size: 1.3rem;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+            transition: var(--transition); border: none; cursor: pointer;
         }
-        .error-box i { font-size: 1.8rem; color: #ef4444; margin-bottom: 8px; }
-        .error-box p { font-size: 0.8rem; margin: 0; }
-        .retry-btn {
-            background: linear-gradient(135deg, #6366f1, #8b5cf6);
-            color: white;
-            border: none;
-            border-radius: 50px;
-            padding: 5px 16px;
-            margin-top: 8px;
-            font-size: 0.7rem;
+        .float-btn:hover { transform: scale(1.1) translateY(-3px); color: white; }
+        .float-wa { background: #25d366; position: relative; }
+        .float-wa::before {
+            content: ''; position: absolute; inset: 0;
+            border-radius: 50%; background: #25d366;
+            animation: ripple 2s infinite; z-index: -1;
         }
-        
-        /* Modal */
-        .modal-content { border-radius: 18px; overflow: hidden; }
-        .modal-header { background: linear-gradient(135deg, #6366f1, #8b5cf6); color: white; border: none; padding: 10px 15px; }
-        .modal-header .btn-close { filter: brightness(0) invert(1); }
-        .modal-body { max-height: 65vh; overflow-y: auto; padding: 15px; }
-        
-        /* Animations */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.5s ease;
-        }
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        @media (max-width: 576px) {
-            .info-card, .contact-form { padding: 12px; }
-            .course-card, .class-card { padding: 12px; }
-        }
+        @keyframes ripple { 0%{transform:scale(1);opacity:0.6;} 100%{transform:scale(1.6);opacity:0;} }
+        .float-call { background: var(--navy); }
+        .float-top { background: var(--gold); opacity: 0; visibility: hidden; }
+        .float-top.show { opacity: 1; visibility: visible; }
+
+        /* ===== MODAL ===== */
+        .modal-content { border-radius: var(--radius-lg); border: none; overflow: hidden; }
+        .modal-header { background: var(--navy); color: white; border: none; padding: 16px 24px; }
+        .modal-header h5 { color: white; font-size: 1rem; margin: 0; }
+        .modal-header .btn-close { filter: brightness(0) invert(1); opacity: 0.8; }
+        .modal-body { padding: 24px; }
+
+        /* ===== ANIMATION ===== */
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.7s ease; }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+
+        /* ===== SCROLLBAR ===== */
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: var(--gray-100); }
+        ::-webkit-scrollbar-thumb { background: var(--navy); border-radius: 5px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--navy-light); }
+
+        /* ===== UTILITY ===== */
+        .text-navy { color: var(--navy) !important; }
+        .text-gold { color: var(--gold) !important; }
     </style>
 </head>
 <body>
 
-    <!-- Floating Buttons (No Back to Top) -->
-    <div class="floating-buttons">
-        <a href="tel:9934795178" class="call-btn"><i class="fas fa-phone-alt"></i></a>
-        <a href="https://wa.me/919934795178" class="whatsapp-btn"><i class="fab fa-whatsapp"></i></a>
-    </div>
+<!-- Preloader -->
+<div id="preloader">
+    <div class="preloader-icon"><i class="fas fa-graduation-cap"></i></div>
+    <div class="preloader-text">M.G. ORIENTAL</div>
+</div>
 
-    <!-- Mobile Drawer -->
-    <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
-    <div class="mobile-drawer" id="mobileDrawer">
-        <button class="drawer-close" id="drawerCloseBtn"><i class="fas fa-times"></i></button>
-        <div class="drawer-header">
-            <img src="logo.png" alt="Logo" class="drawer-logo" onerror="this.style.display='none'">
-            <h4><i class="fas fa-graduation-cap"></i> MG Oriental & New Era</h4>
-            <p>22 Mile Chowk, Tejpurwa, Patepur</p>
-        </div>
-        <ul class="drawer-nav">
-            <li><a href="#home"><i class="fas fa-home"></i> Home</a></li>
-            <li><a href="#school"><i class="fas fa-school"></i> School</a></li>
-            <li><a href="#coaching"><i class="fas fa-chalkboard-user"></i> Coaching</a></li>
-            <li><a href="#courses"><i class="fas fa-book-open"></i> Courses</a></li>
-            <li><a href="#director"><i class="fas fa-user-tie"></i> Director</a></li>
-            <li><a href="#gallery"><i class="fas fa-images"></i> Gallery</a></li>
-            <li><a href="#contact"><i class="fas fa-envelope"></i> Contact</a></li>
-        </ul>
-        <div class="drawer-footer">
-            <a href="choose-login.html" class="btn-login"><i class="fas fa-sign-in-alt"></i> Login</a>
-            <div class="developer-credit">
-                <p>Need a Website or Software?</p>
-                <a href="https://www.instagram.com/avinashprajapati0408/?hl=en" target="_blank" class="instagram-link">
-                    <i class="fab fa-instagram"></i> AI & Software Engineer
-                </a>
-                <p style="font-size: 0.6rem; margin-top: 8px;">Designed by Avinash Kumar</p>
+<!-- Scroll Progress -->
+<div id="scrollProgress"></div>
+
+<!-- Top Bar -->
+<div class="top-bar">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+            <div class="d-flex flex-wrap gap-3">
+                <span><i class="fas fa-phone-alt"></i> 9934795178</span>
+                <span><i class="fas fa-envelope"></i> info@mgoriental.com</span>
+                <span><i class="fas fa-map-marker-alt"></i> 22 Mile Chowk, Patepur, Vaishali</span>
+            </div>
+            <div class="top-social">
+                <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
             </div>
         </div>
     </div>
+</div>
 
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
-        <div class="container">
-            <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
-            <a class="navbar-brand mx-auto mx-lg-0" href="#">
-                <img src="logo.png" alt="Logo" onerror="this.style.display='none'">
-                MG Oriental & New Era
-            </a>
-            <div class="desktop-nav">
-                <a class="nav-link-desktop" href="#home">Home</a>
-                <a class="nav-link-desktop" href="#school">School</a>
-                <a class="nav-link-desktop" href="#coaching">Coaching</a>
-                <a class="nav-link-desktop" href="#courses">Courses</a>
-                <a class="nav-link-desktop" href="#director">Director</a>
-                <a class="nav-link-desktop" href="#gallery">Gallery</a>
-                <a class="nav-link-desktop" href="#contact">Contact</a>
-                <a href="choose-login.html" class="btn-login-desktop">Login</a>
+<!-- Navbar -->
+<nav class="navbar sticky-top" id="mainNavbar">
+    <div class="container">
+        <button class="mobile-toggle" id="mobileToggle" aria-label="Menu"><i class="fas fa-bars"></i></button>
+
+        <a class="navbar-brand" href="#home">
+            <img src="logo.png" alt="Logo" onerror="this.style.display='none'">
+            <span>
+                M.G. Oriental School
+                <small>& New Era Coaching</small>
+            </span>
+        </a>
+
+        <div class="desktop-menu">
+            <a href="#home" class="nav-item-link active">Home</a>
+            <a href="#school" class="nav-item-link">School</a>
+            <a href="#coaching" class="nav-item-link">Coaching</a>
+            <a href="#courses" class="nav-item-link">Courses</a>
+            <a href="#gallery" class="nav-item-link">Gallery</a>
+            <a href="#faq" class="nav-item-link">FAQ</a>
+            <a href="#contact" class="nav-item-link">Contact</a>
+            <a href="choose-login.html" class="btn-cta">Login</a>
+        </div>
+    </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu-overlay" id="mobileOverlay"></div>
+<div class="mobile-menu" id="mobileMenu">
+    <div class="mobile-menu-head">
+        <h5><i class="fas fa-graduation-cap"></i> M.G. Oriental School</h5>
+        <p>& New Era Coaching Centre</p>
+        <button class="mobile-menu-close" id="mobileClose"><i class="fas fa-times"></i></button>
+    </div>
+    <ul class="mobile-menu-list">
+        <li><a href="#home"><i class="fas fa-home"></i> Home</a></li>
+        <li><a href="#school"><i class="fas fa-school"></i> School</a></li>
+        <li><a href="#coaching"><i class="fas fa-chalkboard-user"></i> Coaching</a></li>
+        <li><a href="#courses"><i class="fas fa-book"></i> Courses</a></li>
+        <li><a href="#faculty"><i class="fas fa-users"></i> Faculty</a></li>
+        <li><a href="#gallery"><i class="fas fa-images"></i> Gallery</a></li>
+        <li><a href="#testimonials"><i class="fas fa-star"></i> Reviews</a></li>
+        <li><a href="#faq"><i class="fas fa-question-circle"></i> FAQ</a></li>
+        <li><a href="#contact"><i class="fas fa-envelope"></i> Contact</a></li>
+    </ul>
+    <div class="mobile-menu-foot">
+        <a href="choose-login.html" class="btn-login"><i class="fas fa-sign-in-alt"></i> Login</a>
+    </div>
+</div>
+
+<!-- Hero -->
+<section class="hero" id="home">
+    <div class="container hero-inner text-center">
+        <div class="hero-badge">
+            <i class="fas fa-circle"></i> Admission Open 2026-27
+        </div>
+        <h1>M.G. Oriental School <span class="gold">&</span><br>New Era Coaching Centre</h1>
+        <p class="lead">Building bright futures through quality education at 22 Mile Chowk, Tejpurwa, Patepur, Vaishali</p>
+
+        <div class="hero-features">
+            <span class="hero-feature"><i class="fas fa-check-circle"></i> Free Admission</span>
+            <span class="hero-feature"><i class="fas fa-check-circle"></i> CBSE Pattern</span>
+            <span class="hero-feature"><i class="fas fa-check-circle"></i> Crash Course ₹1000</span>
+            <span class="hero-feature"><i class="fas fa-check-circle"></i> Expert Faculty</span>
+        </div>
+
+        <div class="hero-actions">
+            <a href="#courses" class="btn-hero-primary"><i class="fas fa-book-open"></i> Explore Courses</a>
+            <a href="#contact" class="btn-hero-outline"><i class="fas fa-user-plus"></i> Enroll Now</a>
+        </div>
+    </div>
+</section>
+
+<!-- Quick Info Strip -->
+<div class="container">
+    <div class="quick-strip">
+        <div class="row g-3 g-md-4">
+            <div class="col-6 col-md-3">
+                <div class="quick-item">
+                    <div class="qi-icon"><i class="fas fa-school"></i></div>
+                    <h6>School</h6>
+                    <p>Nursery to VIII</p>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="quick-item">
+                    <div class="qi-icon"><i class="fas fa-chalkboard-user"></i></div>
+                    <h6>Coaching</h6>
+                    <p>Class 1 to 12</p>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="quick-item">
+                    <div class="qi-icon"><i class="fas fa-language"></i></div>
+                    <h6>Medium</h6>
+                    <p>Hindi & English</p>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="quick-item">
+                    <div class="qi-icon"><i class="fas fa-clock"></i></div>
+                    <h6>Timing</h6>
+                    <p>6 AM - 6 PM</p>
+                </div>
             </div>
         </div>
-    </nav>
+    </div>
+</div>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero-section">
-        <div class="container">
-            <div class="badge-offer">✨ ADMISSION OPEN 2026-27 ✨</div>
-            <h1 class="fw-bold">M.G. ORIENTAL SCHOOL</h1>
-            <h2>NEW ERA COACHING CENTRE</h2>
-            <p class="lead mb-2">Complete your dream with us - 22 Mile Chowk, Tejpurwa, Patepur</p>
-            <p class="mb-2"><i class="fas fa-school"></i> Free School Admission | <i class="fas fa-rocket"></i> Crash Course ₹1000</p>
-            <p class="mb-3"><i class="fas fa-phone-alt"></i> <strong>9934795178</strong> | <strong>9801640473</strong></p>
-            <div class="mt-2">
-                <a href="#school" class="btn btn-primary me-2">Explore Now</a>
-                <a href="#contact" class="btn btn-outline-light">Enroll Now</a>
+<!-- Features / Why Us -->
+<section class="section" style="padding-top: 20px;">
+    <div class="container">
+        <div class="section-head reveal">
+            <span class="section-tag">Why Choose Us</span>
+            <h2>Excellence in Education</h2>
+            <div class="divider"></div>
+            <p>We provide quality education with a focus on holistic development of every student</p>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-3 reveal">
+                <div class="card-clean text-center">
+                    <div class="feature-icon-lg mx-auto"><i class="fas fa-award"></i></div>
+                    <h5>Quality Education</h5>
+                    <p>CBSE pattern curriculum with focus on concept clarity and practical learning</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3 reveal">
+                <div class="card-clean text-center">
+                    <div class="feature-icon-lg mx-auto"><i class="fas fa-users"></i></div>
+                    <h5>Expert Faculty</h5>
+                    <p>Experienced and dedicated teachers committed to student success</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3 reveal">
+                <div class="card-clean text-center">
+                    <div class="feature-icon-lg mx-auto"><i class="fas fa-laptop"></i></div>
+                    <h5>Smart Learning</h5>
+                    <p>Digital classrooms and modern teaching methods for better understanding</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3 reveal">
+                <div class="card-clean text-center">
+                    <div class="feature-icon-lg mx-auto"><i class="fas fa-hand-holding-usd"></i></div>
+                    <h5>Affordable Fees</h5>
+                    <p>Free admission and pocket-friendly fees with quality education for all</p>
+                </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Announcements Section -->
-    <section class="notification-section">
-        <div class="container">
-            <h2 class="section-title fade-in">Latest Announcements</h2>
-            <div class="carousel-container position-relative">
-                <div id="announcementCarousel" class="carousel slide" data-bs-ride="carousel">
-                    <div class="carousel-inner" id="notificationContainer">
-                        <div class="text-center py-3"><div class="spinner-border text-primary spinner-border-sm"></div><p class="mt-1 small">Loading...</p></div>
+<!-- School Section -->
+<section class="section bg-cream" id="school">
+    <div class="container">
+        <div class="section-head reveal">
+            <span class="section-tag">Our School</span>
+            <h2>M.G. Oriental School</h2>
+            <div class="divider"></div>
+            <p>Nursery to Class VIII | CBSE Pattern | English & Hindi Medium</p>
+        </div>
+
+        <div class="row g-4 align-items-stretch">
+            <div class="col-lg-7 reveal">
+                <div class="info-panel">
+                    <span class="badge-tag navy"><i class="fas fa-star"></i> CBSE Pattern</span>
+
+                    <div class="detail-row">
+                        <i class="fas fa-id-card"></i>
+                        <div><strong>UDISE Code:</strong> 10184100943</div>
                     </div>
-                    <button class="carousel-control-prev" type="button" data-bs-target="#announcementCarousel" data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon bg-dark rounded-circle p-2"></span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#announcementCarousel" data-bs-slide="next">
-                        <span class="carousel-control-next-icon bg-dark rounded-circle p-2"></span>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Features -->
-    <section class="py-3 py-md-4">
-        <div class="container">
-            <div class="row g-2 g-md-3">
-                <div class="col-6 col-md-3 fade-in"><div class="feature-card"><div class="feature-icon"><i class="fas fa-school"></i></div><h5>M.G. Oriental School</h5><p>Nursery to VIII | CBSE</p></div></div>
-                <div class="col-6 col-md-3 fade-in"><div class="feature-card"><div class="feature-icon"><i class="fas fa-chalkboard-user"></i></div><h5>New Era Coaching</h5><p>Class 1 to 12 | All Subjects</p></div></div>
-                <div class="col-6 col-md-3 fade-in"><div class="feature-card"><div class="feature-icon"><i class="fas fa-user-tie"></i></div><h5>Zaif Akhtar</h5><p>Founder & Director</p></div></div>
-                <div class="col-6 col-md-3 fade-in"><div class="feature-card"><div class="feature-icon"><i class="fas fa-rocket"></i></div><h5>Crash Course</h5><p>₹1000 Only | 20% Off</p></div></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- School Section -->
-    <section id="school" class="py-3 py-md-4" style="background: #e0e7ff;">
-        <div class="container">
-            <h2 class="section-title fade-in">M.G. Oriental School</h2>
-            <div class="row g-3">
-                <div class="col-lg-6 fade-in">
-                    <div class="info-card">
-                        <span class="school-badge"><i class="fas fa-star"></i> CBSE Pattern</span>
-                        <div class="info-detail"><i class="fas fa-id-card"></i> <strong>UDISE:</strong> 10184100943</div>
-                        <div class="info-detail"><i class="fas fa-registered"></i> <strong>Registration No:</strong> 22012742021820193251</div>
-                        <div class="info-detail"><i class="fas fa-children"></i> <strong>Classes:</strong> Nursery to VIII</div>
-                        <div class="info-detail"><i class="fas fa-language"></i> <strong>Medium:</strong> English & Hindi</div>
-                        <div class="info-detail"><i class="fas fa-map-marker-alt"></i> <strong>Address:</strong> 22 Mile Chowk, Tejpurwa, Patepur, Vaishali</div>
-                        <div class="mt-2">
-                            <p class="small mb-1"><i class="fas fa-check-circle text-success"></i> 100% Free Admission</p>
-                            <p class="small mb-1"><i class="fas fa-check-circle text-success"></i> Experienced & Trained Teachers</p>
-                            <p class="small mb-1"><i class="fas fa-check-circle text-success"></i> Smart Class / Digital Learning</p>
-                        </div>
+                    <div class="detail-row">
+                        <i class="fas fa-registered"></i>
+                        <div><strong>Registration No:</strong> 22012742021820193251</div>
                     </div>
-                </div>
-                <div class="col-lg-6 fade-in">
-                    <div class="info-card text-center">
-                        <i class="fas fa-graduation-cap" style="font-size: 2.5rem; color: #2563eb;"></i>
-                        <h3 class="mt-2 fs-5">Admission Open 2026-27</h3>
-                        <p class="fs-3 fw-bold text-primary">FREE ADMISSION</p>
-                        <p class="small">Limited seats at 22 Mile Chowk, Tejpurwa, Patepur</p>
-                        <a href="#contact" class="btn btn-primary mt-2">Enroll Now</a>
+                    <div class="detail-row">
+                        <i class="fas fa-child"></i>
+                        <div><strong>Classes Offered:</strong> Nursery to Class VIII</div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Coaching Section -->
-    <section id="coaching" class="py-3 py-md-4" style="background: white;">
-        <div class="container">
-            <h2 class="section-title fade-in">New Era Coaching Centre</h2>
-            <div class="row g-3">
-                <div class="col-lg-6 fade-in">
-                    <div class="info-card">
-                        <span class="coaching-badge"><i class="fas fa-trophy"></i> Build The Foundation</span>
-                        <div class="info-detail"><i class="fas fa-user-tie"></i> <strong>Director:</strong> Zaif Akhtar</div>
-                        <div class="info-detail"><i class="fas fa-map-marker-alt"></i> <strong>Location:</strong> 22 Mile Chowk, Tejpurwa, Patepur</div>
-                        <div class="info-detail"><i class="fas fa-users"></i> <strong>Classes:</strong> 1 to 12 (Hindi & English Medium)</div>
-                        <div class="info-detail"><i class="fas fa-flask"></i> <strong>Subjects:</strong> Maths, Science, Social Science, English, Sanskrit</div>
-                        <div class="mt-2">
-                            <p class="small mb-1"><i class="fas fa-star text-warning"></i> Experienced & Qualified Teachers</p>
-                            <p class="small mb-1"><i class="fas fa-star text-warning"></i> Special Attention on Weak Students</p>
-                            <p class="small mb-1"><i class="fas fa-star text-warning"></i> Regular Tests & Doubt Clearance</p>
-                        </div>
+                    <div class="detail-row">
+                        <i class="fas fa-language"></i>
+                        <div><strong>Medium:</strong> English & Hindi</div>
                     </div>
-                </div>
-                <div class="col-lg-6 fade-in">
-                    <div class="info-card text-center">
-                        <span class="badge bg-danger fs-6 p-2 mb-2">🔥 CRASH COURSE OFFER 🔥</span>
-                        <h4 class="fs-5">All Subjects Crash Course</h4>
-                        <p class="small">Starting from <strong>10th November</strong></p>
-                        <div class="my-2"><span class="fs-1 fw-bold text-success">₹1000/-</span> <span class="text-muted ms-2"><del>₹1250</del></span></div>
-                        <p class="text-danger fw-bold small">🎉 20% DISCOUNT if join now!</p>
-                        <div class="d-flex flex-wrap justify-content-center gap-1 mt-2">
-                            <span class="badge bg-primary p-1 small">Maths</span>
-                            <span class="badge bg-primary p-1 small">Science</span>
-                            <span class="badge bg-primary p-1 small">Social Science</span>
-                            <span class="badge bg-primary p-1 small">English</span>
-                            <span class="badge bg-primary p-1 small">Sanskrit</span>
-                        </div>
-                        <a href="#contact" class="btn btn-warning fw-bold mt-2 btn-sm">Join Now!</a>
+                    <div class="detail-row">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div><strong>Address:</strong> 22 Mile Chowk, Tejpurwa, Patepur, Vaishali, Bihar</div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- Courses Section -->
-    <section id="courses" class="py-3 py-md-4" style="background: #f8fafc;">
-        <div class="container">
-            <h2 class="section-title fade-in">Our Courses</h2>
-            <h3 class="text-center mb-2 fs-6" style="color: #2563eb;"><i class="fas fa-school"></i> School Courses</h3>
-            <div id="schoolCoursesLimited" class="courses-grid"><div class="text-center py-3"><div class="spinner-border text-primary spinner-border-sm"></div><p class="small mt-1">Loading...</p></div></div>
-            <div class="text-center"><button class="view-more-btn" data-bs-toggle="modal" data-bs-target="#schoolCoursesModal">View All School Courses <i class="fas fa-arrow-right ms-1"></i></button></div>
-
-            <h3 class="text-center mt-3 mb-2 fs-6" style="color: #ea580c;"><i class="fas fa-chalkboard-user"></i> Coaching Courses</h3>
-            <div id="coachingCoursesLimited" class="courses-grid"><div class="text-center py-3"><div class="spinner-border text-primary spinner-border-sm"></div><p class="small mt-1">Loading...</p></div></div>
-            <div class="text-center"><button class="view-more-btn" data-bs-toggle="modal" data-bs-target="#coachingCoursesModal">View All Coaching Courses <i class="fas fa-arrow-right ms-1"></i></button></div>
-        </div>
-    </section>
-
-    <!-- Modals -->
-    <div class="modal fade" id="schoolCoursesModal" tabindex="-1"><div class="modal-dialog modal-lg modal-dialog-centered"><div class="modal-content"><div class="modal-header"><h5 class="modal-title fs-6">All School Courses</h5><button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button></div><div class="modal-body" id="allSchoolCoursesModal"></div></div></div></div>
-    <div class="modal fade" id="coachingCoursesModal" tabindex="-1"><div class="modal-dialog modal-lg modal-dialog-centered"><div class="modal-content"><div class="modal-header"><h5 class="modal-title fs-6">All Coaching Courses</h5><button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button></div><div class="modal-body" id="allCoachingCoursesModal"></div></div></div></div>
-
-    <!-- Director Section -->
-    <section id="director" class="py-3 py-md-4" style="background: linear-gradient(135deg, #f5f7fa, #e0e7ff);">
-        <div class="container">
-            <h2 class="section-title fade-in">Founder & Director</h2>
-            <div class="row align-items-center">
-                <div class="col-md-4 text-center mb-3 mb-md-0 fade-in">
-                    <img src="director_photo.png" class="rounded-circle" width="140" height="140" style="border: 4px solid #6366f1; object-fit: cover; background: #ddd;">
-                    <h3 class="mt-2 fs-5" style="color: #6366f1;">Zaif Akhtar</h3>
-                    <p class="fw-semibold small">Founder & Director</p>
-                </div>
-                <div class="col-md-8 fade-in">
-                    <p class="small fw-light">Greetings to all students, parents, and well-wishers,</p>
-                    <p class="small">I am <strong>Zaif Akhtar</strong>, Founder & Director of <strong>M.G. Oriental School</strong> and <strong>New Era Coaching Centre</strong> at 22 Mile Chowk, Tejpurwa, Patepur, Vaishali.</p>
-                    <p class="small">We offer <strong>free admission in school</strong> and special discounts on coaching. <strong>Crash course starts 10th November at just ₹1000 with 20% discount</strong>.</p>
-                    <p class="small fw-bold mt-1">"Join now and complete your dream with us."</p>
-                    <p class="small fst-italic">- Zaif Akhtar</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Gallery Section -->
-    <section id="gallery" class="py-3 py-md-4" style="background: white;">
-        <div class="container">
-            <h2 class="section-title fade-in">Our Gallery</h2>
-            <div id="galleryLimited" class="gallery-grid-limited"></div>
-            <div class="text-center"><button class="view-more-btn" data-bs-toggle="modal" data-bs-target="#galleryModalAll">View All Photos <i class="fas fa-arrow-right ms-1"></i></button></div>
-        </div>
-    </section>
-
-    <div class="modal fade" id="galleryModalAll" tabindex="-1"><div class="modal-dialog modal-xl modal-dialog-centered"><div class="modal-content"><div class="modal-header"><h5 class="modal-title fs-6">Complete Gallery</h5><button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button></div><div class="modal-body"><div id="allGalleryGrid" class="gallery-grid-limited" style="grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));"></div></div></div></div></div>
-    <div class="modal fade" id="gallerySingleModal" tabindex="-1"><div class="modal-dialog modal-dialog-centered"><div class="modal-content"><div class="modal-header"><h5 class="modal-title fs-6">Gallery</h5><button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button></div><div class="modal-body text-center p-0"><img id="singleModalImage" src="" class="img-fluid" style="max-height: 60vh;"></div></div></div></div>
-
-    <!-- Contact Section -->
-    <section id="contact" class="py-3 py-md-4" style="background: white;">
-        <div class="container">
-            <h2 class="section-title fade-in">Get In Touch</h2>
-            <div class="row g-3">
-                <div class="col-lg-6 fade-in">
-                    <div class="contact-form">
-                        <h4 class="mb-3 fw-bold fs-6">Send us a Message</h4>
-                        <form id="contactForm">
-                            <input type="text" class="form-control mb-2" id="fullName" placeholder="Full Name" required>
-                            <input type="email" class="form-control mb-2" id="email" placeholder="Email Address" required>
-                            <input type="tel" class="form-control mb-2" id="phone" placeholder="Phone Number" required>
-                            <input type="text" class="form-control mb-2" id="subject" placeholder="Subject" required>
-                            <textarea class="form-control mb-2" id="message" rows="3" placeholder="Your Message" required></textarea>
-                            <button type="submit" class="btn btn-primary w-100">Send Message <i class="fas fa-paper-plane ms-1"></i></button>
-                        </form>
-                        <div id="formMessage" class="mt-2"></div>
-                    </div>
-                </div>
-                <div class="col-lg-6 fade-in">
-                    <div class="contact-form">
-                        <h4 class="mb-3 fw-bold fs-6">Contact Information</h4>
-                        <p class="small mb-2"><i class="fas fa-map-marker-alt text-primary contact-icon"></i> <strong>Address:</strong><br>22 Mile Chowk, Tejpurwa, Patepur, Vaishali, Bihar</p>
-                        <p class="small mb-2"><i class="fas fa-phone-alt text-primary contact-icon"></i> <strong>Phone:</strong><br>9934795178 , 9801640473</p>
-                        <p class="small mb-2"><i class="fas fa-envelope text-primary contact-icon"></i> <strong>Email:</strong><br>info@mgoriental.com</p>
-                        <p class="small mb-2"><i class="fas fa-clock text-primary contact-icon"></i> <strong>Hours:</strong><br>Monday - Saturday: 6:00 AM - 6:00 PM</p>
-                        <div class="social-icons mt-2"><a href="#"><i class="fab fa-facebook-f"></i></a><a href="#"><i class="fab fa-instagram"></i></a><a href="#"><i class="fab fa-youtube"></i></a></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Map -->
-    <section class="py-3 py-md-4" style="background: #eef2ff;">
-        <div class="container">
-            <h2 class="section-title fade-in">Our Location</h2>
-            <div class="contact-form p-2 p-md-3">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d594.7403885899511!2d85.47254005110067!3d25.882119168174803!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1sen!2sin!4v1779809636668!5m2!1sen!2sin" width="100%" height="280" style="border:0; border-radius: 15px;" allowfullscreen="" loading="lazy"></iframe>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4 mb-3">
-                    <h5>M.G. Oriental School</h5>
-                    <p>Nursery to VIII | CBSE Pattern | Free Admission</p>
-                    <h5 class="mt-2">New Era Coaching</h5>
-                    <p>Class 1 to 12 | Crash Course ₹1000</p>
-                </div>
-                <div class="col-md-3 mb-3">
-                    <h5>Quick Links</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#school">School</a></li>
-                        <li><a href="#coaching">Coaching</a></li>
-                        <li><a href="#courses">Courses</a></li>
-                        <li><a href="#contact">Contact</a></li>
+                    <ul class="check-list">
+                        <li><i class="fas fa-check-circle"></i> 100% Free admission for all students</li>
+                        <li><i class="fas fa-check-circle"></i> Experienced and trained teaching staff</li>
+                        <li><i class="fas fa-check-circle"></i> Smart classrooms with digital learning</li>
+                        <li><i class="fas fa-check-circle"></i> Sports, cultural & extracurricular activities</li>
                     </ul>
                 </div>
-                <div class="col-md-3 mb-3">
-                    <h5>Contact</h5>
-                    <p><i class="fas fa-phone me-1"></i> 9934795178<br><i class="fas fa-phone me-1"></i> 9801640473</p>
-                    <p><i class="fas fa-map-marker-alt me-1"></i> 22 Mile Chowk, Tejpurwa, Patepur, Vaishali</p>
-                </div>
-                <div class="col-md-2 mb-3">
-                    <h5>Follow</h5>
-                    <div class="social-icons">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+
+            <div class="col-lg-5 reveal">
+                <div class="cta-banner h-100 d-flex flex-column justify-content-center">
+                    <i class="fas fa-graduation-cap" style="font-size: 3rem; color: var(--gold-light); margin-bottom: 20px;"></i>
+                    <h3>Admission Open 2026-27</h3>
+                    <p>Limited seats available. Enroll today and give your child the best start!</p>
+                    <div style="font-size: 2rem; font-weight: 800; color: var(--gold-light); font-family: 'Playfair Display', serif; margin: 10px 0;">FREE</div>
+                    <p style="font-size: 0.85rem; margin-bottom: 24px;">Admission Fee</p>
+                    <div>
+                        <a href="#contact" class="btn-banner">Enroll Now <i class="fas fa-arrow-right"></i></a>
                     </div>
                 </div>
             </div>
-            <div class="developer-footer">
-                <p>Designed & Developed by <strong>Avinash Kumar</strong> | <a href="https://www.instagram.com/avinashprajapati0408/?hl=en" target="_blank"><i class="fab fa-instagram"></i> AI & Software Engineer</a> | Need a Website? Contact me!</p>
-                <p class="mt-1">© 2026 M.G. Oriental School & New Era Coaching Centre. All Rights Reserved.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Coaching Section -->
+<section class="section" id="coaching">
+    <div class="container">
+        <div class="section-head reveal">
+            <span class="section-tag">Our Coaching</span>
+            <h2>New Era Coaching Centre</h2>
+            <div class="divider"></div>
+            <p>Class 1 to 12 | All Subjects | Hindi & English Medium</p>
+        </div>
+
+        <div class="row g-4 align-items-stretch">
+            <div class="col-lg-5 reveal order-lg-2">
+                <div class="cta-banner h-100 d-flex flex-column justify-content-center" style="background: linear-gradient(135deg, #a37a0e, var(--gold));">
+                    <div style="background: rgba(255,255,255,0.15); padding: 8px 18px; border-radius: 50px; display: inline-block; font-size: 0.75rem; font-weight: 700; letter-spacing: 1px; margin-bottom: 20px;">🔥 LIMITED TIME OFFER</div>
+                    <h3>Crash Course</h3>
+                    <p>All Subjects | New Batch Starting 10th November</p>
+                    <div class="price-tag">
+                        <span class="old" style="color: rgba(255,255,255,0.7);">₹1250</span>
+                        <span class="new" style="color: white;">₹1000</span>
+                    </div>
+                    <p style="font-size: 0.85rem; font-weight: 700;">Save 20% — Enroll Today!</p>
+                    <div style="margin-top: 20px;">
+                        <a href="#contact" class="btn-banner" style="background: white; color: var(--navy) !important;">Join Now <i class="fas fa-fire"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-7 reveal order-lg-1">
+                <div class="info-panel">
+                    <span class="badge-tag gold"><i class="fas fa-trophy"></i> Build The Foundation</span>
+
+                    <div class="detail-row">
+                        <i class="fas fa-user-tie"></i>
+                        <div><strong>Director:</strong> Zaif Akhtar</div>
+                    </div>
+                    <div class="detail-row">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div><strong>Location:</strong> 22 Mile Chowk, Tejpurwa, Patepur</div>
+                    </div>
+                    <div class="detail-row">
+                        <i class="fas fa-users"></i>
+                        <div><strong>Classes:</strong> 1 to 12 (Hindi & English Medium)</div>
+                    </div>
+                    <div class="detail-row">
+                        <i class="fas fa-flask"></i>
+                        <div><strong>Subjects:</strong> Maths, Science, Social Science, English, Sanskrit</div>
+                    </div>
+
+                    <ul class="check-list">
+                        <li><i class="fas fa-check-circle"></i> Experienced & qualified teachers</li>
+                        <li><i class="fas fa-check-circle"></i> Special attention on weak students</li>
+                        <li><i class="fas fa-check-circle"></i> Regular tests & doubt clearing sessions</li>
+                        <li><i class="fas fa-check-circle"></i> Small batch size for better focus</li>
+                    </ul>
+                </div>
             </div>
         </div>
-    </footer>
+    </div>
+</section>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        const API_BASE_URL = 'https://avinashprajapati.pythonanywhere.com/api';
-        let allSchoolCourses = [], allCoachingCourses = [];
+<!-- Courses -->
+<section class="section bg-gray" id="courses">
+    <div class="container">
+        <div class="section-head reveal">
+            <span class="section-tag">Programs</span>
+            <h2>Our Courses</h2>
+            <div class="divider"></div>
+            <p>Choose from a wide range of academic and coaching programs</p>
+        </div>
 
-        // Drawer Functions
-        const menuBtn = document.getElementById('mobileMenuBtn'), drawer = document.getElementById('mobileDrawer'), overlay = document.getElementById('mobileMenuOverlay'), closeBtn = document.getElementById('drawerCloseBtn');
-        function openDrawer() { drawer.classList.add('open'); overlay.classList.add('active'); document.body.style.overflow = 'hidden'; }
-        function closeDrawer() { drawer.classList.remove('open'); overlay.classList.remove('active'); document.body.style.overflow = ''; }
-        if (menuBtn) menuBtn.addEventListener('click', openDrawer);
-        if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
-        if (overlay) overlay.addEventListener('click', closeDrawer);
-        document.querySelectorAll('.drawer-nav a').forEach(link => link.addEventListener('click', closeDrawer));
+        <h4 class="text-navy mb-4 reveal" style="font-size: 1.15rem;"><i class="fas fa-school me-2"></i> School Programs</h4>
+        <div class="row g-3 mb-4" id="schoolCoursesLimited">
+            <div class="col-12 text-center py-4"><div class="spinner-border text-primary spinner-border-sm"></div><p class="mt-2 small text-muted">Loading...</p></div>
+        </div>
+        <div class="text-center mb-5">
+            <button class="btn-submit" style="width: auto; padding: 10px 24px;" data-bs-toggle="modal" data-bs-target="#schoolModal">View All School Courses <i class="fas fa-arrow-right"></i></button>
+        </div>
 
-        // Scroll Animations
-        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, { threshold: 0.1 });
-        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        <h4 class="text-navy mb-4 reveal" style="font-size: 1.15rem;"><i class="fas fa-chalkboard-user me-2"></i> Coaching Programs</h4>
+        <div class="row g-3 mb-4" id="coachingCoursesLimited">
+            <div class="col-12 text-center py-4"><div class="spinner-border text-primary spinner-border-sm"></div><p class="mt-2 small text-muted">Loading...</p></div>
+        </div>
+        <div class="text-center">
+            <button class="btn-submit" style="width: auto; padding: 10px 24px; background: var(--gold);" data-bs-toggle="modal" data-bs-target="#coachingModal">View All Coaching Courses <i class="fas fa-arrow-right"></i></button>
+        </div>
+    </div>
+</section>
 
-        // Smooth Scroll
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                const href = this.getAttribute('href');
-                if (href && href !== '#') { e.preventDefault(); const target = document.querySelector(href); if (target) target.scrollIntoView({ behavior: 'smooth' }); }
+<!-- School Modal -->
+<div class="modal fade" id="schoolModal" tabindex="-1"><div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5><i class="fas fa-school me-2"></i> All School Courses</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body" id="allSchoolModalBody"></div></div></div></div>
+<div class="modal fade" id="coachingModal" tabindex="-1"><div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5><i class="fas fa-chalkboard-user me-2"></i> All Coaching Courses</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body" id="allCoachingModalBody"></div></div></div></div>
+
+<!-- Director -->
+<section class="section" id="director">
+    <div class="container">
+        <div class="section-head reveal">
+            <span class="section-tag">Leadership</span>
+            <h2>Founder & Director</h2>
+            <div class="divider"></div>
+        </div>
+
+        <div class="row g-4 align-items-center justify-content-center">
+            <div class="col-md-4 col-lg-3 text-center reveal">
+                <img src="director_photo.png" alt="Zaif Akhtar" class="rounded-circle" style="width: 180px; height: 180px; object-fit: cover; border: 5px solid white; box-shadow: var(--shadow-lg); background: var(--gray-200);">
+                <h4 class="mt-3 text-navy" style="font-size: 1.2rem;">Zaif Akhtar</h4>
+                <p style="font-size: 0.85rem; color: var(--gray-600); margin: 0;">Founder & Director</p>
+            </div>
+            <div class="col-md-8 col-lg-7 reveal">
+                <div class="info-panel">
+                    <p style="font-size: 0.9rem; color: var(--gray-600); margin-bottom: 14px;">Greetings to all students, parents, and well-wishers,</p>
+                    <p style="font-size: 0.9rem; color: var(--gray-600); margin-bottom: 14px;">I am <strong style="color: var(--navy);">Zaif Akhtar</strong>, Founder & Director of <strong style="color: var(--navy);">M.G. Oriental School</strong> and <strong style="color: var(--navy);">New Era Coaching Centre</strong> at 22 Mile Chowk, Tejpurwa, Patepur, Vaishali.</p>
+                    <p style="font-size: 0.9rem; color: var(--gray-600); margin-bottom: 20px;">We offer <strong style="color: var(--navy);">free admission in school</strong> and special discounts on coaching. <strong style="color: var(--navy);">Crash course starts 10th November at just ₹1000 with 20% discount</strong>.</p>
+                    <p style="font-family: 'Playfair Display', serif; font-style: italic; font-size: 1rem; color: var(--navy); border-left: 3px solid var(--gold); padding-left: 16px; margin: 0;">"Join now and complete your dream with us."</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Faculty -->
+<section class="section bg-cream" id="faculty">
+    <div class="container">
+        <div class="section-head reveal">
+            <span class="section-tag">Our Team</span>
+            <h2>Expert Faculty</h2>
+            <div class="divider"></div>
+            <p>Meet our dedicated team of educators</p>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-6 col-md-4 col-lg-3 reveal">
+                <div class="card-clean text-center" style="padding: 24px 16px;">
+                    <div style="width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, var(--navy), var(--navy-light)); color: white; display: inline-flex; align-items: center; justify-content: center; font-size: 1.6rem; font-family: 'Playfair Display', serif; font-weight: 700; margin-bottom: 14px;">ZA</div>
+                    <h5 style="font-size: 0.95rem; margin-bottom: 4px;">Zaif Akhtar</h5>
+                    <p style="font-size: 0.75rem; color: var(--gray-400); margin: 0;">Founder & Director</p>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3 reveal">
+                <div class="card-clean text-center" style="padding: 24px 16px;">
+                    <div style="width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, #a37a0e, var(--gold)); color: white; display: inline-flex; align-items: center; justify-content: center; font-size: 1.6rem; font-family: 'Playfair Display', serif; font-weight: 700; margin-bottom: 14px;">M</div>
+                    <h5 style="font-size: 0.95rem; margin-bottom: 4px;">Mathematics</h5>
+                    <p style="font-size: 0.75rem; color: var(--gray-400); margin: 0;">Expert Teacher</p>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3 reveal">
+                <div class="card-clean text-center" style="padding: 24px 16px;">
+                    <div style="width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, var(--navy), var(--navy-light)); color: white; display: inline-flex; align-items: center; justify-content: center; font-size: 1.6rem; font-family: 'Playfair Display', serif; font-weight: 700; margin-bottom: 14px;">S</div>
+                    <h5 style="font-size: 0.95rem; margin-bottom: 4px;">Science</h5>
+                    <p style="font-size: 0.75rem; color: var(--gray-400); margin: 0;">Expert Teacher</p>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3 reveal">
+                <div class="card-clean text-center" style="padding: 24px 16px;">
+                    <div style="width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, #a37a0e, var(--gold)); color: white; display: inline-flex; align-items: center; justify-content: center; font-size: 1.6rem; font-family: 'Playfair Display', serif; font-weight: 700; margin-bottom: 14px;">E</div>
+                    <h5 style="font-size: 0.95rem; margin-bottom: 4px;">English</h5>
+                    <p style="font-size: 0.75rem; color: var(--gray-400); margin: 0;">Expert Teacher</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Gallery -->
+<section class="section" id="gallery">
+    <div class="container">
+        <div class="section-head reveal">
+            <span class="section-tag">Our Moments</span>
+            <h2>Gallery</h2>
+            <div class="divider"></div>
+            <p>Glimpses of our school and coaching life</p>
+        </div>
+
+        <div class="gallery-grid reveal" id="galleryLimited"></div>
+        <div class="text-center mt-4">
+            <button class="btn-submit" style="width: auto; padding: 10px 24px;" data-bs-toggle="modal" data-bs-target="#galleryModal">View All Photos <i class="fas fa-arrow-right"></i></button>
+        </div>
+    </div>
+</section>
+
+<div class="modal fade" id="galleryModal" tabindex="-1"><div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5><i class="fas fa-images me-2"></i> Complete Gallery</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="gallery-grid" id="allGalleryGrid" style="grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));"></div></div></div></div></div>
+<div class="modal fade" id="singleImageModal" tabindex="-1"><div class="modal-dialog modal-lg modal-dialog-centered"><div class="modal-content" style="background: #000;"><div class="modal-header" style="background: #000; border-bottom: 1px solid #222;"><h5 style="color: white;">Photo</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body text-center p-0"><img id="singleImage" src="" style="max-width: 100%; max-height: 75vh;"></div></div></div></div>
+
+<!-- Testimonials -->
+<section class="section bg-gray" id="testimonials">
+    <div class="container">
+        <div class="section-head reveal">
+            <span class="section-tag">Testimonials</span>
+            <h2>What Parents Say</h2>
+            <div class="divider"></div>
+            <p>Real experiences from our school community</p>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-4 reveal">
+                <div class="testimonial">
+                    <div class="stars-gold"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <div class="quote">"</div>
+                    <p>Best school in Patepur area. My child has improved a lot. Teachers are very supportive and caring towards every student.</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">R</div>
+                        <div><h6>Rahul Kumar</h6><span>Parent</span></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 reveal">
+                <div class="testimonial">
+                    <div class="stars-gold"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <div class="quote">"</div>
+                    <p>New Era Coaching has helped my daughter a lot in her studies. The crash course was very helpful and affordable.</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">S</div>
+                        <div><h6>Sunita Devi</h6><span>Parent</span></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 reveal">
+                <div class="testimonial">
+                    <div class="stars-gold"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <div class="quote">"</div>
+                    <p>Zaif Sir is very dedicated. Free admission and quality education both are available. Highly recommended for all parents.</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">A</div>
+                        <div><h6>Amit Singh</h6><span>Parent</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ -->
+<section class="section" id="faq">
+    <div class="container">
+        <div class="section-head reveal">
+            <span class="section-tag">Help Center</span>
+            <h2>Frequently Asked Questions</h2>
+            <div class="divider"></div>
+            <p>Find answers to common questions</p>
+        </div>
+
+        <div class="mx-auto reveal" style="max-width: 800px;">
+            <div class="faq-box">
+                <div class="faq-q">Is school admission really free? <i class="fas fa-chevron-down"></i></div>
+                <div class="faq-a">Yes! M.G. Oriental School offers 100% free admission for the academic year 2026-27. Only monthly tuition fees apply.</div>
+            </div>
+            <div class="faq-box">
+                <div class="faq-q">What is the crash course fee? <i class="fas fa-chevron-down"></i></div>
+                <div class="faq-a">The crash course starts from 10th November at just ₹1000 (originally ₹1250). You get 20% discount if you join now.</div>
+            </div>
+            <div class="faq-box">
+                <div class="faq-q">Which classes are available in coaching? <i class="fas fa-chevron-down"></i></div>
+                <div class="faq-a">New Era Coaching Centre offers classes from 1 to 12 (Hindi & English medium) for all subjects including Maths, Science, Social Science, English and Sanskrit.</div>
+            </div>
+            <div class="faq-box">
+                <div class="faq-q">What are the school timings? <i class="fas fa-chevron-down"></i></div>
+                <div class="faq-a">School & coaching hours are Monday to Saturday, 6:00 AM to 6:00 PM. Contact us for specific class timings.</div>
+            </div>
+            <div class="faq-box">
+                <div class="faq-q">Where is the school located? <i class="fas fa-chevron-down"></i></div>
+                <div class="faq-a">We are located at 22 Mile Chowk, Tejpurwa, Patepur, Vaishali, Bihar. Call 9934795178 for directions.</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact -->
+<section class="section bg-cream" id="contact">
+    <div class="container">
+        <div class="section-head reveal">
+            <span class="section-tag">Get In Touch</span>
+            <h2>Contact Us</h2>
+            <div class="divider"></div>
+            <p>We'd love to hear from you. Reach out anytime!</p>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-lg-6 reveal">
+                <div class="contact-card">
+                    <h4 style="font-size: 1.1rem; color: var(--navy); margin-bottom: 22px;">Send us a Message</h4>
+                    <form id="contactForm">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label-clean">Full Name *</label>
+                                <input type="text" class="form-input" id="fullName" placeholder="Enter your name" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label-clean">Phone *</label>
+                                <input type="tel" class="form-input" id="phone" placeholder="10-digit number" required>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label-clean">Email *</label>
+                                <input type="email" class="form-input" id="email" placeholder="your@email.com" required>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label-clean">Subject *</label>
+                                <select class="form-input" id="subject" required>
+                                    <option value="">Select a subject</option>
+                                    <option>School Admission Enquiry</option>
+                                    <option>Coaching Enquiry</option>
+                                    <option>Crash Course Enquiry</option>
+                                    <option>Fee Structure</option>
+                                    <option>Other</option>
+                                </select>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label-clean">Message *</label>
+                                <textarea class="form-input" id="message" rows="4" placeholder="Write your message here..." required></textarea>
+                            </div>
+                            <div class="col-12">
+                                <button type="submit" class="btn-submit" id="submitBtn">Send Message <i class="fas fa-paper-plane"></i></button>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="formMessage" class="mt-3"></div>
+                </div>
+            </div>
+
+            <div class="col-lg-6 reveal">
+                <div class="contact-card">
+                    <h4 style="font-size: 1.1rem; color: var(--navy); margin-bottom: 22px;">Contact Information</h4>
+                    <div class="contact-info-item">
+                        <div class="ci-icon"><i class="fas fa-map-marker-alt"></i></div>
+                        <div><h6>Address</h6><p>22 Mile Chowk, Tejpurwa, Patepur, Vaishali, Bihar</p></div>
+                    </div>
+                    <div class="contact-info-item">
+                        <div class="ci-icon"><i class="fas fa-phone-alt"></i></div>
+                        <div><h6>Phone</h6><p>9934795178 &nbsp;|&nbsp; 9801640473</p></div>
+                    </div>
+                    <div class="contact-info-item">
+                        <div class="ci-icon"><i class="fas fa-envelope"></i></div>
+                        <div><h6>Email</h6><p>info@mgoriental.com</p></div>
+                    </div>
+                    <div class="contact-info-item">
+                        <div class="ci-icon"><i class="fas fa-clock"></i></div>
+                        <div><h6>Working Hours</h6><p>Monday - Saturday: 6:00 AM - 6:00 PM</p></div>
+                    </div>
+                    <div class="mt-4">
+                        <h6 style="font-family: 'Inter', sans-serif; font-size: 0.78rem; color: var(--gray-400); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px;">Follow Us</h6>
+                        <div class="d-flex gap-2">
+                            <a href="#" class="float-btn float-call" style="width: 42px; height: 42px; font-size: 1rem; position: static;"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" class="float-btn" style="width: 42px; height: 42px; font-size: 1rem; position: static; background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045);"><i class="fab fa-instagram"></i></a>
+                            <a href="#" class="float-btn" style="width: 42px; height: 42px; font-size: 1rem; position: static; background: #ff0000;"><i class="fab fa-youtube"></i></a>
+                            <a href="https://wa.me/919934795178" target="_blank" class="float-btn" style="width: 42px; height: 42px; font-size: 1rem; position: static; background: #25d366;"><i class="fab fa-whatsapp"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Map -->
+<section class="section" style="padding-top: 0;">
+    <div class="container">
+        <div class="section-head reveal">
+            <span class="section-tag">Find Us</span>
+            <h2>Our Location</h2>
+            <div class="divider"></div>
+        </div>
+        <div class="map-wrap reveal">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d594.7403885899511!2d85.47254005110067!3d25.882119168174803!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1sen!2sin!4v1779809636668!5m2!1sen!2sin" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+        <div class="text-center mt-4">
+            <a href="https://www.google.com/maps/dir/?api=1&destination=22+Mile+Chowk+Tejpurwa+Patepur+Vaishali" target="_blank" class="btn-submit" style="width: auto; padding: 12px 28px; text-decoration: none;"><i class="fas fa-directions"></i> Get Directions</a>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-lg-4 col-md-6">
+                <h5>M.G. Oriental School</h5>
+                <p>Nursery to VIII | CBSE Pattern | Free Admission</p>
+                <p style="margin-top: 12px;">Building bright futures with quality education and values since inception.</p>
+                <div class="footer-social mt-3">
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    <a href="https://wa.me/919934795178" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+
+            <div class="col-lg-2 col-md-6 col-6">
+                <h5>Quick Links</h5>
+                <ul>
+                    <li><a href="#home"><i class="fas fa-angle-right"></i> Home</a></li>
+                    <li><a href="#school"><i class="fas fa-angle-right"></i> School</a></li>
+                    <li><a href="#coaching"><i class="fas fa-angle-right"></i> Coaching</a></li>
+                    <li><a href="#courses"><i class="fas fa-angle-right"></i> Courses</a></li>
+                    <li><a href="#faq"><i class="fas fa-angle-right"></i> FAQ</a></li>
+                </ul>
+            </div>
+
+            <div class="col-lg-3 col-md-6 col-6">
+                <h5>Programs</h5>
+                <ul>
+                    <li><a href="#school"><i class="fas fa-angle-right"></i> Nursery to VIII</a></li>
+                    <li><a href="#coaching"><i class="fas fa-angle-right"></i> Class 1 to 5</a></li>
+                    <li><a href="#coaching"><i class="fas fa-angle-right"></i> Class 6 to 10</a></li>
+                    <li><a href="#coaching"><i class="fas fa-angle-right"></i> Class 11 to 12</a></li>
+                    <li><a href="#coaching"><i class="fas fa-angle-right"></i> Crash Course</a></li>
+                </ul>
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+                <h5>Get In Touch</h5>
+                <p><i class="fas fa-map-marker-alt" style="color: var(--gold); margin-right: 8px;"></i> 22 Mile Chowk, Tejpurwa, Patepur, Vaishali, Bihar</p>
+                <p><i class="fas fa-phone-alt" style="color: var(--gold); margin-right: 8px;"></i> 9934795178</p>
+                <p><i class="fas fa-phone-alt" style="color: var(--gold); margin-right: 8px;"></i> 9801640473</p>
+                <p><i class="fas fa-envelope" style="color: var(--gold); margin-right: 8px;"></i> info@mgoriental.com</p>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p style="margin-bottom: 6px;">© 2026 M.G. Oriental School & New Era Coaching Centre. All Rights Reserved.</p>
+            <p style="margin: 0; font-size: 0.72rem;">Designed & Developed by <a href="https://www.instagram.com/avinashprajapati0408/?hl=en" target="_blank">Avinash Kumar</a> | AI & Software Engineer</p>
+        </div>
+    </div>
+</footer>
+
+<!-- Floating Buttons -->
+<div class="float-btns">
+    <a href="https://wa.me/919934795178" target="_blank" class="float-btn float-wa" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+    <a href="tel:9934795178" class="float-btn float-call" aria-label="Call"><i class="fas fa-phone-alt"></i></a>
+    <button class="float-btn float-top" id="topBtn" aria-label="Top"><i class="fas fa-arrow-up"></i></button>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    const API_BASE_URL = 'https://avinashprajapati.pythonanywhere.com/api';
+    let allSchoolCourses = [], allCoachingCourses = [];
+
+    // Preloader
+    window.addEventListener('load', () => {
+        setTimeout(() => document.getElementById('preloader').classList.add('hidden'), 400);
+    });
+
+    // Scroll Progress + Top Button
+    const scrollProgress = document.getElementById('scrollProgress');
+    const topBtn = document.getElementById('topBtn');
+    const mainNavbar = document.getElementById('mainNavbar');
+    window.addEventListener('scroll', () => {
+        const st = window.scrollY;
+        const dh = document.documentElement.scrollHeight - window.innerHeight;
+        scrollProgress.style.width = ((st / dh) * 100) + '%';
+        if (st > 400) topBtn.classList.add('show'); else topBtn.classList.remove('show');
+        if (st > 30) mainNavbar.classList.add('scrolled'); else mainNavbar.classList.remove('scrolled');
+    });
+    topBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+    // Mobile Menu
+    const mobileToggle = document.getElementById('mobileToggle');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mobileOverlay = document.getElementById('mobileOverlay');
+    const mobileClose = document.getElementById('mobileClose');
+    function openMenu() { mobileMenu.classList.add('open'); mobileOverlay.classList.add('active'); document.body.style.overflow = 'hidden'; }
+    function closeMenu() { mobileMenu.classList.remove('open'); mobileOverlay.classList.remove('active'); document.body.style.overflow = ''; }
+    mobileToggle?.addEventListener('click', openMenu);
+    mobileClose?.addEventListener('click', closeMenu);
+    mobileOverlay?.addEventListener('click', closeMenu);
+    document.querySelectorAll('.mobile-menu-list a').forEach(l => l.addEventListener('click', closeMenu));
+
+    // Reveal animations
+    const obs = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+    // FAQ
+    document.querySelectorAll('.faq-q').forEach(q => {
+        q.addEventListener('click', () => {
+            const box = q.parentElement;
+            const isActive = box.classList.contains('active');
+            document.querySelectorAll('.faq-box').forEach(b => b.classList.remove('active'));
+            if (!isActive) box.classList.add('active');
+        });
+    });
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+        a.addEventListener('click', function(e) {
+            const href = this.getAttribute('href');
+            if (href && href !== '#') {
+                const target = document.querySelector(href);
+                if (target) {
+                    e.preventDefault();
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            }
+        });
+    });
+
+    // Active nav highlight
+    const sections = document.querySelectorAll('section[id]');
+    window.addEventListener('scroll', () => {
+        const scrollY = window.scrollY + 120;
+        sections.forEach(section => {
+            const top = section.offsetTop;
+            const height = section.offsetHeight;
+            const id = section.getAttribute('id');
+            const link = document.querySelector(`.nav-item-link[href="#${id}"]`);
+            if (link) {
+                if (scrollY >= top && scrollY < top + height) link.classList.add('active');
+                else link.classList.remove('active');
+            }
+        });
+    });
+
+    // Load Announcements (kept minimal for now — can add a marquee later)
+    async function loadAnnouncements() {
+        try {
+            const r = await fetch(`${API_BASE_URL}/announcements/all?is_active=true`);
+            if (!r.ok) return;
+            const d = await r.json();
+            // reserved for future marquee
+        } catch(e) {}
+    }
+
+    // Load Courses
+    async function loadCourses() {
+        try {
+            const r = await fetch(`${API_BASE_URL}/courses`);
+            if (!r.ok) throw new Error();
+            const d = await r.json();
+            if (d.success && d.courses && d.courses.length > 0) {
+                allSchoolCourses = d.courses.filter(c => c.category === 'academic' && c.is_active !== false);
+                allCoachingCourses = d.courses.filter(c => c.category === 'coaching' && c.is_active !== false);
+                renderCourses();
+            } else { showCoursesError(); }
+        } catch (e) { showCoursesError(); }
+    }
+
+    function durationText(d) {
+        if (d === 12) return '12 Months';
+        if (d === 6) return '6 Months';
+        if (d === 3) return '3 Months';
+        if (d === 1) return '1 Month';
+        return d ? `${d} Months` : 'Full Year';
+    }
+
+    function renderCourses() {
+        const s = document.getElementById('schoolCoursesLimited');
+        const c = document.getElementById('coachingCoursesLimited');
+
+        if (allSchoolCourses.length > 0) {
+            s.innerHTML = allSchoolCourses.slice(0, 4).map(course => {
+                const fee = parseFloat(course.fee_amount || 0);
+                return `<div class="col-md-6 col-lg-3"><div class="course-item"><h5>${esc(course.course_name)}</h5><p>${esc(course.description || 'Quality academic program with focus on overall development')}</p><div class="course-meta"><span><i class="far fa-clock"></i> ${durationText(course.duration)}</span><span class="course-fee">₹${fee.toLocaleString('en-IN')}</span></div></div></div>`;
+            }).join('');
+        } else {
+            s.innerHTML = `<div class="col-12"><div class="text-center py-4"><i class="fas fa-database" style="font-size:2rem; color: var(--gray-400);"></i><p class="mt-2 text-muted">No school courses available</p></div></div>`;
+        }
+
+        if (allCoachingCourses.length > 0) {
+            c.innerHTML = allCoachingCourses.slice(0, 4).map(course => {
+                const fee = parseFloat(course.fee_amount || 0);
+                return `<div class="col-md-6 col-lg-3"><div class="course-item accent"><h5>${esc(course.course_name)}</h5><p>${esc(course.description || 'Comprehensive coaching with expert faculty and regular tests')}</p><div class="course-meta"><span><i class="far fa-clock"></i> ${durationText(course.duration)}</span><span class="course-fee">₹${fee.toLocaleString('en-IN')}</span></div></div></div>`;
+            }).join('');
+        } else {
+            c.innerHTML = `<div class="col-12"><div class="text-center py-4"><i class="fas fa-database" style="font-size:2rem; color: var(--gray-400);"></i><p class="mt-2 text-muted">No coaching courses available</p></div></div>`;
+        }
+
+        // Modals
+        const sm = document.getElementById('allSchoolModalBody');
+        const cm = document.getElementById('allCoachingModalBody');
+        sm.innerHTML = allSchoolCourses.length ? `<div class="row g-3">${allSchoolCourses.map(course => { const fee = parseFloat(course.fee_amount || 0); return `<div class="col-md-6"><div class="course-item"><h5>${esc(course.course_name)}</h5><p>${esc(course.description || 'Academic program')}</p><div class="course-meta"><span><i class="far fa-clock"></i> ${durationText(course.duration)}</span><span class="course-fee">₹${fee.toLocaleString('en-IN')}</span></div></div></div>`; }).join('')}</div>` : '<p class="text-center py-4 text-muted">No courses available</p>';
+        cm.innerHTML = allCoachingCourses.length ? `<div class="row g-3">${allCoachingCourses.map(course => { const fee = parseFloat(course.fee_amount || 0); return `<div class="col-md-6"><div class="course-item accent"><h5>${esc(course.course_name)}</h5><p>${esc(course.description || 'Coaching program')}</p><div class="course-meta"><span><i class="far fa-clock"></i> ${durationText(course.duration)}</span><span class="course-fee">₹${fee.toLocaleString('en-IN')}</span></div></div></div>`; }).join('')}</div>` : '<p class="text-center py-4 text-muted">No courses available</p>';
+    }
+
+    function showCoursesError() {
+        const err = `<div class="col-12"><div class="text-center py-4"><i class="fas fa-exclamation-triangle" style="font-size:2rem; color: var(--danger);"></i><p class="mt-2 text-muted">Failed to load courses</p><button class="btn-submit" style="width:auto; padding:8px 20px;" onclick="loadCourses()">Retry</button></div></div>`;
+        document.getElementById('schoolCoursesLimited').innerHTML = err;
+        document.getElementById('coachingCoursesLimited').innerHTML = err;
+    }
+
+    // Gallery
+    const galleryImages = ['image_1.png', 'image_2.png', 'image_3.png', 'image_4.png', 'image_5.png', 'image_6.png'];
+    function renderGallery() {
+        const lim = document.getElementById('galleryLimited');
+        const all = document.getElementById('allGalleryGrid');
+        const html = arr => arr.map(img => `<div class="gallery-thumb" data-img="${img}"><img src="${img}" alt="Gallery" loading="lazy"></div>`).join('');
+        lim.innerHTML = html(galleryImages.slice(0, 6));
+        all.innerHTML = html(galleryImages);
+        document.querySelectorAll('.gallery-thumb').forEach(t => {
+            t.addEventListener('click', function() {
+                document.getElementById('singleImage').src = this.dataset.img;
+                new bootstrap.Modal(document.getElementById('singleImageModal')).show();
             });
         });
+    }
 
-        // Load Announcements
-        async function loadAnnouncements() {
-            const container = document.getElementById('notificationContainer');
-            try {
-                const response = await fetch(`${API_BASE_URL}/announcements/all?is_active=true`);
-                if (!response.ok) throw new Error();
-                const data = await response.json();
-                if (data.success && data.announcements && data.announcements.length > 0) {
-                    let html = '';
-                    data.announcements.forEach((ann, idx) => {
-                        html += `<div class="carousel-item ${idx === 0 ? 'active' : ''}"><div class="bg-white p-3 rounded-3 shadow-sm mx-2 border-start border-3 border-primary"><h6 class="fw-bold mb-1 small">${escapeHtml(ann.title)}</h6><p class="small text-muted mb-0">${escapeHtml(ann.message)}</p></div></div>`;
-                    });
-                    container.innerHTML = html;
-                } else { showAnnouncementError(); }
-            } catch (error) { showAnnouncementError(); }
-        }
-        function showAnnouncementError() {
-            document.getElementById('notificationContainer').innerHTML = `<div class="carousel-item active"><div class="bg-white p-3 text-center rounded-3 mx-2"><i class="fas fa-exclamation-triangle text-danger"></i><p class="small mb-0">Failed to load</p><button class="btn btn-sm btn-primary mt-1" onclick="loadAnnouncements()">Retry</button></div></div>`;
-        }
+    // Contact Form
+    document.getElementById('contactForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const btn = document.getElementById('submitBtn');
+        const data = {
+            full_name: document.getElementById('fullName').value.trim(),
+            email: document.getElementById('email').value.trim(),
+            phone: document.getElementById('phone').value.trim(),
+            subject: document.getElementById('subject').value,
+            message: document.getElementById('message').value.trim()
+        };
+        if (!data.full_name || !data.email || !data.phone || !data.subject || !data.message) { showMsg('Please fill all fields.', 'danger'); return; }
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) { showMsg('Please enter a valid email.', 'danger'); return; }
+        if (!/^[0-9]{10}$/.test(data.phone)) { showMsg('Please enter a valid 10-digit phone number.', 'danger'); return; }
 
-        // Load Courses
-        async function loadCourses() {
-            try {
-                const response = await fetch(`${API_BASE_URL}/courses`);
-                if (!response.ok) throw new Error();
-                const data = await response.json();
-                if (data.success && data.courses && data.courses.length > 0) {
-                    allSchoolCourses = data.courses.filter(c => c.category === 'academic' && c.is_active !== false);
-                    allCoachingCourses = data.courses.filter(c => c.category === 'coaching' && c.is_active !== false);
-                    renderLimitedCourses();
-                    renderModalCourses();
-                } else { showCoursesError(); }
-            } catch (error) { showCoursesError(); }
-        }
+        try {
+            btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+            const r = await fetch(`${API_BASE_URL}/contact`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
+            if (r.ok) { showMsg('✅ Thank you! We will contact you soon.', 'success'); document.getElementById('contactForm').reset(); }
+            else { showMsg('Network error. Please call 9934795178', 'danger'); }
+        } catch(e) { showMsg('Network error. Please call 9934795178', 'danger'); }
+        finally { btn.disabled = false; btn.innerHTML = 'Send Message <i class="fas fa-paper-plane"></i>'; }
+    });
 
-        function getDurationText(duration) {
-            if (duration === 12) return '12 Months';
-            if (duration === 6) return '6 Months';
-            if (duration === 3) return '3 Months';
-            if (duration === 1) return '1 Month';
-            return duration ? `${duration} Months` : 'Full Year';
-        }
+    function showMsg(msg, type) {
+        const d = document.getElementById('formMessage');
+        d.innerHTML = `<div class="alert alert-${type} py-2 small mb-0" style="border-radius:10px;">${msg}</div>`;
+        setTimeout(() => d.innerHTML = '', 5000);
+    }
 
-        function renderLimitedCourses() {
-            const schoolContainer = document.getElementById('schoolCoursesLimited');
-            const coachingContainer = document.getElementById('coachingCoursesLimited');
-            
-            if (allSchoolCourses.length > 0) {
-                schoolContainer.innerHTML = allSchoolCourses.slice(0, 2).map(c => {
-                    const fee = parseFloat(c.fee_amount || 0);
-                    return `<div class="course-card"><h5 class="course-title">${escapeHtml(c.course_name)}</h5><p class="small text-muted mb-1">${escapeHtml(c.description || 'Academic program')}</p><div class="small"><i class="far fa-clock text-primary"></i> ${getDurationText(c.duration)}</div><div class="small"><i class="fas fa-rupee-sign text-success"></i> ₹${fee.toLocaleString('en-IN')}</div></div>`;
-                }).join('');
-            } else {
-                schoolContainer.innerHTML = `<div class="error-box"><i class="fas fa-database"></i><p class="small">No school courses in database</p></div>`;
-            }
-            
-            if (allCoachingCourses.length > 0) {
-                coachingContainer.innerHTML = allCoachingCourses.slice(0, 2).map(c => {
-                    const fee = parseFloat(c.fee_amount || 0);
-                    return `<div class="class-card"><h5 class="course-title">${escapeHtml(c.course_name)}</h5><p class="small text-muted mb-1">${escapeHtml(c.description || 'Coaching program')}</p><div class="small"><i class="far fa-clock text-primary"></i> ${getDurationText(c.duration)}</div><div class="small"><i class="fas fa-rupee-sign text-success"></i> ₹${fee.toLocaleString('en-IN')}</div><div class="small mt-1"><i class="fas fa-chalkboard-teacher text-primary"></i> Expert Faculty</div></div>`;
-                }).join('');
-            } else {
-                coachingContainer.innerHTML = `<div class="error-box"><i class="fas fa-database"></i><p class="small">No coaching courses in database</p></div>`;
-            }
-        }
+    function esc(s) { if (!s) return ''; return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
 
-        function renderModalCourses() {
-            const schoolModal = document.getElementById('allSchoolCoursesModal');
-            const coachingModal = document.getElementById('allCoachingCoursesModal');
-            
-            if (allSchoolCourses.length > 0) {
-                schoolModal.innerHTML = allSchoolCourses.map(c => {
-                    const fee = parseFloat(c.fee_amount || 0);
-                    return `<div class="course-card mb-2"><h6 class="fw-bold">${escapeHtml(c.course_name)}</h6><p class="small mb-1">${escapeHtml(c.description || 'Academic program')}</p><div class="small"><i class="far fa-clock"></i> ${getDurationText(c.duration)}</div><div class="small"><i class="fas fa-rupee-sign text-success"></i> ₹${fee.toLocaleString('en-IN')}</div></div>`;
-                }).join('');
-            } else {
-                schoolModal.innerHTML = '<p class="text-center small py-3">No school courses available in database.</p>';
-            }
-            
-            if (allCoachingCourses.length > 0) {
-                coachingModal.innerHTML = allCoachingCourses.map(c => {
-                    const fee = parseFloat(c.fee_amount || 0);
-                    return `<div class="class-card mb-2"><h6 class="fw-bold">${escapeHtml(c.course_name)}</h6><p class="small mb-1">${escapeHtml(c.description || 'Coaching program')}</p><div class="small"><i class="far fa-clock"></i> ${getDurationText(c.duration)}</div><div class="small"><i class="fas fa-rupee-sign text-success"></i> ₹${fee.toLocaleString('en-IN')}</div><div class="small"><i class="fas fa-chalkboard-teacher"></i> Expert Faculty</div></div>`;
-                }).join('');
-            } else {
-                coachingModal.innerHTML = '<p class="text-center small py-3">No coaching courses available in database.</p>';
-            }
-        }
-
-        function showCoursesError() {
-            const errorHtml = `<div class="error-box"><i class="fas fa-exclamation-triangle text-danger"></i><p class="small mb-1">Failed to load courses</p><button class="retry-btn" onclick="loadCourses()">Retry</button></div>`;
-            document.getElementById('schoolCoursesLimited').innerHTML = errorHtml;
-            document.getElementById('coachingCoursesLimited').innerHTML = errorHtml;
-        }
-
-        // Gallery
-        const galleryImages = ['image_1.png', 'image_2.png', 'image_3.png', 'image_4.png', 'image_5.png', 'image_6.png'];
-        function renderGallery() {
-            const limited = document.getElementById('galleryLimited');
-            const all = document.getElementById('allGalleryGrid');
-            limited.innerHTML = galleryImages.slice(0, 3).map(img => `<div class="gallery-item" data-img="${img}"><img src="${img}" alt="Gallery"><div class="gallery-overlay"><i class="fas fa-search-plus"></i></div></div>`).join('');
-            all.innerHTML = galleryImages.map(img => `<div class="gallery-item" data-img="${img}"><img src="${img}" alt="Gallery"><div class="gallery-overlay"><i class="fas fa-search-plus"></i></div></div>`).join('');
-            document.querySelectorAll('.gallery-item').forEach(item => {
-                item.addEventListener('click', function() { document.getElementById('singleModalImage').src = this.dataset.img; new bootstrap.Modal(document.getElementById('gallerySingleModal')).show(); });
-            });
-        }
-
-        // Contact Form
-        async function submitContactForm(e) {
-            e.preventDefault();
-            const btn = document.querySelector('#contactForm button[type="submit"]');
-            const formData = {
-                full_name: document.getElementById('fullName').value.trim(),
-                email: document.getElementById('email').value.trim(),
-                phone: document.getElementById('phone').value.trim(),
-                subject: document.getElementById('subject').value.trim(),
-                message: document.getElementById('message').value.trim()
-            };
-            if (!formData.full_name || !formData.email || !formData.phone || !formData.subject || !formData.message) {
-                showMessage('Please fill all fields.', 'danger'); return;
-            }
-            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) { showMessage('Invalid email', 'danger'); return; }
-            try {
-                btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
-                const response = await fetch(`${API_BASE_URL}/contact`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(formData) });
-                if (response.ok) { showMessage('Thank you! We will contact you soon.', 'success'); document.getElementById('contactForm').reset(); }
-                else { showMessage('Network error. Please call 9934795178', 'danger'); }
-            } catch (error) { showMessage('Network error. Please call 9934795178', 'danger'); }
-            finally { btn.disabled = false; btn.innerHTML = 'Send Message <i class="fas fa-paper-plane ms-1"></i>'; }
-        }
-        function showMessage(msg, type) {
-            const d = document.getElementById('formMessage');
-            d.innerHTML = `<div class="alert alert-${type} alert-dismissible fade show small py-1 mb-0">${msg}<button type="button" class="btn-close btn-sm" data-bs-dismiss="alert"></button></div>`;
-            setTimeout(() => d.innerHTML = '', 4000);
-        }
-        function escapeHtml(str) { if (!str) return ''; return str.replace(/[&<>]/g, m => { if (m === '&') return '&amp;'; if (m === '<') return '&lt;'; if (m === '>') return '&gt;'; return m; }); }
-
-        document.getElementById('contactForm')?.addEventListener('submit', submitContactForm);
-        document.addEventListener('DOMContentLoaded', () => { loadAnnouncements(); loadCourses(); renderGallery(); });
-    </script>
+    document.addEventListener('DOMContentLoaded', () => { loadAnnouncements(); loadCourses(); renderGallery(); });
+</script>
 </body>
 </html>
