@@ -4,14 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>M.G. Oriental School & New Era Coaching Centre | Patepur, Vaishali</title>
-<meta name="description" content="M.G. Oriental School (Nursery-VIII, CBSE) & New Era Coaching Centre (Class 1-12) by Zaif Akhtar at 22 Mile Chowk, Patepur, Vaishali. Free admission, expert faculty, crash course ₹1000.">
-<meta name="keywords" content="M.G. Oriental School, New Era Coaching, Zaif Akhtar, school in Patepur, coaching in Vaishali, CBSE school, 22 mile chowk">
+<meta name="description" content="M.G. Oriental School (Nursery-VIII, CBSE) & New Era Coaching Centre (Class 1-12) by Zaif Akhtar at 22 Mile Chowk, Patepur, Vaishali.">
+<meta name="keywords" content="M.G. Oriental School, New Era Coaching, Zaif Akhtar, school in Patepur, coaching in Vaishali">
 <meta name="theme-color" content="#0d3b66">
-
 <meta property="og:type" content="website">
 <meta property="og:title" content="M.G. Oriental School & New Era Coaching Centre">
-<meta property="og:description" content="Quality education at 22 Mile Chowk, Patepur, Vaishali. Free admission + expert faculty.">
-<meta property="og:image" content="school-image.jpg">
+<meta property="og:description" content="Quality education at 22 Mile Chowk, Patepur, Vaishali.">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -256,7 +254,6 @@ img { max-width: 100%; height: auto; display: block; }
   padding: 7px 18px; border-radius: 50px;
   font-size: 0.75rem; font-weight: 600;
   letter-spacing: 0.5px; margin-bottom: 22px;
-  backdrop-filter: blur(6px);
 }
 
 .hero h1 {
@@ -283,7 +280,6 @@ img { max-width: 100%; height: auto; display: block; }
   padding: 8px 16px; border-radius: 50px;
   font-size: 0.78rem; font-weight: 500;
   display: inline-flex; align-items: center; gap: 8px;
-  backdrop-filter: blur(6px);
 }
 .hero-feature i { color: var(--gold-light); font-size: 0.72rem; }
 
@@ -309,7 +305,6 @@ img { max-width: 100%; height: auto; display: block; }
   text-decoration: none; border: 2px solid rgba(255,255,255,0.4);
   transition: var(--transition);
   display: inline-flex; align-items: center; gap: 8px;
-  backdrop-filter: blur(6px);
 }
 .btn-hero-outline:hover {
   border-color: white; background: rgba(255,255,255,0.2);
@@ -372,74 +367,159 @@ img { max-width: 100%; height: auto; display: block; }
   margin: 18px auto; border-radius: 3px;
 }
 
-/* ==================== ANNOUNCEMENTS ==================== */
-.announcement-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 16px;
+/* ==================== ANNOUNCEMENTS CAROUSEL ==================== */
+.announcement-carousel {
+  position: relative;
+  max-width: 900px;
+  margin: 0 auto;
 }
-@media (min-width: 576px) {
-  .announcement-grid { grid-template-columns: repeat(2, 1fr); }
+
+.announcement-track-wrap {
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  padding: 6px;
 }
-@media (min-width: 992px) {
-  .announcement-grid { grid-template-columns: repeat(3, 1fr); }
+
+.announcement-track {
+  display: flex;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.announcement-slide {
+  min-width: 100%;
+  padding: 6px;
 }
 
 .announcement-card {
   background: white;
-  border-radius: var(--radius);
-  padding: 22px;
+  border-radius: var(--radius-lg);
+  padding: 32px 36px;
   border: 1px solid var(--gray-200);
-  border-left: 4px solid var(--navy);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  display: flex; flex-direction: column;
-  height: 100%;
+  border-left: 6px solid var(--primary, #667eea);
+  box-shadow: var(--shadow-md);
+  transition: box-shadow 0.3s ease;
+  min-height: 220px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
 }
 .announcement-card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-lg);
 }
-.announcement-card.high { border-left-color: var(--danger); }
-.announcement-card.medium { border-left-color: var(--gold); }
-.announcement-card.low { border-left-color: var(--navy); }
 
-.announcement-icon {
-  width: 40px; height: 40px; border-radius: 10px;
-  background: rgba(13,59,102,0.08);
-  color: var(--navy);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1rem; margin-bottom: 14px;
+/* Priority colors */
+.announcement-card[data-priority="high"] { border-left-color: #ef4444; }
+.announcement-card[data-priority="medium"] { border-left-color: #f59e0b; }
+.announcement-card[data-priority="low"] { border-left-color: #667eea; }
+.announcement-card[data-priority="normal"] { border-left-color: #667eea; }
+
+.announcement-priority {
+  display: inline-block;
+  padding: 6px 18px;
+  border-radius: 50px;
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: white;
+  margin-bottom: 18px;
+  align-self: flex-start;
 }
-.announcement-card.high .announcement-icon { background: rgba(220,38,38,0.08); color: var(--danger); }
-.announcement-card.medium .announcement-icon { background: rgba(212,160,23,0.12); color: #a37a0e; }
+.announcement-priority.high { background: linear-gradient(135deg, #ef4444, #dc2626); }
+.announcement-priority.medium { background: linear-gradient(135deg, #f59e0b, #d97706); }
+.announcement-priority.low,
+.announcement-priority.normal { background: linear-gradient(135deg, #667eea, #764ba2); }
 
-.announcement-card h5 {
-  font-size: 0.98rem; color: var(--navy);
-  margin-bottom: 8px; font-weight: 700;
+.announcement-card h4 {
   font-family: 'Inter', sans-serif;
+  font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+  font-weight: 700;
+  color: var(--gray-800);
+  margin-bottom: 12px;
+  line-height: 1.35;
 }
+
 .announcement-card p {
-  font-size: 0.83rem; color: var(--gray-600);
-  margin-bottom: 14px; line-height: 1.6;
+  font-size: clamp(0.85rem, 2vw, 0.95rem);
+  color: var(--gray-600);
+  line-height: 1.7;
+  margin-bottom: 18px;
   flex-grow: 1;
 }
-.announcement-meta {
-  display: flex; justify-content: space-between;
+
+.announcement-date {
+  display: inline-flex;
   align-items: center;
-  padding-top: 12px;
-  border-top: 1px solid var(--gray-100);
-  font-size: 0.72rem;
+  gap: 8px;
+  font-size: 0.8rem;
+  color: var(--gray-400);
+  font-weight: 500;
+}
+.announcement-date i {
   color: var(--gray-400);
 }
-.announcement-meta i { color: var(--navy); margin-right: 4px; }
-.priority-badge {
-  padding: 3px 10px; border-radius: 100px;
-  font-size: 0.65rem; font-weight: 700;
-  text-transform: uppercase;
+
+/* Navigation Arrows */
+.carousel-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: white;
+  border: 1px solid var(--gray-200);
+  box-shadow: var(--shadow-md);
+  color: var(--navy);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  transition: var(--transition);
+  z-index: 10;
 }
-.priority-high { background: rgba(220,38,38,0.1); color: var(--danger); }
-.priority-medium { background: rgba(212,160,23,0.15); color: #a37a0e; }
-.priority-low { background: rgba(13,59,102,0.08); color: var(--navy); }
+.carousel-arrow:hover {
+  background: var(--navy);
+  color: white;
+  border-color: var(--navy);
+  transform: translateY(-50%) scale(1.08);
+}
+.carousel-arrow.prev { left: -20px; }
+.carousel-arrow.next { right: -20px; }
+.carousel-arrow:disabled { opacity: 0.3; cursor: not-allowed; }
+
+/* Dots */
+.carousel-dots {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 28px;
+}
+.carousel-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--gray-200);
+  border: none;
+  cursor: pointer;
+  transition: var(--transition);
+}
+.carousel-dot.active {
+  background: var(--navy);
+  width: 32px;
+  border-radius: 50px;
+}
+
+@media (max-width: 767.98px) {
+  .announcement-card { padding: 24px 22px; min-height: 200px; }
+  .carousel-arrow { width: 38px; height: 38px; font-size: 0.85rem; }
+  .carousel-arrow.prev { left: -8px; }
+  .carousel-arrow.next { right: -8px; }
+  .announcement-priority { font-size: 0.62rem; padding: 5px 14px; margin-bottom: 14px; }
+}
 
 /* ==================== CARDS ==================== */
 .card-clean {
@@ -454,15 +534,6 @@ img { max-width: 100%; height: auto; display: block; }
   box-shadow: var(--shadow-lg);
   border-color: var(--gold);
 }
-.feature-icon-lg {
-  width: 60px; height: 60px; border-radius: 16px;
-  background: linear-gradient(135deg, var(--navy), var(--navy-light));
-  color: white; display: inline-flex; align-items: center;
-  justify-content: center; font-size: 1.5rem;
-  margin-bottom: 20px;
-}
-.card-clean h5 { font-size: 1.05rem; color: var(--navy); margin-bottom: 10px; }
-.card-clean p { font-size: 0.85rem; color: var(--gray-600); margin: 0; }
 
 /* ==================== ABOUT ==================== */
 .info-panel {
@@ -501,7 +572,7 @@ img { max-width: 100%; height: auto; display: block; }
 }
 .check-list li i { color: var(--success); margin-top: 4px; font-size: 0.8rem; flex-shrink: 0; }
 
-/* ==================== COURSES TABS ==================== */
+/* ==================== COURSES ==================== */
 .courses-tabs {
   display: flex; gap: 8px; justify-content: center;
   margin-bottom: 32px; flex-wrap: wrap;
@@ -564,14 +635,40 @@ img { max-width: 100%; height: auto; display: block; }
 .course-meta span i { color: var(--navy); margin-right: 5px; }
 .course-fee { color: var(--gold); font-weight: 700; font-size: 0.95rem; }
 
+.view-all-wrap {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.btn-view-all {
+  background: white;
+  color: var(--navy);
+  border: 2px solid var(--navy);
+  padding: 13px 30px;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 0.88rem;
+  cursor: pointer;
+  transition: var(--transition);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Inter', sans-serif;
+}
+.btn-view-all:hover {
+  background: var(--navy);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
 /* ==================== GALLERY ==================== */
-.gallery-grid {
+.gallery-grid-main {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 12px;
 }
-@media (min-width: 576px) { .gallery-grid { grid-template-columns: repeat(3, 1fr); gap: 16px; } }
-@media (min-width: 992px) { .gallery-grid { grid-template-columns: repeat(6, 1fr); } }
+@media (min-width: 576px) { .gallery-grid-main { grid-template-columns: repeat(3, 1fr); gap: 16px; } }
 
 .gallery-thumb {
   position: relative; border-radius: var(--radius);
@@ -790,36 +887,219 @@ img { max-width: 100%; height: auto; display: block; }
   .float-btn { width: 46px; height: 46px; font-size: 1.15rem; }
 }
 
-/* ==================== IMAGE MODAL ==================== */
-.image-modal {
+/* ==================== MODALS ==================== */
+.modal-overlay {
   position: fixed; inset: 0;
-  background: rgba(0,0,0,0.9);
+  background: rgba(13,59,102,0.7);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
   z-index: 3000;
   display: none;
-  align-items: center; justify-content: center;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  overflow-y: auto;
+}
+.modal-overlay.show { display: flex; }
+
+.modal-box {
+  background: white;
+  border-radius: var(--radius-lg);
+  max-width: 1100px;
+  width: 100%;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.3);
+  animation: modalIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+@keyframes modalIn {
+  from { opacity: 0; transform: scale(0.95) translateY(20px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.modal-head {
+  background: linear-gradient(135deg, var(--navy), var(--navy-dark));
+  color: white;
+  padding: 20px 26px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  flex-shrink: 0;
+}
+.modal-head h4 {
+  margin: 0;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+}
+.modal-close {
+  width: 38px; height: 38px;
+  border-radius: 10px;
+  border: none;
+  background: rgba(255,255,255,0.15);
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  transition: var(--transition);
+  flex-shrink: 0;
+}
+.modal-close:hover {
+  background: rgba(255,255,255,0.3);
+  transform: rotate(90deg);
+}
+
+.modal-body {
+  padding: 26px;
+  overflow-y: auto;
+  flex: 1;
+}
+.modal-body::-webkit-scrollbar { width: 6px; }
+.modal-body::-webkit-scrollbar-thumb { background: var(--gray-200); border-radius: 3px; }
+
+.modal-search {
+  position: relative;
+  margin-bottom: 22px;
+}
+.modal-search i {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--gray-400);
+  font-size: 0.9rem;
+}
+.modal-search input {
+  width: 100%;
+  padding: 12px 16px 12px 44px;
+  border: 1.5px solid var(--gray-200);
+  border-radius: 10px;
+  font-size: 0.88rem;
+  outline: none;
+  transition: var(--transition);
+  font-family: 'Inter', sans-serif;
+  background: var(--gray-50);
+}
+.modal-search input:focus {
+  border-color: var(--navy);
+  background: white;
+  box-shadow: 0 0 0 4px rgba(13,59,102,0.08);
+}
+
+.modal-courses-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+@media (min-width: 576px) { .modal-courses-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 992px) { .modal-courses-grid { grid-template-columns: repeat(3, 1fr); } }
+
+.modal-gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+@media (min-width: 576px) { .modal-gallery-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (min-width: 992px) { .modal-gallery-grid { grid-template-columns: repeat(4, 1fr); } }
+
+/* Image Preview Modal */
+.image-preview-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.95);
+  z-index: 4000;
+  display: none;
+  align-items: center;
+  justify-content: center;
   padding: 20px;
 }
-.image-modal.show { display: flex; }
-.image-modal img {
+.image-preview-overlay.show { display: flex; }
+
+.image-preview-content {
   max-width: 95%;
   max-height: 90vh;
-  border-radius: var(--radius);
-  object-fit: contain;
+  position: relative;
 }
-.image-modal-close {
-  position: absolute;
-  top: 20px; right: 20px;
-  width: 44px; height: 44px;
+
+.image-preview-content img {
+  max-width: 100%;
+  max-height: 90vh;
+  object-fit: contain;
+  border-radius: 8px;
+  display: block;
+}
+
+.image-preview-close {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 46px;
+  height: 46px;
   border-radius: 50%;
   background: rgba(255,255,255,0.15);
   border: none;
   color: white;
   font-size: 1.3rem;
   cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   transition: var(--transition);
+  z-index: 10;
 }
-.image-modal-close:hover { background: rgba(255,255,255,0.3); transform: rotate(90deg); }
+.image-preview-close:hover { background: rgba(255,255,255,0.3); transform: rotate(90deg); }
+
+.image-preview-nav {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.15);
+  border: none;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+  z-index: 10;
+}
+.image-preview-nav:hover { background: rgba(255,255,255,0.3); }
+.image-preview-nav.prev { left: 20px; }
+.image-preview-nav.next { right: 20px; }
+
+.image-preview-counter {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(255,255,255,0.15);
+  color: white;
+  padding: 8px 18px;
+  border-radius: 100px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  z-index: 10;
+}
+
+@media (max-width: 767.98px) {
+  .image-preview-nav { width: 42px; height: 42px; font-size: 1rem; }
+  .image-preview-nav.prev { left: 8px; }
+  .image-preview-nav.next { right: 8px; }
+  .modal-head h4 { font-size: 0.95rem; }
+  .modal-body { padding: 18px; }
+  .modal-close { width: 34px; height: 34px; font-size: 0.9rem; }
+}
 
 /* ==================== ALERTS ==================== */
 .alert {
@@ -840,7 +1120,7 @@ img { max-width: 100%; height: auto; display: block; }
 }
 .reveal.visible { opacity: 1; transform: translateY(0); }
 
-/* ==================== RESPONSIVE POLISH ==================== */
+/* ==================== RESPONSIVE ==================== */
 @media (max-width: 575px) {
   .section { padding: 50px 0; }
   .section-head { margin-bottom: 32px; }
@@ -849,11 +1129,9 @@ img { max-width: 100%; height: auto; display: block; }
   .quick-item .qi-icon { width: 44px; height: 44px; font-size: 1rem; }
   .quick-item h6 { font-size: 0.82rem; }
   .quick-item p { font-size: 0.72rem; }
-  .card-clean { padding: 22px 18px; }
   .info-panel { padding: 24px 20px; }
   .contact-card { padding: 24px 20px; }
   .course-item { padding: 20px 18px; }
-  .announcement-card { padding: 18px 16px; }
   .btn-hero-primary, .btn-hero-outline { padding: 12px 24px; font-size: 0.85rem; }
   .hero-feature { font-size: 0.72rem; padding: 6px 12px; }
   .hero-actions { flex-direction: column; width: 100%; }
@@ -892,7 +1170,7 @@ img { max-width: 100%; height: auto; display: block; }
       <div class="d-flex flex-wrap gap-3">
         <span><i class="fas fa-phone-alt"></i> 9934795178</span>
         <span><i class="fas fa-envelope"></i> info@mgoriental.com</span>
-        <span><i class="fas fa-map-marker-alt"></i> 22 Mile Chowk, Patepur, Vaishali</span>
+        <span><i class="fas fa-map-marker-alt"></i> 22 Mile Chowk, Patepur</span>
       </div>
       <div class="top-social">
         <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
@@ -907,7 +1185,6 @@ img { max-width: 100%; height: auto; display: block; }
 <nav class="navbar" id="mainNavbar">
   <div class="container">
     <button class="mobile-toggle" id="mobileToggle" aria-label="Open menu"><i class="fas fa-bars"></i></button>
-
     <a class="navbar-brand" href="#home">
       <img src="logo.png" alt="Logo" onerror="this.style.display='none'">
       <span>
@@ -915,7 +1192,6 @@ img { max-width: 100%; height: auto; display: block; }
         <small>& New Era Coaching</small>
       </span>
     </a>
-
     <div class="desktop-menu">
       <a href="#home" class="nav-item-link active">Home</a>
       <a href="#about" class="nav-item-link">About</a>
@@ -957,14 +1233,12 @@ img { max-width: 100%; height: auto; display: block; }
     </div>
     <h1>M.G. Oriental School <span class="gold">&</span><br>New Era Coaching Centre</h1>
     <p class="lead">Building bright futures through quality education at 22 Mile Chowk, Tejpurwa, Patepur, Vaishali</p>
-
     <div class="hero-features">
       <span class="hero-feature"><i class="fas fa-check-circle"></i> Free Admission</span>
       <span class="hero-feature"><i class="fas fa-check-circle"></i> CBSE Pattern</span>
       <span class="hero-feature"><i class="fas fa-check-circle"></i> Crash ₹1000</span>
       <span class="hero-feature"><i class="fas fa-check-circle"></i> Expert Faculty</span>
     </div>
-
     <div class="hero-actions">
       <a href="#courses" class="btn-hero-primary"><i class="fas fa-book-open"></i> Explore Courses</a>
       <a href="#contact" class="btn-hero-outline"><i class="fas fa-user-plus"></i> Enroll Now</a>
@@ -972,7 +1246,7 @@ img { max-width: 100%; height: auto; display: block; }
   </div>
 </section>
 
-<!-- ==================== 2. QUICK INFO STRIP ==================== -->
+<!-- ==================== 2. QUICK INFO ==================== -->
 <div class="container">
   <div class="quick-strip">
     <div class="row g-3 g-md-4">
@@ -1008,7 +1282,7 @@ img { max-width: 100%; height: auto; display: block; }
   </div>
 </div>
 
-<!-- ==================== 3. LATEST ANNOUNCEMENTS ==================== -->
+<!-- ==================== 3. ANNOUNCEMENTS CAROUSEL ==================== -->
 <section class="section" id="announcements" style="padding-top: 20px;">
   <div class="container">
     <div class="section-head reveal">
@@ -1018,19 +1292,26 @@ img { max-width: 100%; height: auto; display: block; }
       <p>Stay updated with the latest news and important notifications</p>
     </div>
 
-    <div class="announcement-grid reveal" id="announcementGrid">
-      <!-- Loaded from backend -->
-      <div class="announcement-card">
-        <div class="announcement-icon"><i class="fas fa-spinner fa-spin"></i></div>
-        <h5>Loading announcements...</h5>
-        <p>Please wait while we fetch the latest updates.</p>
-      </div>
-    </div>
-
-    <div class="text-center mt-4" id="viewAllAnnouncementsWrap" style="display:none;">
-      <button class="btn-submit" style="width: auto; padding: 12px 28px;" id="viewAllAnnouncementsBtn">
-        View All Announcements <i class="fas fa-arrow-right"></i>
+    <div class="announcement-carousel reveal" id="announcementCarousel">
+      <button class="carousel-arrow prev" id="carouselPrev" aria-label="Previous">
+        <i class="fas fa-chevron-left"></i>
       </button>
+      <div class="announcement-track-wrap">
+        <div class="announcement-track" id="announcementTrack">
+          <!-- Loaded dynamically -->
+          <div class="announcement-slide">
+            <div class="announcement-card">
+              <div class="announcement-priority high">High</div>
+              <h4>Loading announcements...</h4>
+              <p>Please wait while we fetch the latest updates.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="carousel-arrow next" id="carouselNext" aria-label="Next">
+        <i class="fas fa-chevron-right"></i>
+      </button>
+      <div class="carousel-dots" id="carouselDots"></div>
     </div>
   </div>
 </section>
@@ -1052,7 +1333,6 @@ img { max-width: 100%; height: auto; display: block; }
           <h4 class="text-navy" style="font-size: 1.25rem; margin-bottom: 16px;">
             <i class="fas fa-school me-2" style="color: var(--gold);"></i> M.G. Oriental School
           </h4>
-
           <div class="detail-row">
             <i class="fas fa-child"></i>
             <div><strong>Classes:</strong> Nursery to Class VIII</div>
@@ -1067,9 +1347,8 @@ img { max-width: 100%; height: auto; display: block; }
           </div>
           <div class="detail-row">
             <i class="fas fa-map-marker-alt"></i>
-            <div><strong>Location:</strong> 22 Mile Chowk, Tejpurwa, Patepur, Vaishali</div>
+            <div><strong>Location:</strong> 22 Mile Chowk, Tejpurwa, Patepur</div>
           </div>
-
           <ul class="check-list">
             <li><i class="fas fa-check-circle"></i> 100% Free admission for all students</li>
             <li><i class="fas fa-check-circle"></i> Smart classrooms with digital learning</li>
@@ -1084,7 +1363,6 @@ img { max-width: 100%; height: auto; display: block; }
           <h4 class="text-navy" style="font-size: 1.25rem; margin-bottom: 16px;">
             <i class="fas fa-chalkboard-user me-2" style="color: var(--gold);"></i> New Era Coaching Centre
           </h4>
-
           <div class="detail-row">
             <i class="fas fa-user-tie"></i>
             <div><strong>Director:</strong> Zaif Akhtar</div>
@@ -1101,7 +1379,6 @@ img { max-width: 100%; height: auto; display: block; }
             <i class="fas fa-fire"></i>
             <div><strong>Crash Course:</strong> ₹1000 (was ₹1250) — Starts 10 Nov</div>
           </div>
-
           <ul class="check-list">
             <li><i class="fas fa-check-circle"></i> Experienced & qualified teachers</li>
             <li><i class="fas fa-check-circle"></i> Small batch size for better focus</li>
@@ -1113,7 +1390,7 @@ img { max-width: 100%; height: auto; display: block; }
   </div>
 </section>
 
-<!-- ==================== 5. COURSES (TABS) ==================== -->
+<!-- ==================== 5. COURSES ==================== -->
 <section class="section" id="courses">
   <div class="container">
     <div class="section-head reveal">
@@ -1125,10 +1402,10 @@ img { max-width: 100%; height: auto; display: block; }
 
     <div class="courses-tabs reveal">
       <button class="tab-btn active" data-tab="school">
-        <i class="fas fa-school"></i> School (Nursery-VIII)
+        <i class="fas fa-school"></i> School
       </button>
       <button class="tab-btn" data-tab="coaching">
-        <i class="fas fa-chalkboard-user"></i> Coaching (1-12)
+        <i class="fas fa-chalkboard-user"></i> Coaching
       </button>
     </div>
 
@@ -1136,11 +1413,21 @@ img { max-width: 100%; height: auto; display: block; }
       <div class="row g-3" id="schoolCourses">
         <div class="col-12 text-center py-4"><div class="spinner-border text-primary spinner-border-sm"></div><p class="mt-2 small text-muted">Loading...</p></div>
       </div>
+      <div class="view-all-wrap">
+        <button class="btn-view-all" onclick="openCoursesModal('school')">
+          View All School Courses <i class="fas fa-arrow-right"></i>
+        </button>
+      </div>
     </div>
 
     <div class="tab-panel" id="tab-coaching">
       <div class="row g-3" id="coachingCourses">
         <div class="col-12 text-center py-4"><div class="spinner-border text-primary spinner-border-sm"></div><p class="mt-2 small text-muted">Loading...</p></div>
+      </div>
+      <div class="view-all-wrap">
+        <button class="btn-view-all" onclick="openCoursesModal('coaching')">
+          View All Coaching Courses <i class="fas fa-arrow-right"></i>
+        </button>
       </div>
     </div>
   </div>
@@ -1156,7 +1443,13 @@ img { max-width: 100%; height: auto; display: block; }
       <p>Glimpses of our school and coaching life</p>
     </div>
 
-    <div class="gallery-grid reveal" id="galleryGrid"></div>
+    <div class="gallery-grid-main reveal" id="galleryGrid"></div>
+
+    <div class="view-all-wrap reveal">
+      <button class="btn-view-all" onclick="openGalleryModal()">
+        View All Photos <i class="fas fa-arrow-right"></i>
+      </button>
+    </div>
   </div>
 </section>
 
@@ -1287,7 +1580,6 @@ img { max-width: 100%; height: auto; display: block; }
       </div>
     </div>
 
-    <!-- Map -->
     <div class="row mt-4">
       <div class="col-12 reveal">
         <div class="map-wrap">
@@ -1318,7 +1610,6 @@ img { max-width: 100%; height: auto; display: block; }
           <a href="https://wa.me/919934795178" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
         </div>
       </div>
-
       <div class="col-lg-2 col-md-6 col-6">
         <h5>Quick Links</h5>
         <ul>
@@ -1329,7 +1620,6 @@ img { max-width: 100%; height: auto; display: block; }
           <li><a href="#faq"><i class="fas fa-angle-right"></i> FAQ</a></li>
         </ul>
       </div>
-
       <div class="col-lg-3 col-md-6 col-6">
         <h5>Programs</h5>
         <ul>
@@ -1340,16 +1630,14 @@ img { max-width: 100%; height: auto; display: block; }
           <li><a href="#courses"><i class="fas fa-angle-right"></i> Crash Course</a></li>
         </ul>
       </div>
-
       <div class="col-lg-3 col-md-6">
         <h5>Get In Touch</h5>
-        <p><i class="fas fa-map-marker-alt" style="color: var(--gold); margin-right: 8px;"></i> 22 Mile Chowk, Tejpurwa, Patepur, Vaishali, Bihar</p>
+        <p><i class="fas fa-map-marker-alt" style="color: var(--gold); margin-right: 8px;"></i> 22 Mile Chowk, Patepur, Vaishali</p>
         <p><i class="fas fa-phone-alt" style="color: var(--gold); margin-right: 8px;"></i> 9934795178</p>
         <p><i class="fas fa-phone-alt" style="color: var(--gold); margin-right: 8px;"></i> 9801640473</p>
         <p><i class="fas fa-envelope" style="color: var(--gold); margin-right: 8px;"></i> info@mgoriental.com</p>
       </div>
     </div>
-
     <div class="footer-bottom">
       <p style="margin-bottom: 6px;">© 2026 M.G. Oriental School & New Era Coaching Centre. All Rights Reserved.</p>
       <p style="margin: 0; font-size: 0.72rem;">Designed & Developed by <a href="https://www.instagram.com/avinashprajapati0408/?hl=en" target="_blank">Avinash Kumar</a> | AI & Software Engineer</p>
@@ -1364,12 +1652,47 @@ img { max-width: 100%; height: auto; display: block; }
   <button class="float-btn float-top" id="topBtn" aria-label="Back to top"><i class="fas fa-arrow-up"></i></button>
 </div>
 
-<!-- Image Modal -->
-<div class="image-modal" id="imageModal">
-  <button class="image-modal-close" onclick="closeImageModal()" aria-label="Close">
-    <i class="fas fa-times"></i>
-  </button>
-  <img id="imageModalImg" src="" alt="Preview">
+<!-- ==================== MODALS ==================== -->
+
+<!-- Courses Modal -->
+<div class="modal-overlay" id="coursesModal">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h4 id="coursesModalTitle"><i class="fas fa-book"></i> All Courses</h4>
+      <button class="modal-close" onclick="closeCoursesModal()" aria-label="Close"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-search">
+        <i class="fas fa-search"></i>
+        <input type="text" id="coursesModalSearch" placeholder="Search courses..." oninput="filterModalCourses(this.value)">
+      </div>
+      <div class="modal-courses-grid" id="coursesModalGrid"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Gallery Modal -->
+<div class="modal-overlay" id="galleryModal">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h4><i class="fas fa-images"></i> Complete Gallery</h4>
+      <button class="modal-close" onclick="closeGalleryModal()" aria-label="Close"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-gallery-grid" id="galleryModalGrid"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Image Preview Modal -->
+<div class="image-preview-overlay" id="imagePreview">
+  <button class="image-preview-close" onclick="closeImagePreview()" aria-label="Close"><i class="fas fa-times"></i></button>
+  <button class="image-preview-nav prev" onclick="prevImage()" aria-label="Previous"><i class="fas fa-chevron-left"></i></button>
+  <button class="image-preview-nav next" onclick="nextImage()" aria-label="Next"><i class="fas fa-chevron-right"></i></button>
+  <div class="image-preview-content">
+    <img id="imagePreviewImg" src="" alt="Preview">
+  </div>
+  <div class="image-preview-counter" id="imagePreviewCounter">1 / 1</div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -1378,10 +1701,14 @@ img { max-width: 100%; height: auto; display: block; }
   'use strict';
 
   const API_BASE_URL = 'https://avinashprajapati.pythonanywhere.com/api';
+
   let allSchoolCourses = [];
   let allCoachingCourses = [];
   let allAnnouncements = [];
-  let showingAllAnnouncements = false;
+  let currentSlide = 0;
+  let autoSlideTimer = null;
+  let galleryImages = [];
+  let currentImageIndex = 0;
 
   /* ==================== UTIL ==================== */
   function esc(s) {
@@ -1406,7 +1733,9 @@ img { max-width: 100%; height: auto; display: block; }
 
   /* ==================== NAVBAR ==================== */
   const navbar = document.getElementById('mainNavbar');
+  const topBtn = document.getElementById('topBtn');
   let scrollTicking = false;
+
   window.addEventListener('scroll', () => {
     if (!scrollTicking) {
       window.requestAnimationFrame(() => {
@@ -1415,8 +1744,6 @@ img { max-width: 100%; height: auto; display: block; }
           if (st > 30) navbar.classList.add('scrolled');
           else navbar.classList.remove('scrolled');
         }
-        // Top button
-        const topBtn = document.getElementById('topBtn');
         if (topBtn) {
           if (st > 400) topBtn.classList.add('show');
           else topBtn.classList.remove('show');
@@ -1427,10 +1754,7 @@ img { max-width: 100%; height: auto; display: block; }
     }
   }, { passive: true });
 
-  const topBtn = document.getElementById('topBtn');
-  if (topBtn) {
-    topBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-  }
+  if (topBtn) topBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
   /* ==================== MOBILE MENU ==================== */
   const mobileToggle = document.getElementById('mobileToggle');
@@ -1454,7 +1778,7 @@ img { max-width: 100%; height: auto; display: block; }
   if (mobileOverlay) mobileOverlay.addEventListener('click', closeMenu);
   document.querySelectorAll('.mobile-menu-list a').forEach(l => l.addEventListener('click', closeMenu));
 
-  /* ==================== REVEAL ANIMATIONS ==================== */
+  /* ==================== REVEAL ==================== */
   const obs = new IntersectionObserver((entries) => {
     entries.forEach(e => {
       if (e.isIntersecting) {
@@ -1524,15 +1848,15 @@ img { max-width: 100%; height: auto; display: block; }
     });
   });
 
-  /* ==================== LOAD ANNOUNCEMENTS ==================== */
+  /* ==================== ANNOUNCEMENTS CAROUSEL ==================== */
   async function loadAnnouncements() {
-    const grid = document.getElementById('announcementGrid');
+    const track = document.getElementById('announcementTrack');
+    const dots = document.getElementById('carouselDots');
     try {
       const res = await fetch(`${API_BASE_URL}/student-notices`);
       const data = await res.json();
-      const notices = (data.notices || data.announcements || []).filter(n => n.is_active !== false);
+      let notices = (data.notices || data.announcements || []).filter(n => n.is_active !== false);
 
-      // Sort by priority then date
       notices.sort((a, b) => {
         const order = { high: 0, medium: 1, low: 2 };
         const pa = order[a.priority] ?? 3;
@@ -1544,65 +1868,169 @@ img { max-width: 100%; height: auto; display: block; }
       allAnnouncements = notices;
 
       if (!notices.length) {
-        grid.innerHTML = `
-          <div class="announcement-card" style="grid-column: 1/-1;">
-            <div class="announcement-icon"><i class="fas fa-bullhorn"></i></div>
-            <h5>No Announcements Yet</h5>
-            <p>Check back later for updates from the institute.</p>
+        track.innerHTML = `
+          <div class="announcement-slide">
+            <div class="announcement-card" data-priority="low">
+              <div class="announcement-priority low">Info</div>
+              <h4>No Announcements Yet</h4>
+              <p>Check back later for updates from the institute.</p>
+            </div>
           </div>`;
+        dots.innerHTML = '';
+        hideArrows();
         return;
       }
 
-      renderAnnouncements();
+      renderAnnouncementsCarousel();
     } catch (e) {
       console.error('Announcements error:', e);
-      grid.innerHTML = `
-        <div class="announcement-card" style="grid-column: 1/-1;">
-          <div class="announcement-icon"><i class="fas fa-exclamation-circle"></i></div>
-          <h5>Unable to Load</h5>
-          <p>Please refresh the page to see the latest updates.</p>
+      track.innerHTML = `
+        <div class="announcement-slide">
+          <div class="announcement-card" data-priority="low">
+            <div class="announcement-priority low">Info</div>
+            <h4>Unable to Load</h4>
+            <p>Please refresh the page to see the latest updates.</p>
+          </div>
         </div>`;
+      dots.innerHTML = '';
+      hideArrows();
     }
   }
 
-  function renderAnnouncements() {
-    const grid = document.getElementById('announcementGrid');
-    const viewWrap = document.getElementById('viewAllAnnouncementsWrap');
-    const display = showingAllAnnouncements ? allAnnouncements : allAnnouncements.slice(0, 3);
+  function renderAnnouncementsCarousel() {
+    const track = document.getElementById('announcementTrack');
+    const dots = document.getElementById('carouselDots');
 
-    grid.innerHTML = display.map(n => {
+    track.innerHTML = allAnnouncements.map(n => {
       const p = (n.priority || 'low').toLowerCase();
-      const pClass = p === 'high' ? 'priority-high' : p === 'medium' ? 'priority-medium' : 'priority-low';
-      const iconClass = p === 'high' ? 'fa-exclamation-circle' : p === 'medium' ? 'fa-exclamation-triangle' : 'fa-bullhorn';
+      const displayPriority = p === 'high' ? 'High' : p === 'medium' ? 'Medium' : 'Low';
       return `
-        <div class="announcement-card ${p}">
-          <div class="announcement-icon"><i class="fas ${iconClass}"></i></div>
-          <h5>${esc(n.title || 'Announcement')}</h5>
-          <p>${esc((n.message || '').substring(0, 120))}${(n.message || '').length > 120 ? '...' : ''}</p>
-          <div class="announcement-meta">
-            <span><i class="far fa-calendar"></i> ${formatDate(n.created_at)}</span>
-            <span class="priority-badge ${pClass}">${esc(p)}</span>
+        <div class="announcement-slide">
+          <div class="announcement-card" data-priority="${p}">
+            <div class="announcement-priority ${p}">${displayPriority}</div>
+            <h4>${esc(n.title || 'Announcement')}</h4>
+            <p>${esc(n.message || '')}</p>
+            <div class="announcement-date">
+              <i class="far fa-calendar"></i>
+              ${formatDate(n.created_at)}
+            </div>
           </div>
         </div>`;
     }).join('');
 
-    if (allAnnouncements.length > 3) {
-      viewWrap.style.display = 'block';
-      const btn = document.getElementById('viewAllAnnouncementsBtn');
-      btn.innerHTML = showingAllAnnouncements
-        ? 'Show Less <i class="fas fa-arrow-up"></i>'
-        : `View All Announcements (${allAnnouncements.length}) <i class="fas fa-arrow-right"></i>`;
+    // Dots
+    dots.innerHTML = allAnnouncements.map((_, i) =>
+      `<button class="carousel-dot ${i === 0 ? 'active' : ''}" data-index="${i}" aria-label="Go to slide ${i + 1}"></button>`
+    ).join('');
+
+    // Dot click
+    dots.querySelectorAll('.carousel-dot').forEach(dot => {
+      dot.addEventListener('click', () => {
+        currentSlide = parseInt(dot.dataset.index);
+        updateCarousel();
+        resetAutoSlide();
+      });
+    });
+
+    currentSlide = 0;
+    updateCarousel();
+    showArrows();
+    startAutoSlide();
+  }
+
+  function updateCarousel() {
+    const track = document.getElementById('announcementTrack');
+    const dots = document.querySelectorAll('.carousel-dot');
+    if (!track) return;
+
+    track.style.transform = `translateX(-${currentSlide * 100}%)`;
+    dots.forEach((d, i) => {
+      d.classList.toggle('active', i === currentSlide);
+    });
+
+    // Update arrows
+    const prevBtn = document.getElementById('carouselPrev');
+    const nextBtn = document.getElementById('carouselNext');
+    if (prevBtn) prevBtn.disabled = currentSlide === 0;
+    if (nextBtn) nextBtn.disabled = currentSlide === allAnnouncements.length - 1;
+  }
+
+  function showArrows() {
+    if (allAnnouncements.length > 1) {
+      document.getElementById('carouselPrev').style.display = 'flex';
+      document.getElementById('carouselNext').style.display = 'flex';
     } else {
-      viewWrap.style.display = 'none';
+      hideArrows();
     }
   }
 
-  const viewAllBtn = document.getElementById('viewAllAnnouncementsBtn');
-  if (viewAllBtn) {
-    viewAllBtn.addEventListener('click', () => {
-      showingAllAnnouncements = !showingAllAnnouncements;
-      renderAnnouncements();
-    });
+  function hideArrows() {
+    document.getElementById('carouselPrev').style.display = 'none';
+    document.getElementById('carouselNext').style.display = 'none';
+  }
+
+  function nextSlide() {
+    if (allAnnouncements.length <= 1) return;
+    currentSlide = (currentSlide + 1) % allAnnouncements.length;
+    updateCarousel();
+  }
+
+  function prevSlide() {
+    if (allAnnouncements.length <= 1) return;
+    currentSlide = (currentSlide - 1 + allAnnouncements.length) % allAnnouncements.length;
+    updateCarousel();
+  }
+
+  function startAutoSlide() {
+    stopAutoSlide();
+    if (allAnnouncements.length <= 1) return;
+    autoSlideTimer = setInterval(nextSlide, 5000);
+  }
+
+  function stopAutoSlide() {
+    if (autoSlideTimer) {
+      clearInterval(autoSlideTimer);
+      autoSlideTimer = null;
+    }
+  }
+
+  function resetAutoSlide() {
+    stopAutoSlide();
+    startAutoSlide();
+  }
+
+  // Arrow events
+  const prevBtn = document.getElementById('carouselPrev');
+  const nextBtn = document.getElementById('carouselNext');
+  if (prevBtn) prevBtn.addEventListener('click', () => { prevSlide(); resetAutoSlide(); });
+  if (nextBtn) nextBtn.addEventListener('click', () => { nextSlide(); resetAutoSlide(); });
+
+  // Pause on hover
+  const carouselWrap = document.getElementById('announcementCarousel');
+  if (carouselWrap) {
+    carouselWrap.addEventListener('mouseenter', stopAutoSlide);
+    carouselWrap.addEventListener('mouseleave', startAutoSlide);
+  }
+
+  // Touch/swipe support
+  let touchStartX = 0;
+  let touchEndX = 0;
+  const track = document.getElementById('announcementTrack');
+  if (track) {
+    track.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+      stopAutoSlide();
+    }, { passive: true });
+
+    track.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      const diff = touchStartX - touchEndX;
+      if (Math.abs(diff) > 50) {
+        if (diff > 0) nextSlide();
+        else prevSlide();
+      }
+      startAutoSlide();
+    }, { passive: true });
   }
 
   /* ==================== LOAD COURSES ==================== */
@@ -1615,7 +2043,7 @@ img { max-width: 100%; height: auto; display: block; }
       if (d.success && d.courses && d.courses.length > 0) {
         allSchoolCourses = d.courses.filter(c => c.category === 'academic' && c.is_active !== false);
         allCoachingCourses = d.courses.filter(c => c.category === 'coaching' && c.is_active !== false);
-        renderCourses();
+        renderCoursesPreview();
       } else {
         showCoursesError();
       }
@@ -1624,99 +2052,187 @@ img { max-width: 100%; height: auto; display: block; }
     }
   }
 
-  function renderCourses() {
+  function renderCoursesPreview() {
     const s = document.getElementById('schoolCourses');
     const c = document.getElementById('coachingCourses');
 
+    // Show only first 2 courses
     if (allSchoolCourses.length > 0) {
-      s.innerHTML = allSchoolCourses.map(course => {
-        const fee = parseFloat(course.fee_amount || 0);
-        return `<div class="col-md-6 col-lg-3">
-          <div class="course-item">
-            <h5>${esc(course.course_name)}</h5>
-            <p>${esc(course.description || 'Quality academic program with focus on overall development')}</p>
-            <div class="course-meta">
-              <span><i class="far fa-clock"></i> ${durationText(course.duration)}</span>
-              <span class="course-fee">₹${fee.toLocaleString('en-IN')}</span>
-            </div>
-          </div>
-        </div>`;
-      }).join('');
+      s.innerHTML = allSchoolCourses.slice(0, 2).map(course => courseCardHtml(course, false)).join('');
     } else {
       s.innerHTML = `<div class="col-12"><div class="text-center py-4"><i class="fas fa-database" style="font-size:2rem; color: var(--gray-400);"></i><p class="mt-2 text-muted">No school courses available</p></div></div>`;
     }
 
     if (allCoachingCourses.length > 0) {
-      c.innerHTML = allCoachingCourses.map(course => {
-        const fee = parseFloat(course.fee_amount || 0);
-        return `<div class="col-md-6 col-lg-3">
-          <div class="course-item accent">
-            <h5>${esc(course.course_name)}</h5>
-            <p>${esc(course.description || 'Comprehensive coaching with expert faculty and regular tests')}</p>
-            <div class="course-meta">
-              <span><i class="far fa-clock"></i> ${durationText(course.duration)}</span>
-              <span class="course-fee">₹${fee.toLocaleString('en-IN')}</span>
-            </div>
-          </div>
-        </div>`;
-      }).join('');
+      c.innerHTML = allCoachingCourses.slice(0, 2).map(course => courseCardHtml(course, true)).join('');
     } else {
       c.innerHTML = `<div class="col-12"><div class="text-center py-4"><i class="fas fa-database" style="font-size:2rem; color: var(--gray-400);"></i><p class="mt-2 text-muted">No coaching courses available</p></div></div>`;
     }
   }
 
+  function courseCardHtml(course, isCoaching) {
+    const fee = parseFloat(course.fee_amount || 0);
+    return `<div class="col-md-6">
+      <div class="course-item ${isCoaching ? 'accent' : ''}">
+        <h5>${esc(course.course_name)}</h5>
+        <p>${esc(course.description || 'Quality program with expert faculty')}</p>
+        <div class="course-meta">
+          <span><i class="far fa-clock"></i> ${durationText(course.duration)}</span>
+          <span class="course-fee">₹${fee.toLocaleString('en-IN')}</span>
+        </div>
+      </div>
+    </div>`;
+  }
+
   function showCoursesError() {
-    const err = `<div class="col-12"><div class="text-center py-4"><i class="fas fa-exclamation-triangle" style="font-size:2rem; color: var(--danger);"></i><p class="mt-2 text-muted">Failed to load courses</p><button class="btn-submit" style="width:auto; padding:8px 20px;" onclick="location.reload()">Retry</button></div></div>`;
+    const err = `<div class="col-12"><div class="text-center py-4"><i class="fas fa-exclamation-triangle" style="font-size:2rem; color: var(--danger);"></i><p class="mt-2 text-muted">Failed to load courses</p><button class="btn-view-all" style="padding:8px 20px; margin-top:8px;" onclick="location.reload()">Retry</button></div></div>`;
     document.getElementById('schoolCourses').innerHTML = err;
     document.getElementById('coachingCourses').innerHTML = err;
   }
 
-  /* ==================== GALLERY ==================== */
-  const galleryImages = ['image_1.png', 'image_2.png', 'image_3.png', 'image_4.png', 'image_5.png', 'image_6.png'];
+  /* ==================== COURSES MODAL ==================== */
+  let currentModalCategory = 'school';
+  let currentModalSearch = '';
 
-  function renderGallery() {
+  window.openCoursesModal = function (category) {
+    currentModalCategory = category;
+    currentModalSearch = '';
+    const modal = document.getElementById('coursesModal');
+    const title = document.getElementById('coursesModalTitle');
+    const search = document.getElementById('coursesModalSearch');
+
+    search.value = '';
+    title.innerHTML = category === 'school'
+      ? '<i class="fas fa-school"></i> All School Courses'
+      : '<i class="fas fa-chalkboard-user"></i> All Coaching Courses';
+
+    renderModalCourses();
+    modal.classList.add('show');
+    document.body.style.overflow = 'hidden';
+  };
+
+  window.closeCoursesModal = function () {
+    document.getElementById('coursesModal').classList.remove('show');
+    document.body.style.overflow = '';
+  };
+
+  window.filterModalCourses = function (val) {
+    currentModalSearch = (val || '').toLowerCase();
+    renderModalCourses();
+  };
+
+  function renderModalCourses() {
+    const grid = document.getElementById('coursesModalGrid');
+    const source = currentModalCategory === 'school' ? allSchoolCourses : allCoachingCourses;
+    const filtered = currentModalSearch
+      ? source.filter(c => (c.course_name || '').toLowerCase().includes(currentModalSearch) ||
+                          (c.description || '').toLowerCase().includes(currentModalSearch))
+      : source;
+
+    if (!filtered.length) {
+      grid.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:40px 20px;">
+        <i class="fas fa-search" style="font-size:2rem; color:var(--gray-400); margin-bottom:12px;"></i>
+        <p style="color:var(--gray-600); margin:0;">No courses found</p>
+      </div>`;
+      return;
+    }
+
+    grid.innerHTML = filtered.map(course => {
+      const fee = parseFloat(course.fee_amount || 0);
+      return `<div class="course-item ${currentModalCategory === 'coaching' ? 'accent' : ''}">
+        <h5>${esc(course.course_name)}</h5>
+        <p>${esc(course.description || 'Quality program with expert faculty')}</p>
+        <div class="course-meta">
+          <span><i class="far fa-clock"></i> ${durationText(course.duration)}</span>
+          <span class="course-fee">₹${fee.toLocaleString('en-IN')}</span>
+        </div>
+      </div>`;
+    }).join('');
+  }
+
+  /* ==================== GALLERY ==================== */
+  const gallerySource = [
+    'image_1.png', 'image_2.png', 'image_3.png',
+    'image_4.png', 'image_5.png', 'image_6.png'
+  ];
+
+  function renderGalleryPreview() {
     const grid = document.getElementById('galleryGrid');
     if (!grid) return;
-    grid.innerHTML = galleryImages.map(img => `
-      <div class="gallery-thumb" data-img="${img}">
-        <img src="${img}" alt="Gallery image" loading="lazy" onerror="this.style.background='linear-gradient(135deg, #0d3b66, #1e5a99)'; this.style.display='block'; this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext x=%2250%22 y=%2255%22 font-size=%2240%22 text-anchor=%22middle%22 fill=%22white%22%3E📸%3C/text%3E%3C/svg%3E';">
+    // Show only first 6 images
+    grid.innerHTML = gallerySource.slice(0, 6).map((img, i) => `
+      <div class="gallery-thumb" data-img="${img}" data-index="${i}">
+        <img src="${img}" alt="Gallery ${i + 1}" loading="lazy" onerror="this.style.background='linear-gradient(135deg, #0d3b66, #1e5a99)'; this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext x=%2250%22 y=%2255%22 font-size=%2240%22 text-anchor=%22middle%22 fill=%22white%22%3E📸%3C/text%3E%3C/svg%3E';">
       </div>
     `).join('');
 
-    document.querySelectorAll('.gallery-thumb').forEach(t => {
+    grid.querySelectorAll('.gallery-thumb').forEach(t => {
       t.addEventListener('click', function () {
-        const img = this.dataset.img;
-        const modal = document.getElementById('imageModal');
-        const modalImg = document.getElementById('imageModalImg');
-        if (modal && modalImg) {
-          modalImg.src = img;
-          modal.classList.add('show');
-          document.body.style.overflow = 'hidden';
-        }
+        openImagePreview(parseInt(this.dataset.index));
       });
     });
   }
 
-  function closeImageModal() {
-    const modal = document.getElementById('imageModal');
-    if (modal) {
-      modal.classList.remove('show');
-      document.body.style.overflow = '';
-    }
+  window.openGalleryModal = function () {
+    const modal = document.getElementById('galleryModal');
+    const grid = document.getElementById('galleryModalGrid');
+    grid.innerHTML = gallerySource.map((img, i) => `
+      <div class="gallery-thumb" data-index="${i}">
+        <img src="${img}" alt="Gallery ${i + 1}" loading="lazy" onerror="this.style.background='linear-gradient(135deg, #0d3b66, #1e5a99)'; this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext x=%2250%22 y=%2255%22 font-size=%2240%22 text-anchor=%22middle%22 fill=%22white%22%3E📸%3C/text%3E%3C/svg%3E';">
+      </div>
+    `).join('');
+
+    grid.querySelectorAll('.gallery-thumb').forEach(t => {
+      t.addEventListener('click', function () {
+        closeGalleryModal();
+        openImagePreview(parseInt(this.dataset.index));
+      });
+    });
+
+    modal.classList.add('show');
+    document.body.style.overflow = 'hidden';
+  };
+
+  window.closeGalleryModal = function () {
+    document.getElementById('galleryModal').classList.remove('show');
+    document.body.style.overflow = '';
+  };
+
+  /* ==================== IMAGE PREVIEW ==================== */
+  window.openImagePreview = function (index) {
+    currentImageIndex = index;
+    updateImagePreview();
+    document.getElementById('imagePreview').classList.add('show');
+    document.body.style.overflow = 'hidden';
+  };
+
+  window.closeImagePreview = function () {
+    document.getElementById('imagePreview').classList.remove('show');
+    document.body.style.overflow = '';
+  };
+
+  function updateImagePreview() {
+    const img = document.getElementById('imagePreviewImg');
+    const counter = document.getElementById('imagePreviewCounter');
+    const nav = document.querySelectorAll('.image-preview-nav');
+
+    img.src = gallerySource[currentImageIndex];
+    counter.textContent = `${currentImageIndex + 1} / ${gallerySource.length}`;
+
+    // Hide nav if only 1 image
+    const showNav = gallerySource.length > 1;
+    nav.forEach(n => n.style.display = showNav ? 'flex' : 'none');
   }
 
-  window.closeImageModal = closeImageModal;
+  window.nextImage = function () {
+    currentImageIndex = (currentImageIndex + 1) % gallerySource.length;
+    updateImagePreview();
+  };
 
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-      closeImageModal();
-      closeMenu();
-    }
-  });
-
-  document.getElementById('imageModal')?.addEventListener('click', (e) => {
-    if (e.target.id === 'imageModal') closeImageModal();
-  });
+  window.prevImage = function () {
+    currentImageIndex = (currentImageIndex - 1 + gallerySource.length) % gallerySource.length;
+    updateImagePreview();
+  };
 
   /* ==================== CONTACT FORM ==================== */
   const contactForm = document.getElementById('contactForm');
@@ -1773,11 +2289,42 @@ img { max-width: 100%; height: auto; display: block; }
     setTimeout(() => { d.innerHTML = ''; }, 5000);
   }
 
+  /* ==================== ESC KEY ==================== */
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      closeMenu();
+      closeCoursesModal();
+      closeGalleryModal();
+      closeImagePreview();
+    }
+    if (e.key === 'ArrowLeft') {
+      if (document.getElementById('imagePreview').classList.contains('show')) {
+        prevImage();
+      }
+    }
+    if (e.key === 'ArrowRight') {
+      if (document.getElementById('imagePreview').classList.contains('show')) {
+        nextImage();
+      }
+    }
+  });
+
+  // Close modal on overlay click
+  document.getElementById('coursesModal')?.addEventListener('click', (e) => {
+    if (e.target.id === 'coursesModal') closeCoursesModal();
+  });
+  document.getElementById('galleryModal')?.addEventListener('click', (e) => {
+    if (e.target.id === 'galleryModal') closeGalleryModal();
+  });
+  document.getElementById('imagePreview')?.addEventListener('click', (e) => {
+    if (e.target.id === 'imagePreview') closeImagePreview();
+  });
+
   /* ==================== INIT ==================== */
   document.addEventListener('DOMContentLoaded', () => {
     loadAnnouncements();
     loadCourses();
-    renderGallery();
+    renderGalleryPreview();
   });
 })();
 </script>
