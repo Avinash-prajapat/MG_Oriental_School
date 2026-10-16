@@ -111,7 +111,7 @@ h1,h2,h3,h4,h5 {
   line-height: 1.2;
 }
 
-/* ==================== AURORA BG (Desktop only — hidden on mobile) ==================== */
+/* ==================== AURORA (Desktop only) ==================== */
 .aurora-bg {
   position: fixed; inset: 0; z-index: -1; overflow: hidden;
   background: var(--surface-soft);
@@ -130,26 +130,18 @@ h1,h2,h3,h4,h5 {
   background: radial-gradient(circle, #67e8f9 0%, transparent 70%);
   bottom: -200px; right: -150px;
 }
-@media (max-width: 991.98px) {
-  .aurora-bg::before, .aurora-bg::after { display: none; }
-}
 
 /* ==================== HEADER ==================== */
 .top-header {
   position: fixed; top: 0; left: 0; right: 0;
   height: var(--header-h);
-  background: rgba(255,255,255,0.98);
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
   border-bottom: 1px solid var(--line);
   z-index: 1050;
   display: flex; align-items: center;
   padding: 0 20px; gap: 14px;
-}
-@media (min-width: 992px) {
-  .top-header {
-    background: rgba(255,255,255,0.85);
-    backdrop-filter: blur(20px) saturate(180%);
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
-  }
 }
 .toggle-btn {
   width: 42px; height: 42px; border-radius: 12px;
@@ -307,6 +299,9 @@ h1,h2,h3,h4,h5 {
   font-size: 0.98rem; font-weight: 700;
   margin-bottom: 4px;
   font-family: 'Space Grotesk', sans-serif;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .sidebar-subject { font-size: 0.74rem; opacity: 0.92; margin-bottom: 10px; }
 .sidebar-id-chip {
@@ -591,7 +586,10 @@ h1,h2,h3,h4,h5 {
 .schedule-time .t { font-size: 0.85rem; font-weight: 700; line-height: 1.1; }
 .schedule-time .d { font-size: 0.62rem; opacity: 0.85; margin-top: 2px; }
 .schedule-info { flex: 1; min-width: 0; }
-.schedule-info h4 { font-size: 0.9rem; margin-bottom: 4px; color: var(--ink); }
+.schedule-info h4 {
+  font-size: 0.9rem; margin-bottom: 4px; color: var(--ink);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
 .schedule-info p {
   font-size: 0.75rem; color: var(--muted); margin: 0;
   display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
@@ -613,12 +611,35 @@ h1,h2,h3,h4,h5 {
 .notice-item h5 {
   font-size: 0.85rem; margin-bottom: 4px; color: var(--ink);
   display: flex; align-items: center; gap: 8px;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
 }
 .notice-item p { font-size: 0.75rem; color: var(--muted); margin: 0 0 8px; line-height: 1.5; }
 .notice-item .meta {
   font-size: 0.68rem; color: var(--muted-light);
   display: flex; align-items: center; gap: 8px;
 }
+
+/* Pending Widget */
+.pending-list { display: flex; flex-direction: column; gap: 10px; }
+.pending-item {
+  display: flex; gap: 12px; padding: 12px 14px;
+  border-radius: 12px; background: rgba(245,158,11,0.05);
+  border: 1px solid rgba(245,158,11,0.2);
+  transition: all 0.3s var(--ease);
+}
+.pending-item:hover { background: rgba(245,158,11,0.1); }
+.pending-icon {
+  width: 36px; height: 36px; border-radius: 10px;
+  background: rgba(245,158,11,0.15); color: var(--amber);
+  display: grid; place-items: center; font-size: 0.9rem;
+  flex-shrink: 0;
+}
+.pending-info { flex: 1; min-width: 0; }
+.pending-info h5 {
+  font-size: 0.85rem; margin-bottom: 3px; color: var(--ink);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.pending-info p { font-size: 0.72rem; color: var(--muted); margin: 0; }
 
 /* ==================== SECTION CARDS ==================== */
 .sections-grid {
@@ -650,8 +671,13 @@ h1,h2,h3,h4,h5 {
 .section-header h4 {
   font-size: 1.05rem; margin: 0 0 4px;
   font-family: 'Space Grotesk', sans-serif;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
 }
-.section-header small { opacity: 0.9; font-size: 0.72rem; display: block; margin-bottom: 10px; }
+.section-header small {
+  opacity: 0.9; font-size: 0.72rem; display: block;
+  margin-bottom: 10px;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
 .section-subject-badge {
   display: inline-flex; align-items: center; gap: 6px;
   padding: 5px 12px;
@@ -659,6 +685,8 @@ h1,h2,h3,h4,h5 {
   border: 1px solid rgba(255,255,255,0.35);
   border-radius: 100px;
   font-size: 0.72rem; font-weight: 600;
+  max-width: 100%;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
 }
 .section-body { padding: 18px; flex: 1; display: flex; flex-direction: column; }
 .section-stats {
@@ -705,7 +733,7 @@ h1,h2,h3,h4,h5 {
   -webkit-overflow-scrolling: touch;
 }
 .table-modern {
-  width: 100%; border-collapse: collapse; min-width: 620px;
+  width: 100%; border-collapse: collapse; min-width: 680px;
 }
 .table-modern th {
   background: var(--surface-tint); padding: 12px 16px;
@@ -773,6 +801,10 @@ h1,h2,h3,h4,h5 {
   font-size: 0.9rem; font-weight: 700; color: var(--ink);
   margin-bottom: 8px; line-height: 1.35;
   min-height: 38px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 .pdf-meta {
   display: flex; flex-direction: column; gap: 4px;
@@ -871,6 +903,7 @@ h1,h2,h3,h4,h5 {
 .class-info { flex: 1; min-width: 0; }
 .class-info h4 {
   font-size: 0.92rem; margin-bottom: 6px; color: var(--ink);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
 }
 .class-meta {
   display: flex; gap: 12px; flex-wrap: wrap;
@@ -1102,6 +1135,7 @@ h1,h2,h3,h4,h5 {
 .notif-content { flex: 1; min-width: 0; }
 .notif-content h6 {
   font-size: 0.83rem; margin-bottom: 3px; color: var(--ink);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
 }
 .notif-content p {
   font-size: 0.74rem; color: var(--muted);
@@ -1135,9 +1169,63 @@ h1,h2,h3,h4,h5 {
 .badge-primary { background: rgba(99,102,241,0.12); color: var(--primary-dark); }
 .badge-info { background: rgba(6,182,212,0.12); color: #0e7490; }
 
+/* ==================== PDF VIEWER MODAL ==================== */
+.pdf-viewer-modal .modal-dialog {
+  max-width: 95%; width: 95%;
+  height: 90vh; margin: 5vh auto;
+}
+.pdf-viewer-modal .modal-content {
+  height: 100%; border-radius: var(--radius-md);
+  display: flex; flex-direction: column;
+}
+.pdf-viewer-modal .modal-body {
+  flex: 1; padding: 0; position: relative;
+  background: #525659;
+}
+.pdf-viewer-modal iframe {
+  width: 100%; height: 100%; border: none;
+  display: block;
+}
+.pdf-loading {
+  position: absolute; inset: 0;
+  background: white; z-index: 10;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+}
+
 /* ==================== RESPONSIVE ==================== */
 @media (max-width: 991.98px) {
-  body { padding-top: 0; }
+  /* Mobile sharpness fix — no blur, no tap highlight */
+  * {
+    -webkit-tap-highlight-color: transparent !important;
+    -webkit-touch-callout: none !important;
+  }
+  .top-header,
+  .sidebar,
+  .card-modern,
+  .stat-card,
+  .section-card,
+  .pdf-card,
+  .day-card,
+  .notif-dropdown,
+  .dropdown-menu-custom,
+  .modal-box,
+  .welcome-banner {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+  .top-header { background: #ffffff !important; }
+  .aurora-bg { display: none !important; }
+  .content-section { animation: none !important; }
+  * { transition-duration: 0.15s !important; }
+
+  /* Button tap feedback */
+  button:active, .btn:active, .menu-item:active,
+  .action-btn:active, .btn-primary-custom:active,
+  .btn-mini:active, .welcome-btn:active {
+    transform: scale(0.97) !important;
+    opacity: 0.9;
+  }
 }
 @media (max-width: 767.98px) {
   :root { --header-h: 62px; }
@@ -1165,9 +1253,21 @@ h1,h2,h3,h4,h5 {
   .pdf-grid { grid-template-columns: 1fr; }
   .toast-stack { top: 74px; right: 12px; left: 12px; max-width: none; }
   .notif-dropdown { width: auto; left: 12px; right: 12px; }
+  .dropdown-menu-custom { left: 12px; right: 12px; min-width: auto; }
+  .pdf-viewer-modal .modal-dialog {
+    max-width: 98%; width: 98%;
+    height: 85vh; margin: 7.5vh auto;
+  }
+  .filter-bar { flex-direction: column; align-items: stretch; }
+  .filter-bar .form-control,
+  .filter-bar .form-select { min-width: 100%; }
+  .table-modern { min-width: 620px; }
 }
 @media (max-width: 400px) {
   .stats-grid { grid-template-columns: 1fr; }
+  .section-header { padding: 14px 16px; min-height: 84px; }
+  .section-header h4 { font-size: 0.95rem; }
+  .action-btn { padding: 9px 4px; font-size: 0.65rem; }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
@@ -1246,7 +1346,7 @@ h1,h2,h3,h4,h5 {
     <i class="fas fa-tachometer-alt"></i> Dashboard
   </button>
   <button class="dropdown-item-custom" onclick="showSection('sections'); closeAllMenus()">
-    <i class="fas fa-layer-group"></i> My Sections
+    <i class="fas fa-layer-group"></i> My Subjects
   </button>
   <button class="dropdown-item-custom" onclick="showSection('timetable'); closeAllMenus()">
     <i class="fas fa-calendar-alt"></i> Timetable
@@ -1294,7 +1394,7 @@ h1,h2,h3,h4,h5 {
       <i class="fas fa-tachometer-alt"></i><span>Dashboard</span>
     </a>
     <a class="menu-item" data-section="sections" onclick="showSection('sections', this)">
-      <i class="fas fa-layer-group"></i><span>My Sections</span>
+      <i class="fas fa-layer-group"></i><span>My Subjects</span>
       <span class="menu-badge" id="badgeSections">0</span>
     </a>
 
@@ -1331,7 +1431,7 @@ h1,h2,h3,h4,h5 {
       <div class="footer-icon-box blue"><i class="fas fa-code"></i></div>
       <div class="footer-info"><strong>Avinash Kumar</strong><small>Developer</small></div>
     </div>
-    <div class="sidebar-version">v3.0 · Teacher Portal</div>
+    <div class="sidebar-version">v3.1 · Teacher Portal</div>
   </div>
 </nav>
 
@@ -1360,8 +1460,8 @@ h1,h2,h3,h4,h5 {
 
     <div class="stats-grid">
       <div class="stat-card">
-        <div class="stat-icon primary"><i class="fas fa-layer-group"></i></div>
-        <div class="stat-info"><span class="num" id="ovSections">--</span><span class="lbl">My Sections</span></div>
+        <div class="stat-icon primary"><i class="fas fa-book"></i></div>
+        <div class="stat-info"><span class="num" id="ovSections">--</span><span class="lbl">Subjects</span></div>
       </div>
       <div class="stat-card">
         <div class="stat-icon success"><i class="fas fa-users"></i></div>
@@ -1409,6 +1509,17 @@ h1,h2,h3,h4,h5 {
       </div>
     </div>
 
+    <!-- Pending Attendance -->
+    <div class="card-modern" id="pendingWidget" style="display:none;">
+      <div class="card-head">
+        <div class="card-head-title">
+          <div class="card-head-icon warm"><i class="fas fa-exclamation-triangle"></i></div>
+          Pending Attendance
+        </div>
+      </div>
+      <div id="pendingList" class="pending-list"></div>
+    </div>
+
     <div class="card-modern">
       <div class="card-head">
         <div class="card-head-title">
@@ -1426,9 +1537,9 @@ h1,h2,h3,h4,h5 {
   <section id="section-sections" class="content-section">
     <div class="page-header">
       <div>
-        <span class="eyebrow">My Sections</span>
-        <h1>Assigned Sections</h1>
-        <p>You can only view and work with your assigned sections.</p>
+        <span class="eyebrow">My Subjects</span>
+        <h1>Assigned Subjects</h1>
+        <p>You can only view and work with your assigned sections and subjects.</p>
       </div>
       <button class="btn-mini" onclick="loadTeacherSections(true)"><i class="fas fa-sync-alt"></i> Refresh</button>
     </div>
@@ -1759,6 +1870,31 @@ h1,h2,h3,h4,h5 {
   </div>
 </div>
 
+<!-- PDF Viewer Modal -->
+<div class="modal fade pdf-viewer-modal" id="pdfViewerModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"><i class="fas fa-file-pdf me-2"></i><span id="pdfViewerTitle">PDF Preview</span></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <div id="pdfLoadingIndicator" class="pdf-loading">
+          <div class="spinner-border text-primary" role="status"></div>
+          <p class="mt-2 text-muted small">Loading PDF...</p>
+        </div>
+        <iframe id="pdfViewerFrame" src="" onload="hidePdfLoading()"></iframe>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
+        <button class="btn btn-primary btn-sm" id="downloadPdfBtn" onclick="downloadCurrentPdf()">
+          <i class="fas fa-download me-1"></i> Download
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- Change Password Modal -->
 <div class="modal fade" id="changePasswordModal" tabindex="-1">
   <div class="modal-dialog modal-dialog-centered">
@@ -1808,10 +1944,11 @@ h1,h2,h3,h4,h5 {
 
 <script>
 /* =========================================================
-   TEACHER DASHBOARD — CLEAN REWRITE
+   TEACHER DASHBOARD — v3.1
    ========================================================= */
 
 const API_BASE_URL = 'https://avinashprajapati.pythonanywhere.com/api';
+const READ_STATE_KEY = 'teacher_notif_read_ids';
 
 /* ==================== STATE ==================== */
 let teacherSections = [];
@@ -1822,6 +1959,8 @@ let studentsList = [];
 let timetableData = [];
 let attendanceChartInstance = null;
 let currentConfirmCallback = null;
+let currentPdfUrl = null;
+let currentPdfTitle = null;
 
 /* ==================== UTIL ==================== */
 function getToken() { return localStorage.getItem('teacherToken'); }
@@ -1872,6 +2011,19 @@ function getTimeAgo(d) {
   } catch { return 'recently'; }
 }
 
+/* Notification read state — localStorage persistence */
+function getReadIds() {
+  try { return JSON.parse(localStorage.getItem(READ_STATE_KEY) || '[]'); }
+  catch { return []; }
+}
+function saveReadIds(ids) {
+  try { localStorage.setItem(READ_STATE_KEY, JSON.stringify(ids)); } catch {}
+}
+function isRead(n) {
+  if (!n || !n.id) return n?.read === true;
+  return getReadIds().includes(n.id) || n.read === true;
+}
+
 /* ==================== MODAL HELPERS ==================== */
 function openModal(id) { document.getElementById(id).classList.add('show'); }
 function closeModal(id) { document.getElementById(id).classList.remove('show'); }
@@ -1890,7 +2042,7 @@ document.getElementById('confirmBtn').addEventListener('click', () => {
   if (cb) cb();
 });
 
-/* ==================== SIDEBAR / MENUS ==================== */
+/* ==================== SIDEBAR ==================== */
 function toggleSidebar() {
   const s = document.getElementById('sidebar');
   const o = document.getElementById('sidebarOverlay');
@@ -1998,6 +2150,7 @@ async function loadTeacherSections(force = false) {
     const data = await res.json();
     if (!data.success) throw new Error(data.message || 'Failed');
 
+    // Merge section by section_id, collect all subjects
     const map = new Map();
     (data.sections || []).forEach(s => {
       const id = s.section_id;
@@ -2007,28 +2160,30 @@ async function loadTeacherSections(force = false) {
           section_details: s.section_details || {},
           subjects: [],
           student_count: 0,
-          attendance_count: 0,
-          marks_count: 0
+          subject_stats: {}  // ← per-subject breakdown
         });
       }
       const cur = map.get(id);
-      (s.subjects || []).forEach(sub => { if (!cur.subjects.includes(sub)) cur.subjects.push(sub); });
+      (s.subjects || []).forEach(sub => { 
+        if (!cur.subjects.includes(sub)) cur.subjects.push(sub); 
+      });
     });
     teacherSections = Array.from(map.values());
 
-    document.getElementById('badgeSections').textContent = teacherSections.length;
-    document.getElementById('ovSections').textContent = teacherSections.length;
+    // Count = total subject-cards (not unique sections)
+    const totalSubjects = teacherSections.reduce((sum, s) => sum + s.subjects.length, 0);
+    document.getElementById('badgeSections').textContent = totalSubjects;
+    document.getElementById('ovSections').textContent = totalSubjects;
 
     renderSectionsGrid();
     populateSectionDropdowns();
 
-    // Parallel stat load
-    Promise.all(teacherSections.map(s => hydrateSectionStats(s))).then(() => {
-      renderSectionsGrid();
-      updateOverviewStats();
-    });
-
+    // Parallel stat load per section
+    await Promise.all(teacherSections.map(s => hydrateSectionStats(s)));
+    renderSectionsGrid();
+    updateOverviewStats();
     renderTodaySchedule();
+    renderPendingWidget();
   } catch (err) {
     console.error(err);
     document.getElementById('sectionsContainer').innerHTML = `<div class="empty-state" style="grid-column:1/-1;"><div class="empty-icon"><i class="fas fa-exclamation-circle"></i></div><h4>Couldn't load sections</h4><p>${escapeHtml(err.message)}</p><button class="btn-primary-custom" onclick="loadTeacherSections(true)"><i class="fas fa-sync-alt"></i> Retry</button></div>`;
@@ -2043,8 +2198,19 @@ async function hydrateSectionStats(section) {
       fetch(`${API_BASE_URL}/section-marks/all?section=${section.section_id}`).then(r => r.json()).catch(() => ({}))
     ]);
     section.student_count = (stuRes.students || []).length;
-    section.attendance_count = (attRes.attendance || []).length;
-    section.marks_count = (mkRes.marks || []).length;
+    
+    // ✅ Subject-wise breakdown
+    section.subject_stats = {};
+    const allAtt = attRes.attendance || [];
+    const allMk = mkRes.marks || [];
+    section.subjects.forEach(subject => {
+      const attForSubject = allAtt.filter(a => (a.subject || '') === subject);
+      const mkForSubject = allMk.filter(m => (m.subject || '') === subject);
+      section.subject_stats[subject] = {
+        attendance: attForSubject.length,
+        marks: mkForSubject.length
+      };
+    });
   } catch (e) {}
 }
 
@@ -2052,8 +2218,10 @@ function updateOverviewStats() {
   let students = 0, attendance = 0, marks = 0;
   teacherSections.forEach(s => {
     students += s.student_count || 0;
-    attendance += s.attendance_count || 0;
-    marks += s.marks_count || 0;
+    Object.values(s.subject_stats || {}).forEach(st => {
+      attendance += st.attendance || 0;
+      marks += st.marks || 0;
+    });
   });
   document.getElementById('ovStudents').textContent = students;
   document.getElementById('ovAttendance').textContent = attendance;
@@ -2078,6 +2246,7 @@ function renderSectionsGrid() {
   teacherSections.forEach((sec, idx) => {
     const det = sec.section_details || {};
     sec.subjects.forEach((subject, sIdx) => {
+      const stats = sec.subject_stats?.[subject] || { attendance: 0, marks: 0 };
       html += `
         <div class="section-card">
           <div class="section-header" style="background:${palettes[(idx + sIdx) % palettes.length]};">
@@ -2088,8 +2257,8 @@ function renderSectionsGrid() {
           <div class="section-body">
             <div class="section-stats">
               <div class="section-stat"><span class="v">${sec.student_count || 0}</span><span class="l">Students</span></div>
-              <div class="section-stat"><span class="v">${sec.attendance_count || 0}</span><span class="l">Attendance</span></div>
-              <div class="section-stat"><span class="v">${sec.marks_count || 0}</span><span class="l">Marks</span></div>
+              <div class="section-stat"><span class="v">${stats.attendance}</span><span class="l">Attendance</span></div>
+              <div class="section-stat"><span class="v">${stats.marks}</span><span class="l">Marks</span></div>
             </div>
             <div class="action-buttons">
               <button class="action-btn" onclick="openAttendanceFor('${sec.section_id}', '${escapeHtml(subject)}')">
@@ -2114,8 +2283,14 @@ function renderAttendanceChart() {
   const ctx = document.getElementById('attendanceChart');
   if (!ctx || typeof Chart === 'undefined') return;
 
-  const labels = teacherSections.map(s => `Sec ${s.section_details?.section_name || '?'}`);
-  const data = teacherSections.map(s => s.attendance_count || 0);
+  const labels = [];
+  const data = [];
+  teacherSections.forEach(sec => {
+    sec.subjects.forEach(sub => {
+      labels.push(`${sec.section_details?.section_name || '?'} · ${sub.substring(0, 10)}`);
+      data.push(sec.subject_stats?.[sub]?.attendance || 0);
+    });
+  });
 
   if (attendanceChartInstance) attendanceChartInstance.destroy();
 
@@ -2124,7 +2299,7 @@ function renderAttendanceChart() {
     data: {
       labels: labels.length ? labels : ['No data'],
       datasets: [{
-        label: 'Attendance Records',
+        label: 'Attendance',
         data: data.length ? data : [0],
         backgroundColor: 'rgba(99, 102, 241, 0.65)',
         hoverBackgroundColor: 'rgba(99, 102, 241, 0.85)',
@@ -2135,10 +2310,19 @@ function renderAttendanceChart() {
     options: {
       responsive: true,
       maintainAspectRatio: false,
-      plugins: { legend: { display: false } },
+      plugins: { 
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: 'rgba(15,23,42,0.95)',
+          padding: 12,
+          cornerRadius: 10,
+          titleFont: { size: 12, weight: 'bold' },
+          bodyFont: { size: 12 }
+        }
+      },
       scales: {
         y: { beginAtZero: true, grid: { color: 'rgba(15,23,42,0.06)' }, ticks: { font: { size: 11 } } },
-        x: { grid: { display: false }, ticks: { font: { size: 11 } } }
+        x: { grid: { display: false }, ticks: { font: { size: 10 }, maxRotation: 45, minRotation: 0 } }
       }
     }
   });
@@ -2179,6 +2363,50 @@ async function renderTodaySchedule() {
   }
 }
 
+/* ==================== PENDING WIDGET ==================== */
+async function renderPendingWidget() {
+  const widget = document.getElementById('pendingWidget');
+  const list = document.getElementById('pendingList');
+  try {
+    const res = await fetch(`${API_BASE_URL}/timetable/teacher/${getTeacherId()}`);
+    const data = await res.json();
+    const list2 = (data.timetable || []).filter(t => t.is_active !== false);
+    const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    const today = dayNames[new Date().getDay()];
+    const todayStr = new Date().toISOString().split('T')[0];
+    const todayClasses = list2.filter(t => t.day_of_week === today);
+    
+    if (!todayClasses.length) { widget.style.display = 'none'; return; }
+
+    // Fetch attendance records to check which classes are done today
+    const attendanceChecks = await Promise.all(todayClasses.map(async cl => {
+      try {
+        const r = await fetch(`${API_BASE_URL}/section-attendance/filter?section=${cl.section_id}&date=${todayStr}`);
+        const d = await r.json();
+        const done = (d.attendance || []).some(a => a.subject === cl.subject);
+        return { class: cl, done };
+      } catch { return { class: cl, done: false }; }
+    }));
+
+    const pending = attendanceChecks.filter(x => !x.done);
+    if (!pending.length) { widget.style.display = 'none'; return; }
+
+    widget.style.display = 'block';
+    list.innerHTML = pending.map(x => `
+      <div class="pending-item">
+        <div class="pending-icon"><i class="fas fa-exclamation"></i></div>
+        <div class="pending-info">
+          <h5>${escapeHtml(x.class.subject || 'Class')} · Sec ${escapeHtml(x.class.section_name || '-')}</h5>
+          <p>Attendance pending for today</p>
+        </div>
+        <button class="btn-mini" onclick="openAttendanceFor('${x.class.section_id}', '${escapeHtml(x.class.subject)}')">
+          <i class="fas fa-plus"></i> Mark
+        </button>
+      </div>
+    `).join('');
+  } catch (e) { widget.style.display = 'none'; }
+}
+
 /* ==================== NOTIFICATIONS ==================== */
 async function loadNotifications() {
   try {
@@ -2192,7 +2420,7 @@ async function loadNotifications() {
 }
 
 function updateNotifBadges() {
-  const count = notifications.filter(n => !n.read).length;
+  const count = notifications.filter(n => !isRead(n)).length;
   const dot = document.getElementById('notifDot');
   const badge = document.getElementById('badgeNotifs');
   if (dot) dot.style.display = count > 0 ? 'block' : 'none';
@@ -2211,7 +2439,7 @@ function renderNotifDropdown() {
     const iconColor = n.priority === 'high' ? 'var(--rose)' : n.priority === 'medium' ? 'var(--amber)' : 'var(--primary)';
     const icon = n.priority === 'high' ? 'fa-exclamation-circle' : n.priority === 'medium' ? 'fa-exclamation-triangle' : 'fa-bell';
     return `
-      <div class="notif-item ${!n.read ? 'unread' : ''}">
+      <div class="notif-item ${!isRead(n) ? 'unread' : ''}">
         <div class="notif-icon" style="background:${iconBg};color:${iconColor};"><i class="fas ${icon}"></i></div>
         <div class="notif-content">
           <h6>${escapeHtml(n.title || 'Notification')}</h6>
@@ -2261,7 +2489,9 @@ function renderAllNotifications() {
 }
 
 function markAllNotificationsRead() {
-  notifications.forEach(n => n.read = true);
+  const ids = new Set(getReadIds());
+  notifications.forEach(n => { if (n.id) ids.add(n.id); });
+  saveReadIds([...ids]);
   updateNotifBadges();
   renderNotifDropdown();
   renderAllNotifications();
@@ -2382,6 +2612,16 @@ async function submitAttendance() {
 
   const checkboxes = document.querySelectorAll('.attendance-checkbox');
   if (!checkboxes.length) { showToast('No students loaded', 'error'); return; }
+
+  // Re-check duplicate
+  try {
+    const checkRes = await fetch(`${API_BASE_URL}/section-attendance/filter?section=${sid}&date=${date}`);
+    const checkData = await checkRes.json();
+    if ((checkData.attendance || []).some(a => a.subject === sub)) {
+      showToast(`Attendance already marked for ${sub}`, 'error');
+      return;
+    }
+  } catch (e) {}
 
   const attendance = {};
   checkboxes.forEach(cb => { attendance[cb.dataset.studentId] = cb.checked ? 'present' : 'absent'; });
@@ -2510,7 +2750,6 @@ function openMarksPickerModal() {
 }
 
 async function openMarksFor(sectionId, subject) {
-  // Permission check
   try {
     const perm = await fetch(`${API_BASE_URL}/teacher-permission/check`, {
       method: 'POST',
@@ -2811,9 +3050,25 @@ function openPdfPickerModal() {
 }
 
 function openPdfFor(sectionId, subject) {
-  openPdfPickerModal();
-  document.getElementById('pdfSectionSelect').value = sectionId;
-  onPdfSectionChange(subject);
+  // Permission check
+  fetch(`${API_BASE_URL}/teacher-permission/check`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ teacher_id: getTeacherId(), section_id: sectionId, action: 'pdfs' })
+  }).then(r => r.json()).then(perm => {
+    if (!perm.permitted) {
+      showToast('Permission required from admin to upload PDFs', 'error');
+      return;
+    }
+    openPdfPickerModal();
+    document.getElementById('pdfSectionSelect').value = sectionId;
+    onPdfSectionChange(subject);
+  }).catch(() => {
+    // Agar permission check fail ho jaye, toh allow karo (backward compat)
+    openPdfPickerModal();
+    document.getElementById('pdfSectionSelect').value = sectionId;
+    onPdfSectionChange(subject);
+  });
 }
 
 function onPdfSectionChange(preselect = null) {
@@ -2907,7 +3162,7 @@ async function loadPdfs() {
                 </div>
               </div>
               <div class="pdf-actions">
-                <button class="pdf-btn view" onclick="viewPdf('${p.pdf_id}')"><i class="fas fa-eye"></i> View</button>
+                <button class="pdf-btn view" onclick="viewPdf('${p.pdf_id}', '${escapeHtml(p.pdf_title)}')"><i class="fas fa-eye"></i> View</button>
                 <button class="pdf-btn download" onclick="downloadPdf('${p.pdf_id}')"><i class="fas fa-download"></i></button>
                 <button class="pdf-btn delete" onclick="confirmDeletePdf('${p.pdf_id}', '${escapeHtml(p.pdf_title)}')"><i class="fas fa-trash"></i></button>
               </div>
@@ -2921,7 +3176,20 @@ async function loadPdfs() {
   }
 }
 
-function viewPdf(id) { window.open(`${API_BASE_URL}/section-pdfs/view/${id}`, '_blank'); }
+function viewPdf(id, title) {
+  currentPdfUrl = `${API_BASE_URL}/section-pdfs/view/${id}`;
+  currentPdfTitle = title || 'PDF';
+  document.getElementById('pdfViewerTitle').textContent = title || 'PDF Preview';
+  document.getElementById('pdfLoadingIndicator').style.display = 'flex';
+  document.getElementById('pdfViewerFrame').src = currentPdfUrl;
+  new bootstrap.Modal(document.getElementById('pdfViewerModal')).show();
+}
+function hidePdfLoading() {
+  document.getElementById('pdfLoadingIndicator').style.display = 'none';
+}
+function downloadCurrentPdf() {
+  if (currentPdfUrl) window.open(currentPdfUrl + '?download=true', '_blank');
+}
 function downloadPdf(id) { window.open(`${API_BASE_URL}/section-pdfs/view/${id}?download=true`, '_blank'); }
 function confirmDeletePdf(id, title) {
   showConfirm('Delete PDF', `Are you sure you want to delete "${title}"? This cannot be undone.`, async () => {
@@ -3028,7 +3296,7 @@ function confirmLogout() {
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') {
     closeAllMenus();
-    ['logoutModal', 'confirmModal', 'loginModal'].forEach(id => {
+    ['logoutModal', 'confirmModal'].forEach(id => {
       const el = document.getElementById(id);
       if (el && el.classList.contains('show')) closeModal(id);
     });
