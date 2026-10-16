@@ -15,7 +15,6 @@
 <link rel="icon" href="logo.png" type="image/png">
 
 <style>
-/* ==================== DESIGN TOKENS (Same as Teacher Dashboard) ==================== */
 :root {
   --primary: #6366f1;
   --primary-dark: #4f46e5;
@@ -70,7 +69,6 @@ h1,h2,h3,h4,h5 {
   line-height: 1.2;
 }
 
-/* Aurora BG */
 .aurora-bg {
   position: fixed; inset: 0; z-index: -1; overflow: hidden;
   background: var(--surface-soft);
@@ -183,7 +181,6 @@ h1,h2,h3,h4,h5 {
 .profile-info strong { font-size: 0.82rem; font-weight: 700; color: var(--ink); }
 .profile-info small { font-size: 0.68rem; color: var(--muted); }
 
-/* Profile Menu */
 .dropdown-menu-custom {
   position: fixed; top: calc(var(--header-h) - 6px); right: 20px;
   min-width: 250px; background: white;
@@ -247,9 +244,7 @@ h1,h2,h3,h4,h5 {
   pointer-events: none;
 }
 .sidebar-profile > * { position: relative; z-index: 1; }
-.sidebar-institute {
-  margin-bottom: 16px;
-}
+.sidebar-institute { margin-bottom: 16px; }
 .sidebar-institute img {
   width: 52px; height: 52px;
   border-radius: 50%;
@@ -260,14 +255,11 @@ h1,h2,h3,h4,h5 {
   box-shadow: 0 4px 10px rgba(0,0,0,0.15);
 }
 .sidebar-institute .inst-name {
-  font-size: 0.82rem;
-  font-weight: 800;
+  font-size: 0.82rem; font-weight: 800;
   margin: 4px 0 2px;
 }
 .sidebar-institute .inst-tag {
-  font-size: 0.6rem;
-  opacity: 0.85;
-  font-weight: 400;
+  font-size: 0.6rem; opacity: 0.85; font-weight: 400;
 }
 .sidebar-avatar {
   width: 72px; height: 72px; margin: 0 auto 12px;
@@ -405,7 +397,6 @@ h1,h2,h3,h4,h5 {
   padding: 5px 14px; border-radius: 100px; margin-bottom: 8px;
 }
 
-/* ==================== CARDS ==================== */
 .card-modern {
   background: white;
   border: 1px solid var(--line);
@@ -435,7 +426,6 @@ h1,h2,h3,h4,h5 {
 .card-head-icon.emerald { background: var(--grad-emerald); }
 .card-head-icon.rose { background: var(--grad-rose); }
 
-/* ==================== STATS ==================== */
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -482,7 +472,6 @@ h1,h2,h3,h4,h5 {
   letter-spacing: 0.05em;
 }
 
-/* ==================== PROGRESS ==================== */
 .progress-wrap {
   background: var(--surface-tint);
   border-radius: 14px;
@@ -515,7 +504,6 @@ h1,h2,h3,h4,h5 {
   transition: width 0.8s var(--ease);
 }
 
-/* ==================== SUBJECT GRID ==================== */
 .subject-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -587,7 +575,6 @@ h1,h2,h3,h4,h5 {
   font-weight: 600;
 }
 
-/* ==================== TABLES ==================== */
 .table-wrap {
   overflow-x: auto;
   border-radius: var(--radius-md);
@@ -611,7 +598,6 @@ h1,h2,h3,h4,h5 {
 .table-modern tbody tr:last-child td { border-bottom: none; }
 .table-modern tbody tr:hover { background: var(--surface-tint); }
 
-/* ==================== FEE ==================== */
 .fee-stats {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -639,8 +625,7 @@ h1,h2,h3,h4,h5 {
 .fee-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
 .fee-card .amount {
   font-family: 'Space Grotesk', sans-serif;
-  font-size: 1.5rem;
-  font-weight: 700;
+  font-size: 1.5rem; font-weight: 700;
   color: var(--ink);
   display: block;
   margin-bottom: 6px;
@@ -648,14 +633,12 @@ h1,h2,h3,h4,h5 {
 .fee-card.paid .amount { color: var(--emerald); }
 .fee-card.due .amount { color: var(--rose); }
 .fee-card .label {
-  font-size: 0.72rem;
-  color: var(--muted);
+  font-size: 0.72rem; color: var(--muted);
   text-transform: uppercase;
   font-weight: 600;
   letter-spacing: 0.05em;
 }
 
-/* ==================== TIMETABLE ==================== */
 .day-card {
   background: white;
   border: 1px solid var(--line);
@@ -760,7 +743,6 @@ h1,h2,h3,h4,h5 {
 }
 .class-meta i { color: var(--primary); }
 
-/* ==================== PDFS ==================== */
 .pdf-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
@@ -780,17 +762,12 @@ h1,h2,h3,h4,h5 {
   box-shadow: var(--shadow-md);
   border-color: var(--primary-light);
 }
-.pdf-card .card-top {
-  padding: 20px 18px 14px;
-  text-align: center;
-}
+.pdf-card .card-top { padding: 20px 18px 14px; text-align: center; }
 .pdf-icon-wrap {
-  width: 56px;
-  height: 56px;
+  width: 56px; height: 56px;
   border-radius: 14px;
   background: rgba(244,63,94,0.1);
-  display: grid;
-  place-items: center;
+  display: grid; place-items: center;
   font-size: 1.4rem;
   color: var(--rose);
   margin: 0 auto 12px;
@@ -851,7 +828,6 @@ h1,h2,h3,h4,h5 {
   box-shadow: 0 8px 18px -6px rgba(16,185,129,0.5);
 }
 
-/* ==================== PROFILE ==================== */
 .profile-hero {
   background: var(--grad-primary);
   color: white;
@@ -956,7 +932,6 @@ h1,h2,h3,h4,h5 {
   word-break: break-word;
 }
 
-/* ==================== NOTICE ==================== */
 .notice-list {
   display: flex;
   flex-direction: column;
@@ -997,7 +972,6 @@ h1,h2,h3,h4,h5 {
   gap: 8px;
 }
 
-/* ==================== BADGES ==================== */
 .badge-pill-custom {
   display: inline-block;
   padding: 3px 10px;
@@ -1011,7 +985,6 @@ h1,h2,h3,h4,h5 {
 .badge-primary { background: rgba(99,102,241,0.12); color: var(--primary-dark); }
 .badge-info { background: rgba(6,182,212,0.12); color: #0e7490; }
 
-/* ==================== EMPTY / LOADING ==================== */
 .empty-state {
   text-align: center;
   padding: 50px 20px;
@@ -1055,7 +1028,6 @@ h1,h2,h3,h4,h5 {
 }
 @keyframes spin { to { transform: rotate(360deg); } }
 
-/* ==================== BUTTONS ==================== */
 .btn-primary-custom {
   display: inline-flex;
   align-items: center;
@@ -1101,7 +1073,6 @@ h1,h2,h3,h4,h5 {
   box-shadow: 0 10px 22px -10px rgba(99,102,241,0.6);
 }
 
-/* ==================== SEARCH / FILTER ==================== */
 .search-input-wrap {
   position: relative;
   margin-bottom: 18px;
@@ -1164,7 +1135,6 @@ h1,h2,h3,h4,h5 {
   border-radius: 10px;
 }
 
-/* ==================== MODALS ==================== */
 .modal-overlay {
   position: fixed;
   inset: 0;
@@ -1249,7 +1219,6 @@ h1,h2,h3,h4,h5 {
 }
 .btn-modal.ghost:hover { background: var(--line); }
 
-/* PDF Viewer Modal */
 .pdf-preview-overlay {
   position: fixed;
   inset: 0;
@@ -1318,7 +1287,6 @@ h1,h2,h3,h4,h5 {
   display: block;
 }
 
-/* ==================== TOAST ==================== */
 .toast-stack {
   position: fixed;
   top: 84px;
@@ -1356,7 +1324,6 @@ h1,h2,h3,h4,h5 {
   to { opacity: 1; transform: translateX(0); }
 }
 
-/* ==================== SUBJECT DETAIL VIEW ==================== */
 .subject-view-header {
   display: flex;
   align-items: flex-start;
@@ -1396,7 +1363,6 @@ h1,h2,h3,h4,h5 {
   transform: translateY(-2px);
 }
 
-/* ==================== RESPONSIVE ==================== */
 @media (max-width: 991.98px) {
   * {
     -webkit-tap-highlight-color: transparent !important;
@@ -1473,7 +1439,7 @@ h1,h2,h3,h4,h5 {
   <div class="modal-box">
     <div class="modal-icon danger"><i class="fas fa-sign-out-alt"></i></div>
     <h3>Confirm Logout</h3>
-    <p>Are you sure you want to logout? You will need to login again.</p>
+    <p>Do you want to logout? You will need to login again to access your dashboard.</p>
     <div class="modal-actions">
       <button class="btn-modal ghost" onclick="cancelLogout()">Cancel</button>
       <button class="btn-modal danger" onclick="confirmLogout()">Yes, Logout</button>
@@ -1627,7 +1593,7 @@ h1,h2,h3,h4,h5 {
       <div class="footer-icon-box rose"><i class="fas fa-sign-out-alt"></i></div>
       <div class="footer-info"><strong>Logout</strong><small>Exit dashboard</small></div>
     </div>
-    <div class="sidebar-version">v3.1 · Student Portal</div>
+    <div class="sidebar-version">v3.2 · Student Portal</div>
   </div>
 </nav>
 
@@ -1809,7 +1775,6 @@ h1,h2,h3,h4,h5 {
       </div>
     </div>
 
-    <!-- Filters Bar -->
     <div class="card-modern" style="padding: 16px 22px;">
       <div class="filter-bar" style="margin-bottom: 0;">
         <select class="form-select" id="resultsFilterSubject" onchange="applyResultFilters()">
@@ -1822,7 +1787,6 @@ h1,h2,h3,h4,h5 {
       </div>
     </div>
 
-    <!-- Overall Banner -->
     <div class="card-modern" style="padding: 18px 22px;">
       <div style="display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap;">
         <div style="display:flex; align-items:center; gap:14px;">
@@ -1954,10 +1918,11 @@ h1,h2,h3,h4,h5 {
 
 <script>
 /* =========================================================
-   STUDENT DASHBOARD — v3.1
+   STUDENT DASHBOARD — v3.2
    ========================================================= */
 
 const API_BASE_URL = 'https://avinashprajapati.pythonanywhere.com/api';
+const SESSION_EXPIRY_MS = 8 * 60 * 60 * 1000; // 8 hours
 
 let studentData = null;
 let STUDENT_ID = null;
@@ -2090,12 +2055,87 @@ function confirmLogout() {
   sessionStorage.clear();
   document.getElementById('logoutModal').classList.remove('show');
   showToast('Logged out successfully', 'success');
-  setTimeout(() => window.location.href = "index.html", 800);
+  setTimeout(() => window.location.href = "index.html", 500);
 }
 
 function openNoticesFromHeader() {
   showSection('notice', document.querySelector('[data-section="notice"]'));
 }
+
+/* ==================== BACK BUTTON HANDLING ==================== */
+/* Strategy:
+   - Push dashboard state on load
+   - On back: 
+     - If PDF viewer open → close PDF, re-push
+     - If any modal open → close modal, re-push
+     - If subject detail view open → go to main view, re-push
+     - Otherwise → push state again, show logout confirm modal
+*/
+
+function pushDashboardState() {
+  try {
+    history.pushState({ page: 'dashboard' }, '', '');
+  } catch (e) {}
+}
+
+function isSessionValid() {
+  const loginTime = sessionStorage.getItem('studentLoginTime') || 
+                    localStorage.getItem('studentLoginTime');
+  if (!loginTime) return true;
+  return (Date.now() - parseInt(loginTime)) <= SESSION_EXPIRY_MS;
+}
+
+window.addEventListener('popstate', (e) => {
+  // Session expired → redirect to index
+  if (!isSessionValid()) {
+    sessionStorage.clear();
+    window.location.href = 'index.html';
+    return;
+  }
+
+  // 1. PDF viewer open → close
+  const pdfModal = document.getElementById('pdfPreviewModal');
+  if (pdfModal && pdfModal.classList.contains('show')) {
+    closePdfPreview();
+    pushDashboardState();
+    return;
+  }
+
+  // 2. Login modal open → just re-push (don't allow leaving)
+  const loginModal = document.getElementById('loginModal');
+  if (loginModal && loginModal.classList.contains('show')) {
+    pushDashboardState();
+    return;
+  }
+
+  // 3. Logout modal open → close modal
+  const logoutModal = document.getElementById('logoutModal');
+  if (logoutModal && logoutModal.classList.contains('show')) {
+    cancelLogout();
+    pushDashboardState();
+    return;
+  }
+
+  // 4. Any other modal open → close
+  const openModal = document.querySelector('.modal-overlay.show');
+  if (openModal && openModal.id !== 'loginModal') {
+    openModal.classList.remove('show');
+    pushDashboardState();
+    return;
+  }
+
+  // 5. Subject detail view open → go to main view
+  const subView = document.getElementById('attendanceSubjectView');
+  if (subView && subView.style.display !== 'none') {
+    showMainView();
+    pushDashboardState();
+    return;
+  }
+
+  // 6. Otherwise — user is trying to leave → push back, show logout confirm
+  pushDashboardState();
+  showLogoutConfirmation();
+});
 
 /* ==================== INIT ==================== */
 document.addEventListener('DOMContentLoaded', () => {
@@ -2103,6 +2143,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (window.innerWidth >= 992) {
     document.getElementById('sidebar').classList.add('expanded');
   }
+  pushDashboardState(); // Push initial dashboard state
   loadStudentData();
   showMainView();
 });
@@ -2140,7 +2181,7 @@ async function loadProfile() {
     // Header avatar
     const headerAvatar = document.getElementById('headerAvatar');
     if (s.student_photo && s.student_photo !== 'null') {
-      headerAvatar.innerHTML = `<img src="${escapeHtml(s.student_photo)}" alt="${escapeHtml(s.name)}">`;
+      headerAvatar.innerHTML = `<img src="${escapeHtml(s.student_photo)}" alt="${escapeHtml(s.name)}" onerror="this.parentElement.innerHTML='<i class=\\'fas fa-user-graduate\\'></i>'">`;
     }
 
     // Sidebar
@@ -2151,7 +2192,7 @@ async function loadProfile() {
     // Sidebar avatar
     const sidebarAvatar = document.getElementById('sidebarAvatar');
     if (s.student_photo && s.student_photo !== 'null') {
-      sidebarAvatar.innerHTML = `<img src="${escapeHtml(s.student_photo)}" alt="${escapeHtml(s.name)}">`;
+      sidebarAvatar.innerHTML = `<img src="${escapeHtml(s.student_photo)}" alt="${escapeHtml(s.name)}" onerror="this.parentElement.innerHTML='<i class=\\'fas fa-user-graduate\\'></i>'">`;
     }
 
     let qualHtml = '';
@@ -2261,15 +2302,37 @@ function filterSubjectCards(val) {
 
 function filterAttendanceRecords(val) {
   const rows = document.querySelectorAll('#subjectDetailRecords tr');
+  let visibleCount = 0;
   rows.forEach(row => {
+    if (row.querySelector('td[colspan]')) return;
     if (val === 'all') {
       row.style.display = '';
+      visibleCount++;
     } else {
       const badge = row.querySelector('.badge-pill-custom');
       const status = badge?.textContent?.trim() || '';
-      row.style.display = status === val ? '' : 'none';
+      if (status === val) {
+        row.style.display = '';
+        visibleCount++;
+      } else {
+        row.style.display = 'none';
+      }
     }
   });
+  
+  // Empty filter state
+  const tbody = document.getElementById('subjectDetailRecords');
+  const existingEmpty = tbody.querySelector('.filter-empty-row');
+  if (existingEmpty) existingEmpty.remove();
+  if (visibleCount === 0 && rows.length > 0) {
+    const emptyRow = document.createElement('tr');
+    emptyRow.className = 'filter-empty-row';
+    emptyRow.innerHTML = `<td colspan="4" style="text-align:center; color:var(--muted); padding:30px;">
+      <i class="fas fa-filter" style="font-size:1.5rem; display:block; margin-bottom:8px; opacity:0.4;"></i>
+      No ${val.toLowerCase()} records found
+    </td>`;
+    tbody.appendChild(emptyRow);
+  }
 }
 
 function openSubjectDetail(subjectName) {
@@ -2305,7 +2368,6 @@ function openSubjectDetail(subjectName) {
     }).join('');
   }
 
-  // Reset filter
   const filterEl = document.getElementById('attendanceFilter');
   if (filterEl) filterEl.value = 'all';
 
@@ -2693,7 +2755,6 @@ async function loadResults() {
     allResults = data.results || [];
 
     if (allResults.length) {
-      // Populate filter dropdowns
       const subjects = [...new Set(allResults.map(r => r.subject).filter(Boolean))].sort();
       const exams = [...new Set(allResults.map(r => r.exam_type).filter(Boolean))].sort();
 
@@ -2702,7 +2763,6 @@ async function loadResults() {
       if (subEl) subEl.innerHTML = '<option value="">All Subjects</option>' + subjects.map(s => `<option value="${escapeHtml(s)}">${escapeHtml(s)}</option>`).join('');
       if (exEl) exEl.innerHTML = '<option value="">All Exams</option>' + exams.map(e => `<option value="${escapeHtml(e)}">${escapeHtml(e)}</option>`).join('');
 
-      // Overall banner
       const totalPct = allResults.reduce((sum, r) => {
         const t = r.total_marks || 0;
         return sum + (t ? (r.marks_obtained / t) * 100 : 0);
@@ -2762,7 +2822,6 @@ function applyResultFilters() {
 
   const sorted = [...filtered].sort((a, b) => (b.exam_date || '').localeCompare(a.exam_date || ''));
 
-  // Subject-wise average
   const subjectAvg = {};
   sorted.forEach(r => {
     const t = r.total_marks || 0;
@@ -2979,7 +3038,11 @@ document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') {
     closeAllMenus();
     const pdfModal = document.getElementById('pdfPreviewModal');
-    if (pdfModal && pdfModal.classList.contains('show')) closePdfPreview();
+    if (pdfModal && pdfModal.classList.contains('show')) {
+      closePdfPreview();
+      pushDashboardState();
+      return;
+    }
     cancelLogout();
   }
 });
