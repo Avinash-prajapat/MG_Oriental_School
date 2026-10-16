@@ -1,402 +1,722 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
-  <title>Student Login - M.G. Oriental School & New Era Coaching</title>
-  <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="icon" href="logo.png" type="image/png">
-  <style>
-    :root {
-      --primary: #6366f1;
-      --primary-dark: #4f46e5;
-      --gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
-      --secondary: #8a8d93;
-      --light: #f7f7f7;
-      --dark: #1c1e21;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Student Login - M.G. Oriental School & New Era Coaching</title>
+<meta name="description" content="Student login portal — access your dashboard, attendance, results, fees and study materials.">
+<meta name="theme-color" content="#0d3b66">
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="icon" href="logo.png" type="image/png">
 
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
+<style>
+:root {
+  --navy: #0d3b66;
+  --navy-dark: #092a4a;
+  --navy-light: #1e5a99;
+  --gold: #d4a017;
+  --gold-light: #f0b429;
+  --cream: #fefbf5;
+  --gray-50: #f9fafb;
+  --gray-100: #f3f4f6;
+  --gray-200: #e5e7eb;
+  --gray-400: #9ca3af;
+  --gray-600: #4b5563;
+  --gray-800: #1f2937;
+  --white: #ffffff;
+  --success: #16a34a;
+  --danger: #dc2626;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+  --shadow-md: 0 4px 20px rgba(13,59,102,0.08);
+  --shadow-lg: 0 15px 40px rgba(13,59,102,0.12);
+  --radius: 12px;
+  --radius-lg: 20px;
+  --transition: all 0.3s ease;
 
-    /* --- Navbar --- */
-    .navbar {
-      background: linear-gradient(135deg, #1e3a8a, #3b82f6);
-      padding: 12px 0;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-    }
+  /* Student theme colors */
+  --student-primary: #6366f1;
+  --student-violet: #8b5cf6;
+  --grad-student: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+}
 
-    .navbar-brand {
-      color: white;
-      font-weight: 700;
-      font-size: 1.1rem;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
+* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html { scroll-behavior: smooth; }
 
-    .navbar-brand img {
-      height: 35px;
-      width: auto;
-    }
+body {
+  font-family: 'Inter', sans-serif;
+  color: var(--gray-800);
+  background: var(--gray-50);
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
 
-    @media (min-width: 768px) {
-      .navbar-brand {
-        font-size: 1.3rem;
-      }
-      .navbar-brand img {
-        height: 40px;
-      }
-    }
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  line-height: 1.25;
+}
 
-    .navbar-brand:hover {
-      color: #fcd34d;
-    }
+img { max-width: 100%; height: auto; display: block; }
 
-    /* --- Login Box --- */
-    .login-container {
-      width: 100%;
-      max-width: 420px;
-      margin: 40px auto;
-      padding: 2rem;
-      background: rgba(255, 255, 255, 0.98);
-      border-radius: 20px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-      backdrop-filter: blur(10px);
-    }
+/* ==================== TOP NAVBAR ==================== */
+.top-navbar {
+  background: var(--white);
+  box-shadow: var(--shadow-sm);
+  padding: 12px 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  border-bottom: 1px solid var(--gray-200);
+}
 
-    @media (max-width: 480px) {
-      .login-container {
-        margin: 20px auto;
-        padding: 1.5rem;
-        width: calc(100% - 30px);
-      }
-    }
+.top-navbar .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
 
-    .student-header {
-      background: var(--gradient);
-      color: white;
-      padding: 1.2rem;
-      border-radius: 15px;
-      margin-bottom: 1.5rem;
-      text-align: center;
-    }
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 18px;
+  border-radius: 10px;
+  background: var(--gray-50);
+  border: 1.5px solid var(--gray-200);
+  color: var(--gray-800);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.82rem;
+  transition: var(--transition);
+  white-space: nowrap;
+}
+.back-btn:hover {
+  background: var(--navy);
+  color: white;
+  border-color: var(--navy);
+  transform: translateX(-3px);
+}
+.back-btn i { font-size: 0.85rem; }
 
-    .student-header i {
-      font-size: 2.5rem;
-      margin-bottom: 10px;
-    }
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'Playfair Display', serif;
+  font-weight: 800;
+  color: var(--navy);
+  text-decoration: none;
+  font-size: 1.1rem;
+  line-height: 1.1;
+  flex: 1;
+  justify-content: center;
+}
+.navbar-brand img {
+  height: 40px;
+  width: auto;
+  border-radius: 8px;
+}
+.navbar-brand span small {
+  display: block;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 500;
+  color: var(--gray-600);
+  letter-spacing: 1px;
+}
 
-    .student-header h3 {
-      font-size: 1.3rem;
-      margin-bottom: 5px;
-    }
+@media (max-width: 575px) {
+  .navbar-brand { font-size: 0.92rem; }
+  .navbar-brand img { height: 32px; }
+  .navbar-brand span small { font-size: 0.58rem; }
+  .back-btn { padding: 8px 14px; font-size: 0.75rem; }
+  .back-btn span { display: none; }
+}
 
-    .student-header p {
-      font-size: 0.8rem;
-      opacity: 0.9;
-      margin: 0;
-    }
+/* ==================== HERO MINI ==================== */
+.hero-mini {
+  position: relative;
+  background: linear-gradient(rgba(13,59,102,0.85), rgba(9,42,74,0.92)),
+              url('school-image.jpg') center/cover no-repeat;
+  color: white;
+  padding: 50px 0 40px;
+  text-align: center;
+}
 
-    .form-control {
-      border-radius: 12px;
-      padding: 12px 15px;
-      border: 2px solid #e2e8f0;
-      transition: all 0.3s ease;
-    }
+.hero-mini::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 40px;
+  background: var(--gray-50);
+  clip-path: polygon(0 100%, 100% 0, 100% 100%);
+  pointer-events: none;
+}
 
-    .form-control:focus {
-      border-color: var(--primary);
-      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
-    }
+.hero-mini-content { position: relative; z-index: 2; }
 
-    .input-group-text {
-      background: white;
-      border: 2px solid #e2e8f0;
-      border-right: none;
-      border-radius: 12px 0 0 12px;
-      color: var(--primary);
-    }
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(212,160,23,0.25);
+  border: 1px solid rgba(212,160,23,0.5);
+  color: var(--gold-light);
+  padding: 7px 18px;
+  border-radius: 50px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  margin-bottom: 16px;
+}
+.hero-badge i { font-size: 0.65rem; }
 
-    .input-group .form-control {
-      border-left: none;
-      border-radius: 0 12px 12px 0;
-    }
+.hero-mini h1 {
+  font-size: clamp(1.5rem, 4vw, 2.2rem);
+  font-weight: 800;
+  margin-bottom: 8px;
+  letter-spacing: -0.5px;
+}
+.hero-mini h1 .gold { color: var(--gold-light); }
 
-    .btn-primary {
-      background: var(--gradient);
-      border: none;
-      border-radius: 50px;
-      padding: 12px;
-      font-weight: 600;
-      font-size: 1rem;
-      transition: all 0.3s ease;
-    }
+.hero-mini p {
+  font-size: 0.9rem;
+  opacity: 0.9;
+  margin: 0;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 12px;
+}
 
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
-    }
+@media (max-width: 575px) {
+  .hero-mini { padding: 36px 0 32px; }
+  .hero-mini h1 { font-size: 1.35rem; }
+  .hero-mini p { font-size: 0.82rem; }
+}
 
-    .password-toggle {
-      background: white;
-      border: 2px solid #e2e8f0;
-      border-left: none;
-      border-radius: 0 12px 12px 0;
-      color: #94a3b8;
-    }
+/* ==================== LOGIN SECTION ==================== */
+.login-section-wrap {
+  flex: 1;
+  padding: 0 20px 60px;
+  margin-top: -60px;
+  position: relative;
+  z-index: 3;
+}
 
-    .password-toggle:hover {
-      color: var(--primary);
-      background: #f8fafc;
-    }
+.login-card {
+  background: white;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  max-width: 460px;
+  margin: 0 auto;
+  border: 1px solid var(--gray-200);
+  overflow: hidden;
+}
 
-    .form-text {
-      font-size: 0.7rem;
-      color: #94a3b8;
-      margin-top: 5px;
-      margin-left: 5px;
-    }
+/* Header */
+.login-card-head {
+  background: var(--grad-student);
+  color: white;
+  padding: 32px 26px 28px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
 
-    .login-links {
-      text-align: center;
-      margin-top: 1.2rem;
-    }
+.login-card-head::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(255,255,255,0.18) 0%, transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(255,255,255,0.1) 0%, transparent 50%);
+  pointer-events: none;
+}
 
-    .login-links a {
-      color: var(--primary);
-      text-decoration: none;
-      font-size: 0.85rem;
-      font-weight: 500;
-    }
+.login-card-head::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px);
+  background-size: 32px 32px;
+  mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+  -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+  pointer-events: none;
+}
 
-    .login-links a:hover {
-      text-decoration: underline;
-    }
+.login-card-head > * { position: relative; z-index: 1; }
 
-    .alert {
-      border-radius: 12px;
-      border: none;
-      font-size: 0.85rem;
-    }
+.login-avatar {
+  width: 74px;
+  height: 74px;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.22);
+  border: 2px solid rgba(255,255,255,0.4);
+  display: grid;
+  place-items: center;
+  margin: 0 auto 16px;
+  font-size: 1.8rem;
+  color: white;
+  animation: pulseGlow 3s ease-in-out infinite;
+}
 
-    /* --- Footer --- */
-    .footer {
-      background: linear-gradient(135deg, #0f172a, #1e293b);
-      color: white;
-      padding: 40px 0 20px;
-      margin-top: auto;
-    }
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255,255,255,0.2); }
+  50% { box-shadow: 0 0 0 14px rgba(255,255,255,0); }
+}
 
-    .footer h4, .footer h5 {
-      font-weight: 700;
-      margin-bottom: 15px;
-      font-size: 1rem;
-    }
+.login-card-head h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
 
-    .footer p, .footer a {
-      font-size: 0.75rem;
-      color: #cbd5e0;
-      text-decoration: none;
-    }
+.login-card-head p {
+  font-size: 0.82rem;
+  opacity: 0.9;
+  margin: 0;
+}
 
-    .footer a:hover {
-      color: #a5b4fc;
-    }
+/* Body */
+.login-card-body {
+  padding: 30px 26px 26px;
+}
 
-    .footer ul {
-      list-style: none;
-      padding: 0;
-    }
+.form-label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--gray-800);
+  margin-bottom: 6px;
+  display: block;
+}
 
-    .footer ul li {
-      margin-bottom: 8px;
-    }
+.input-group-custom {
+  display: flex;
+  align-items: stretch;
+  border: 1.5px solid var(--gray-200);
+  border-radius: 10px;
+  background: var(--gray-50);
+  overflow: hidden;
+  transition: var(--transition);
+}
+.input-group-custom:focus-within {
+  border-color: var(--student-primary);
+  background: white;
+  box-shadow: 0 0 0 4px rgba(99,102,241,0.12);
+}
+.input-group-custom .input-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  color: var(--student-primary);
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+.input-group-custom .form-input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  padding: 12px 14px 12px 0;
+  font-size: 0.9rem;
+  font-family: 'Inter', sans-serif;
+  color: var(--gray-800);
+  outline: none;
+  min-width: 0;
+}
+.input-group-custom .form-input::placeholder {
+  color: var(--gray-400);
+}
+.input-group-custom .pwd-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  border: none;
+  background: transparent;
+  color: var(--gray-400);
+  cursor: pointer;
+  transition: var(--transition);
+  flex-shrink: 0;
+}
+.input-group-custom .pwd-toggle:hover {
+  color: var(--student-primary);
+}
 
-    .social-icons a {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 35px;
-      height: 35px;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 50%;
-      margin-right: 10px;
-      color: white;
-      transition: all 0.3s ease;
-    }
+.form-hint {
+  font-size: 0.72rem;
+  color: var(--gray-400);
+  margin-top: 6px;
+  margin-left: 4px;
+}
 
-    .social-icons a:hover {
-      background: var(--gradient);
-      transform: translateY(-3px);
-    }
+/* Submit Button */
+.btn-login {
+  width: 100%;
+  border: none;
+  background: var(--grad-student);
+  color: white;
+  padding: 14px 24px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 0.92rem;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 10px 24px -10px rgba(99,102,241,0.7);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  position: relative;
+  overflow: hidden;
+}
+.btn-login::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+  transition: left 0.6s ease;
+}
+.btn-login:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 32px -12px rgba(99,102,241,0.85);
+}
+.btn-login:hover:not(:disabled)::after {
+  left: 100%;
+}
+.btn-login:disabled {
+  opacity: 0.75;
+  cursor: not-allowed;
+}
 
-    .footer hr {
-      border-color: #334155;
-    }
+/* Links */
+.login-links {
+  text-align: center;
+  margin-top: 20px;
+}
 
-    @media (max-width: 768px) {
-      .footer {
-        padding: 30px 0 15px;
-      }
-      .footer h4, .footer h5 {
-        font-size: 0.9rem;
-      }
-    }
+.login-links a {
+  color: var(--student-primary);
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: var(--transition);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.login-links a:hover {
+  color: var(--student-violet);
+  transform: translateY(-1px);
+}
 
-    /* Toast */
-    .toast-container {
-      position: fixed;
-      top: 80px;
-      right: 20px;
-      z-index: 9999;
-    }
-    .toast-msg {
-      background: white;
-      border-radius: 12px;
-      padding: 12px 20px;
-      min-width: 250px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-      border-left: 4px solid var(--primary);
-      animation: slideIn 0.3s ease;
-    }
-    @keyframes slideIn {
-      from { opacity: 0; transform: translateX(100px); }
-      to { opacity: 1; transform: translateX(0); }
-    }
-  </style>
+/* Alert */
+.alert-custom {
+  border-radius: 10px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  padding: 12px 16px;
+  margin-top: 18px;
+  display: none;
+  animation: slideDown 0.3s ease;
+  border: none;
+}
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.alert-custom.show { display: block; }
+.alert-danger {
+  background: rgba(220,38,38,0.1);
+  color: var(--danger);
+  border-left: 4px solid var(--danger);
+}
+.alert-success {
+  background: rgba(22,163,74,0.1);
+  color: var(--success);
+  border-left: 4px solid var(--success);
+}
+
+@media (max-width: 575px) {
+  .login-section-wrap { padding: 0 14px 40px; margin-top: -40px; }
+  .login-card { border-radius: var(--radius); }
+  .login-card-head { padding: 26px 22px 22px; }
+  .login-card-head h2 { font-size: 1.2rem; }
+  .login-avatar { width: 64px; height: 64px; font-size: 1.5rem; border-radius: 18px; }
+  .login-card-body { padding: 24px 22px 22px; }
+}
+
+/* ==================== FOOTER ==================== */
+.footer {
+  background: var(--navy-dark);
+  color: rgba(255,255,255,0.75);
+  padding: 50px 0 20px;
+  margin-top: auto;
+}
+
+.footer h5 {
+  color: white;
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem;
+  margin-bottom: 18px;
+  position: relative;
+  padding-bottom: 10px;
+}
+.footer h5::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 35px;
+  height: 2px;
+  background: var(--gold);
+}
+
+.footer p {
+  font-size: 0.8rem;
+  line-height: 1.7;
+  margin-bottom: 8px;
+}
+
+.footer ul { list-style: none; padding: 0; }
+.footer ul li { margin-bottom: 8px; }
+.footer ul li a {
+  color: rgba(255,255,255,0.7);
+  text-decoration: none;
+  font-size: 0.8rem;
+  transition: color 0.25s ease, padding 0.25s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.footer ul li a:hover {
+  color: var(--gold);
+  padding-left: 4px;
+}
+.footer ul li a i { font-size: 0.65rem; color: var(--gold); }
+
+.footer-social a {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.08);
+  color: white;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 8px;
+  text-decoration: none;
+  font-size: 0.85rem;
+  transition: var(--transition);
+}
+.footer-social a:hover {
+  background: var(--gold);
+  transform: translateY(-3px);
+  color: white;
+}
+
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding-top: 20px;
+  margin-top: 34px;
+  text-align: center;
+  font-size: 0.76rem;
+}
+.footer-bottom a { color: var(--gold); text-decoration: none; }
+
+/* ==================== RESPONSIVE ==================== */
+@media (max-width: 575px) {
+  .footer { padding: 40px 0 15px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: var(--gray-100); }
+::-webkit-scrollbar-thumb { background: var(--navy); border-radius: 5px; }
+::-webkit-scrollbar-thumb:hover { background: var(--navy-light); }
+</style>
 </head>
 <body>
 
-  <!-- Header/Navbar -->
-  <nav class="navbar navbar-expand-lg">
-    <div class="container">
-      <a class="navbar-brand" href="index.html">
-        <img src="logo.png" alt="Logo" onerror="this.style.display='none'">
-        MG Oriental & New Era
-      </a>
-    </div>
-  </nav>
-
-  <!-- Login Box -->
-  <div class="login-container">
-    <div class="student-header">
-      <i class="fas fa-user-graduate"></i>
-      <h3>Student Login</h3>
-      <p>Access your dashboard at 22 Mile Chowk, Patepur</p>
-    </div>
-
-    <!-- Login Form -->
-    <form id="studentLoginForm">
-      <div class="mb-3">
-        <label for="studentId" class="form-label">Student ID</label>
-        <div class="input-group">
-          <span class="input-group-text"><i class="fas fa-id-card"></i></span>
-          <input type="text" class="form-control" placeholder="Enter your Student ID" id="studentId" name="student_id" required autocomplete="off">
-        </div>
-        <div class="form-text">Enter your registered Student ID (e.g., STU001)</div>
-      </div>
-
-      <div class="mb-3">
-        <label for="password" class="form-label">Password</label>
-        <div class="input-group">
-          <span class="input-group-text"><i class="fas fa-lock"></i></span>
-          <input type="password" class="form-control" placeholder="Enter your password" id="password" name="password" required>
-          <button type="button" class="btn password-toggle" id="togglePassword">
-            <i class="fas fa-eye"></i>
-          </button>
-        </div>
-        <div class="form-text">Default password: 123456 (change after login)</div>
-      </div>
-
-      <button type="submit" class="btn btn-primary w-100 py-2 mb-3">
-        <span class="button-text"><i class="fas fa-sign-in-alt me-2"></i>Login to Dashboard</span>
-      </button>
-    </form>
-
-    <!-- Links -->
-    <div class="login-links">
-      <a href="forgot-password.html"><i class="fas fa-key me-1"></i> Forgot Password?</a>
-    </div>
-
-    <!-- Alert Message -->
-    <div id="alertMessage" class="alert alert-danger mt-3" style="display: none;"></div>
+<!-- ==================== TOP NAVBAR ==================== -->
+<nav class="top-navbar">
+  <div class="container">
+    <a href="choose-login.html" class="back-btn">
+      <i class="fas fa-arrow-left"></i>
+      <span>Back</span>
+    </a>
+    <a href="index.html" class="navbar-brand">
+      <img src="logo.png" alt="Logo" onerror="this.style.display='none'">
+      <span>
+        M.G. Oriental School
+        <small>& New Era Coaching</small>
+      </span>
+    </a>
+    <div style="width: 130px;"></div>
   </div>
+</nav>
 
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-4 mb-3">
-          <h4><i class="fas fa-graduation-cap me-2"></i>MG Oriental & New Era</h4>
-          <p>Quality education at 22 Mile Chowk, Tejpurwa, Patepur, Vaishali since 2016.</p>
-          <p class="mt-2"><i class="fas fa-phone-alt me-2"></i>9934795178 , 9801640473</p>
-          <p><i class="fas fa-map-marker-alt me-2"></i>22 Mile Chowk, Tejpurwa, Patepur, Vaishali, Bihar</p>
-        </div>
-        <div class="col-md-2 mb-3">
-          <h5>Quick Links</h5>
-          <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="index.html#school">School</a></li>
-            <li><a href="index.html#coaching">Coaching</a></li>
-            <li><a href="index.html#courses">Courses</a></li>
-            <li><a href="index.html#contact">Contact</a></li>
-          </ul>
-        </div>
-        <div class="col-md-3 mb-3">
-          <h5>Our Courses</h5>
-          <ul>
-            <li><a href="#">School Courses (Nursery - VIII)</a></li>
-            <li><a href="#">Coaching Classes (1 - 12)</a></li>
-            <li><a href="#">Science & Arts Stream</a></li>
-            <li><a href="#">Crash Course (₹1000 Only)</a></li>
-          </ul>
-        </div>
-        <div class="col-md-3 mb-3">
-          <h5>Follow Us</h5>
-          <div class="social-icons mb-3">
-            <a href="#"><i class="fab fa-facebook-f"></i></a>
-            <a href="#"><i class="fab fa-instagram"></i></a>
-            <a href="#"><i class="fab fa-youtube"></i></a>
-            <a href="#"><i class="fab fa-whatsapp"></i></a>
-          </div>
-          <p class="small mb-1">Designed by <strong>Avinash Kumar</strong></p>
-          <p class="small"><a href="https://www.instagram.com/avinashprajapati0408/" target="_blank" style="color:#a5b4fc;"><i class="fab fa-instagram me-1"></i>AI & Software Engineer</a></p>
-        </div>
+<!-- ==================== HERO MINI ==================== -->
+<section class="hero-mini">
+  <div class="container hero-mini-content">
+    <div class="hero-badge">
+      <i class="fas fa-shield-alt"></i> Secure Login
+    </div>
+    <h1>Student <span class="gold">Portal</span></h1>
+    <p>Access your dashboard, attendance, results, fees and study materials</p>
+  </div>
+</section>
+
+<!-- ==================== LOGIN CARD ==================== -->
+<div class="login-section-wrap">
+  <div class="container">
+    <div class="login-card">
+
+      <!-- Header -->
+      <div class="login-card-head">
+        <div class="login-avatar"><i class="fas fa-user-graduate"></i></div>
+        <h2>Student Login</h2>
+        <p>Enter your credentials to continue</p>
       </div>
-      <hr>
-      <div class="text-center">
-        <p class="small mb-0">© 2026 M.G. Oriental School & New Era Coaching Centre. All Rights Reserved.</p>
+
+      <!-- Body -->
+      <div class="login-card-body">
+        <form id="studentLoginForm" novalidate>
+
+          <!-- Student ID -->
+          <div class="mb-3">
+            <label class="form-label" for="studentId">Student ID</label>
+            <div class="input-group-custom">
+              <span class="input-icon"><i class="fas fa-id-card"></i></span>
+              <input type="text" class="form-input" id="studentId" name="student_id"
+                     placeholder="Enter your Student ID" required autocomplete="off" spellcheck="false">
+            </div>
+            <div class="form-hint">Your registered Student ID (e.g., STU001)</div>
+          </div>
+
+          <!-- Password -->
+          <div class="mb-4">
+            <label class="form-label" for="password">Password</label>
+            <div class="input-group-custom">
+              <span class="input-icon"><i class="fas fa-lock"></i></span>
+              <input type="password" class="form-input" id="password" name="password"
+                     placeholder="Enter your password" required autocomplete="current-password">
+              <button type="button" class="pwd-toggle" id="togglePassword" aria-label="Toggle password">
+                <i class="fas fa-eye"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Submit -->
+          <button type="submit" class="btn-login" id="submitBtn">
+            <span class="button-text"><i class="fas fa-sign-in-alt"></i> Login to Dashboard</span>
+          </button>
+
+        </form>
+
+        <!-- Links -->
+        <div class="login-links">
+          <a href="forgot-password.html"><i class="fas fa-key"></i> Forgot Password?</a>
+        </div>
+
+        <!-- Alert -->
+        <div id="alertMessage" class="alert-custom"></div>
       </div>
     </div>
-  </footer>
+  </div>
+</div>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  <script>
-    // API Configuration
-    const API_BASE_URL = 'https://avinashprajapati.pythonanywhere.com';
+<!-- ==================== FOOTER ==================== -->
+<footer class="footer">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-lg-4 col-md-6">
+        <h5>M.G. Oriental School</h5>
+        <p>Nursery to VIII | CBSE Pattern | Free Admission</p>
+        <p>22 Mile Chowk, Tejpurwa, Patepur, Vaishali since 2016.</p>
+        <p><i class="fas fa-phone-alt" style="color: var(--gold); margin-right: 8px;"></i>9934795178 | 9801640473</p>
+      </div>
 
-    // Password toggle functionality
-    document.getElementById('togglePassword').addEventListener('click', function() {
+      <div class="col-lg-2 col-md-6 col-6">
+        <h5>Quick Links</h5>
+        <ul>
+          <li><a href="index.html"><i class="fas fa-angle-right"></i> Home</a></li>
+          <li><a href="index.html#about"><i class="fas fa-angle-right"></i> About</a></li>
+          <li><a href="index.html#courses"><i class="fas fa-angle-right"></i> Courses</a></li>
+          <li><a href="index.html#contact"><i class="fas fa-angle-right"></i> Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="col-lg-3 col-md-6 col-6">
+        <h5>Our Courses</h5>
+        <ul>
+          <li><a href="index.html#courses"><i class="fas fa-angle-right"></i> Nursery to VIII</a></li>
+          <li><a href="index.html#courses"><i class="fas fa-angle-right"></i> Class 1 to 12</a></li>
+          <li><a href="index.html#courses"><i class="fas fa-angle-right"></i> Science &amp; Arts</a></li>
+          <li><a href="index.html#courses"><i class="fas fa-angle-right"></i> Crash Course ₹1000</a></li>
+        </ul>
+      </div>
+
+      <div class="col-lg-3 col-md-6">
+        <h5>Follow Us</h5>
+        <p>Stay connected with us on social media</p>
+        <div class="footer-social">
+          <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+          <a href="https://wa.me/919934795178" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p style="margin-bottom: 6px;">© 2026 M.G. Oriental School &amp; New Era Coaching Centre. All Rights Reserved.</p>
+      <p style="margin: 0; font-size: 0.7rem;">Designed &amp; Developed by <a href="https://www.instagram.com/avinashprajapati0408/?hl=en" target="_blank">Avinash Kumar</a> | AI &amp; Software Engineer</p>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+(function () {
+  'use strict';
+
+  const API_BASE_URL = 'https://avinashprajapati.pythonanywhere.com';
+
+  /* ==================== PASSWORD TOGGLE ==================== */
+  const togglePassword = document.getElementById('togglePassword');
+  if (togglePassword) {
+    togglePassword.addEventListener('click', function () {
       const passwordInput = document.getElementById('password');
       const icon = this.querySelector('i');
-      
+
       if (passwordInput.type === 'password') {
         passwordInput.type = 'text';
         icon.className = 'fas fa-eye-slash';
@@ -405,68 +725,58 @@
         icon.className = 'fas fa-eye';
       }
     });
+  }
 
-    // Show alert message
-    function showAlert(message, type = 'danger') {
-      const alertDiv = document.getElementById('alertMessage');
-      alertDiv.className = `alert alert-${type} mt-3`;
-      alertDiv.textContent = message;
-      alertDiv.style.display = 'block';
-      
-      // Auto hide success messages after 3 seconds
-      if (type === 'success') {
-        setTimeout(() => {
-          alertDiv.style.display = 'none';
-        }, 3000);
-      }
+  /* ==================== ALERT HELPERS ==================== */
+  function showAlert(message, type = 'danger') {
+    const alertDiv = document.getElementById('alertMessage');
+    if (!alertDiv) return;
+    alertDiv.className = `alert-custom alert-${type} show`;
+    alertDiv.textContent = message;
+
+    if (type === 'success') {
+      setTimeout(() => {
+        alertDiv.classList.remove('show');
+      }, 3500);
     }
+  }
 
-    // Hide alert message
-    function hideAlert() {
-      document.getElementById('alertMessage').style.display = 'none';
-    }
+  function hideAlert() {
+    const alertDiv = document.getElementById('alertMessage');
+    if (alertDiv) alertDiv.classList.remove('show');
+  }
 
-    // Show Toast
-    function showToast(message, type = 'info') {
-      const container = document.getElementById('toastContainer');
-      if (!container) return;
-      const toast = document.createElement('div');
-      toast.className = 'toast-msg';
-      toast.style.borderLeftColor = type === 'success' ? '#10b981' : type === 'error' ? '#ef4444' : '#6366f1';
-      toast.innerHTML = `<i class="fas ${type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-circle' : 'fa-info-circle'}" style="color:${type === 'success' ? '#10b981' : type === 'error' ? '#ef4444' : '#6366f1'}"></i><span>${message}</span>`;
-      container.appendChild(toast);
-      setTimeout(() => toast.remove(), 3000);
-    }
+  /* ==================== STUDENT LOGIN ==================== */
+  const form = document.getElementById('studentLoginForm');
+  const submitBtn = document.getElementById('submitBtn');
 
-    // Student Login Form
-    document.getElementById('studentLoginForm').addEventListener('submit', async function(e) {
+  if (form) {
+    form.addEventListener('submit', async function (e) {
       e.preventDefault();
-      
+      hideAlert();
+
       const studentId = document.getElementById('studentId').value.trim().toUpperCase();
       const password = document.getElementById('password').value;
-      const submitBtn = this.querySelector('button[type="submit"]');
       const buttonText = submitBtn.querySelector('.button-text');
 
-      // Validation
       if (!studentId) {
         showAlert('Please enter your Student ID');
         return;
       }
-
       if (!password) {
         showAlert('Please enter your password');
         return;
       }
 
-      // Button state
+      // Button loading state
       submitBtn.disabled = true;
-      buttonText.innerHTML = `<span class="spinner-border spinner-border-sm me-2"></span> Logging in...`;
+      buttonText.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span> Logging in...';
 
       try {
         const response = await fetch(`${API_BASE_URL}/api/student-login`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ 
+          body: JSON.stringify({
             student_id: studentId,
             password: password
           })
@@ -475,32 +785,37 @@
         const result = await response.json();
 
         if (result.success) {
-          showAlert('✅ Login successful! Redirecting to dashboard...', 'success');
-          
-          // Store student data in sessionStorage
+          showAlert('✅ Login successful! Redirecting...', 'success');
+
+          // Store in sessionStorage
           sessionStorage.setItem('studentToken', result.token || 'student-auth');
           sessionStorage.setItem('studentData', JSON.stringify(result.student));
           sessionStorage.setItem('loginTime', new Date().getTime().toString());
-          
-          // Redirect to dashboard after short delay
+
           setTimeout(() => {
             window.location.href = 'dashboard-student.html';
-          }, 1000);
-          
+          }, 900);
         } else {
           showAlert(`❌ ${result.message || 'Invalid Student ID or Password'}`);
           submitBtn.disabled = false;
-          buttonText.innerHTML = `<i class="fas fa-sign-in-alt me-2"></i>Login to Dashboard`;
+          buttonText.innerHTML = '<i class="fas fa-sign-in-alt"></i> Login to Dashboard';
         }
       } catch (error) {
         console.error('Login error:', error);
         showAlert('⚠️ Network error. Please check your connection and try again.');
         submitBtn.disabled = false;
-        buttonText.innerHTML = `<i class="fas fa-sign-in-alt me-2"></i>Login to Dashboard`;
+        buttonText.innerHTML = '<i class="fas fa-sign-in-alt"></i> Login to Dashboard';
       }
     });
+  }
 
-    // Set current year in footer (already done in HTML)
-  </script>
+  /* ==================== ESC KEY ==================== */
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      hideAlert();
+    }
+  });
+})();
+</script>
 </body>
 </html>
