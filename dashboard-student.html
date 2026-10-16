@@ -174,6 +174,10 @@ h1,h2,h3,h4,h5 {
   width: 34px; height: 34px; border-radius: 50%;
   background: var(--grad-primary); display: grid; place-items: center;
   color: white; font-size: 0.85rem; flex-shrink: 0;
+  overflow: hidden;
+}
+.profile-avatar-sm img {
+  width: 100%; height: 100%; object-fit: cover;
 }
 .profile-info { display: flex; flex-direction: column; line-height: 1.1; }
 .profile-info strong { font-size: 0.82rem; font-weight: 700; color: var(--ink); }
@@ -247,30 +251,36 @@ h1,h2,h3,h4,h5 {
   margin-bottom: 16px;
 }
 .sidebar-institute img {
-  width: 56px; height: 56px;
+  width: 52px; height: 52px;
   border-radius: 50%;
   background: white;
-  padding: 5px;
+  padding: 4px;
   object-fit: contain;
   margin-bottom: 8px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.15);
 }
 .sidebar-institute .inst-name {
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   font-weight: 800;
   margin: 4px 0 2px;
 }
 .sidebar-institute .inst-tag {
-  font-size: 0.62rem;
+  font-size: 0.6rem;
   opacity: 0.85;
   font-weight: 400;
 }
 .sidebar-avatar {
-  width: 64px; height: 64px; margin: 0 auto 12px;
+  width: 72px; height: 72px; margin: 0 auto 12px;
   border-radius: 50%; background: rgba(255,255,255,0.22);
-  border: 2px solid rgba(255,255,255,0.4);
+  border: 3px solid rgba(255,255,255,0.45);
   display: grid; place-items: center;
-  font-size: 1.5rem;
+  font-size: 1.8rem;
+  overflow: hidden;
+}
+.sidebar-avatar img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
 }
 .sidebar-name {
   font-size: 0.98rem; font-weight: 700;
@@ -280,7 +290,7 @@ h1,h2,h3,h4,h5 {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.sidebar-subject { font-size: 0.74rem; opacity: 0.92; margin-bottom: 10px; }
+.sidebar-subject { font-size: 0.72rem; opacity: 0.92; margin-bottom: 10px; }
 .sidebar-id-chip {
   display: inline-flex; align-items: center; gap: 6px;
   padding: 5px 12px; background: rgba(255,255,255,0.2);
@@ -425,40 +435,6 @@ h1,h2,h3,h4,h5 {
 .card-head-icon.emerald { background: var(--grad-emerald); }
 .card-head-icon.rose { background: var(--grad-rose); }
 
-/* ==================== WELCOME BANNER ==================== */
-.welcome-banner {
-  background: var(--grad-hero); border-radius: var(--radius-lg);
-  padding: 26px 24px; color: white;
-  margin-bottom: 20px; position: relative; overflow: hidden;
-}
-.welcome-banner::before {
-  content: ''; position: absolute; inset: 0;
-  background-image:
-    radial-gradient(circle at 20% 30%, rgba(255,255,255,0.18) 0%, transparent 40%),
-    radial-gradient(circle at 80% 70%, rgba(6,182,212,0.3) 0%, transparent 50%);
-  pointer-events: none;
-}
-.welcome-banner > * { position: relative; z-index: 1; }
-.welcome-banner h2 { font-size: clamp(1.2rem, 3vw, 1.55rem); margin-bottom: 6px; }
-.welcome-banner p { font-size: 0.88rem; opacity: 0.9; margin: 0 0 18px; }
-.welcome-actions { display: flex; gap: 10px; flex-wrap: wrap; }
-.welcome-btn {
-  display: inline-flex; align-items: center; gap: 8px;
-  padding: 9px 18px;
-  background: rgba(255,255,255,0.18);
-  border: 1px solid rgba(255,255,255,0.35);
-  border-radius: 12px; color: white;
-  text-decoration: none; font-weight: 600;
-  font-size: 0.82rem; cursor: pointer;
-  transition: all 0.3s var(--ease);
-  font-family: inherit;
-}
-.welcome-btn:hover {
-  background: white; color: var(--primary-dark);
-  border-color: white; transform: translateY(-2px);
-  box-shadow: 0 12px 28px -10px rgba(0,0,0,0.3);
-}
-
 /* ==================== STATS ==================== */
 .stats-grid {
   display: grid;
@@ -493,7 +469,6 @@ h1,h2,h3,h4,h5 {
 .stat-icon.success { background: rgba(16,185,129,0.12); color: var(--emerald); }
 .stat-icon.danger { background: rgba(244,63,94,0.12); color: var(--rose); }
 .stat-icon.warning { background: rgba(245,158,11,0.12); color: var(--amber); }
-.stat-icon.cyan { background: rgba(6,182,212,0.12); color: var(--cyan); }
 .stat-info { flex: 1; min-width: 0; }
 .stat-info .num {
   font-family: 'Space Grotesk', sans-serif;
@@ -750,14 +725,14 @@ h1,h2,h3,h4,h5 {
   font-family: 'Space Grotesk', sans-serif;
   font-size: 0.78rem;
   font-weight: 700;
-  min-width: 110px;
+  min-width: 120px;
   text-align: center;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 .class-time small {
-  font-size: 0.6rem;
+  font-size: 0.62rem;
   opacity: 0.9;
   font-weight: 400;
   margin-top: 2px;
@@ -1126,7 +1101,7 @@ h1,h2,h3,h4,h5 {
   box-shadow: 0 10px 22px -10px rgba(99,102,241,0.6);
 }
 
-/* ==================== SEARCH ==================== */
+/* ==================== SEARCH / FILTER ==================== */
 .search-input-wrap {
   position: relative;
   margin-bottom: 18px;
@@ -1155,20 +1130,39 @@ h1,h2,h3,h4,h5 {
   box-shadow: 0 0 0 4px rgba(99,102,241,0.12);
 }
 
-.filter-select {
-  padding: 8px 14px;
-  border: 1.5px solid var(--line);
-  background: white;
-  border-radius: 10px;
-  font-size: 0.78rem;
-  font-family: inherit;
-  font-weight: 500;
-  color: var(--ink-soft);
-  cursor: pointer;
-  outline: none;
-  transition: all 0.3s var(--ease);
+.filter-bar {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 18px;
 }
-.filter-select:focus { border-color: var(--primary); }
+.filter-bar .form-control,
+.filter-bar .form-select {
+  padding: 10px 14px;
+  border-radius: 11px;
+  border: 1.5px solid var(--line);
+  font-size: 0.83rem;
+  font-family: inherit;
+  background: white;
+  color: var(--ink);
+  transition: all 0.3s var(--ease);
+  min-width: 150px;
+}
+.filter-bar .form-control:focus,
+.filter-bar .form-select:focus {
+  border-color: var(--primary);
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(99,102,241,0.12);
+}
+.filter-stats {
+  font-size: 0.78rem;
+  color: var(--muted);
+  margin-top: 12px;
+  padding: 10px 14px;
+  background: var(--surface-tint);
+  border-radius: 10px;
+}
 
 /* ==================== MODALS ==================== */
 .modal-overlay {
@@ -1410,7 +1404,7 @@ h1,h2,h3,h4,h5 {
   }
   .top-header, .sidebar, .card-modern, .stat-card,
   .subject-card, .pdf-card, .day-card, .fee-card,
-  .notice-item, .modal-box, .welcome-banner {
+  .notice-item, .modal-box {
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
   }
@@ -1443,9 +1437,6 @@ h1,h2,h3,h4,h5 {
   .card-head { margin-bottom: 16px; padding-bottom: 12px; }
   .card-head-title { font-size: 0.95rem; }
   .card-head-icon { width: 34px; height: 34px; font-size: 0.82rem; }
-  .welcome-banner { padding: 20px 18px; }
-  .welcome-actions { width: 100%; }
-  .welcome-btn { flex: 1; justify-content: center; }
   .subject-grid { grid-template-columns: 1fr; }
   .pdf-grid { grid-template-columns: 1fr; }
   .fee-stats { grid-template-columns: 1fr; }
@@ -1457,6 +1448,9 @@ h1,h2,h3,h4,h5 {
   .class-time { min-width: auto; width: 100%; }
   .profile-hero { justify-content: center; text-align: center; }
   .profile-hero-info .badges { justify-content: center; }
+  .filter-bar { flex-direction: column; align-items: stretch; }
+  .filter-bar .form-control,
+  .filter-bar .form-select { min-width: 100%; }
 }
 @media (max-width: 400px) {
   .stats-grid { grid-template-columns: 1fr; }
@@ -1533,7 +1527,7 @@ h1,h2,h3,h4,h5 {
       <span class="badge-dot" id="notifDot" style="display:none;"></span>
     </button>
     <div class="profile-trigger" onclick="toggleProfileMenu()" role="button" tabindex="0">
-      <div class="profile-avatar-sm"><i class="fas fa-user-graduate"></i></div>
+      <div class="profile-avatar-sm" id="headerAvatar"><i class="fas fa-user-graduate"></i></div>
       <div class="profile-info">
         <strong id="headerName">Student</strong>
         <small id="headerId">ID: ----</small>
@@ -1571,7 +1565,7 @@ h1,h2,h3,h4,h5 {
       <div class="inst-name">MG Oriental & New Era</div>
       <div class="inst-tag">22 Mile Chowk, Patepur</div>
     </div>
-    <div class="sidebar-avatar"><i class="fas fa-user-graduate"></i></div>
+    <div class="sidebar-avatar" id="sidebarAvatar"><i class="fas fa-user-graduate"></i></div>
     <div class="sidebar-name" id="sidebarStudentName">Loading...</div>
     <div class="sidebar-subject" id="sidebarStudentCourse">Course: --</div>
     <div class="sidebar-id-chip">
@@ -1633,7 +1627,7 @@ h1,h2,h3,h4,h5 {
       <div class="footer-icon-box rose"><i class="fas fa-sign-out-alt"></i></div>
       <div class="footer-info"><strong>Logout</strong><small>Exit dashboard</small></div>
     </div>
-    <div class="sidebar-version">v3.0 · Student Portal</div>
+    <div class="sidebar-version">v3.1 · Student Portal</div>
   </div>
 </nav>
 
@@ -1731,6 +1725,14 @@ h1,h2,h3,h4,h5 {
           </button>
         </div>
 
+        <div class="filter-bar">
+          <select class="form-select" id="attendanceFilter" onchange="filterAttendanceRecords(this.value)">
+            <option value="all">All Records</option>
+            <option value="Present">Present Only</option>
+            <option value="Absent">Absent Only</option>
+          </select>
+        </div>
+
         <div class="table-wrap">
           <table class="table-modern">
             <thead>
@@ -1806,6 +1808,39 @@ h1,h2,h3,h4,h5 {
         <p>Your exam performance and grades</p>
       </div>
     </div>
+
+    <!-- Filters Bar -->
+    <div class="card-modern" style="padding: 16px 22px;">
+      <div class="filter-bar" style="margin-bottom: 0;">
+        <select class="form-select" id="resultsFilterSubject" onchange="applyResultFilters()">
+          <option value="">All Subjects</option>
+        </select>
+        <select class="form-select" id="resultsFilterExam" onchange="applyResultFilters()">
+          <option value="">All Exams</option>
+        </select>
+        <button class="btn-mini" onclick="clearResultFilters()"><i class="fas fa-times"></i> Clear</button>
+      </div>
+    </div>
+
+    <!-- Overall Banner -->
+    <div class="card-modern" style="padding: 18px 22px;">
+      <div style="display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap;">
+        <div style="display:flex; align-items:center; gap:14px;">
+          <div style="width:52px; height:52px; border-radius:14px; background:rgba(16,185,129,0.12); color:var(--emerald); display:grid; place-items:center; font-size:1.3rem;">
+            <i class="fas fa-award"></i>
+          </div>
+          <div>
+            <div style="font-size:0.72rem; color:var(--muted); font-weight:600; text-transform:uppercase; letter-spacing:0.05em;">Overall Percentage</div>
+            <div style="font-family:'Space Grotesk',sans-serif; font-size:1.5rem; font-weight:700;" id="overallResultPct">--%</div>
+          </div>
+        </div>
+        <div style="text-align:right;">
+          <div style="font-size:0.72rem; color:var(--muted); font-weight:600; text-transform:uppercase; letter-spacing:0.05em;">Total Exams</div>
+          <div style="font-family:'Space Grotesk',sans-serif; font-size:1.5rem; font-weight:700;" id="totalExams">--</div>
+        </div>
+      </div>
+    </div>
+
     <div id="resultsContent">
       <div class="loading-container">
         <div class="spinner-custom"></div>
@@ -1919,7 +1954,7 @@ h1,h2,h3,h4,h5 {
 
 <script>
 /* =========================================================
-   STUDENT DASHBOARD — v3.0
+   STUDENT DASHBOARD — v3.1
    ========================================================= */
 
 const API_BASE_URL = 'https://avinashprajapati.pythonanywhere.com/api';
@@ -1929,6 +1964,7 @@ let STUDENT_ID = null;
 let currentPdfId = null;
 let currentPdfTitle = null;
 let allAttendanceDetails = [];
+let allResults = [];
 let subjectStats = {};
 let currentSubjectName = null;
 
@@ -1956,6 +1992,19 @@ function formatDate(d) {
   if (!d) return '-';
   try { return new Date(d).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' }); }
   catch { return d; }
+}
+
+function formatTime12(t) {
+  if (!t) return '-';
+  try {
+    const parts = String(t).split(':');
+    const h = parseInt(parts[0], 10);
+    const m = parseInt(parts[1], 10);
+    if (isNaN(h) || isNaN(m)) return t;
+    const p = h >= 12 ? 'PM' : 'AM';
+    const h12 = h % 12 || 12;
+    return `${h12}:${String(m).padStart(2, '0')} ${p}`;
+  } catch { return t; }
 }
 
 /* ==================== AUTH ==================== */
@@ -2080,12 +2129,30 @@ async function loadProfile() {
     if (!data.success || !data.student) throw new Error(data.message || 'Profile not found');
 
     const s = data.student;
+    const sectionLabel = s.section_name
+      ? `${s.course || ''} · Section ${s.section_name}`
+      : (s.course || '-');
 
-    document.getElementById('sidebarStudentName').textContent = s.name || 'Student';
-    document.getElementById('sidebarStudentCourse').textContent = s.course || '-';
-    document.getElementById('sidebarStudentId').textContent = `ID: ${s.student_id}`;
+    // Header
     document.getElementById('headerName').textContent = (s.name || 'Student').split(' ')[0];
     document.getElementById('headerId').textContent = `ID: ${s.student_id}`;
+
+    // Header avatar
+    const headerAvatar = document.getElementById('headerAvatar');
+    if (s.student_photo && s.student_photo !== 'null') {
+      headerAvatar.innerHTML = `<img src="${escapeHtml(s.student_photo)}" alt="${escapeHtml(s.name)}">`;
+    }
+
+    // Sidebar
+    document.getElementById('sidebarStudentName').textContent = s.name || 'Student';
+    document.getElementById('sidebarStudentCourse').textContent = sectionLabel;
+    document.getElementById('sidebarStudentId').textContent = `ID: ${s.student_id}`;
+
+    // Sidebar avatar
+    const sidebarAvatar = document.getElementById('sidebarAvatar');
+    if (s.student_photo && s.student_photo !== 'null') {
+      sidebarAvatar.innerHTML = `<img src="${escapeHtml(s.student_photo)}" alt="${escapeHtml(s.name)}">`;
+    }
 
     let qualHtml = '';
     if (s.qualifications && s.qualifications.length) {
@@ -2112,10 +2179,6 @@ async function loadProfile() {
       `;
     }
 
-    const sectionLabel = s.section_name
-      ? `${escapeHtml(s.course || '')} · Section ${escapeHtml(s.section_name)}`
-      : '';
-
     container.innerHTML = `
       <div class="profile-hero">
         <div class="profile-hero-avatar">
@@ -2127,7 +2190,7 @@ async function loadProfile() {
           <h2>${escapeHtml(s.name || 'Student')}</h2>
           <div class="badges">
             ${s.course ? `<span class="badge-pill"><i class="fas fa-book"></i> ${escapeHtml(s.course)}</span>` : ''}
-            ${sectionLabel ? `<span class="badge-pill"><i class="fas fa-layer-group"></i> ${sectionLabel}</span>` : ''}
+            ${s.section_name ? `<span class="badge-pill"><i class="fas fa-layer-group"></i> Section ${escapeHtml(s.section_name)}</span>` : ''}
             <span class="badge-pill"><i class="fas fa-id-badge"></i> ${escapeHtml(s.student_id)}</span>
           </div>
         </div>
@@ -2196,6 +2259,19 @@ function filterSubjectCards(val) {
   });
 }
 
+function filterAttendanceRecords(val) {
+  const rows = document.querySelectorAll('#subjectDetailRecords tr');
+  rows.forEach(row => {
+    if (val === 'all') {
+      row.style.display = '';
+    } else {
+      const badge = row.querySelector('.badge-pill-custom');
+      const status = badge?.textContent?.trim() || '';
+      row.style.display = status === val ? '' : 'none';
+    }
+  });
+}
+
 function openSubjectDetail(subjectName) {
   if (!subjectName) return;
   currentSubjectName = subjectName;
@@ -2228,6 +2304,10 @@ function openSubjectDetail(subjectName) {
       </tr>`;
     }).join('');
   }
+
+  // Reset filter
+  const filterEl = document.getElementById('attendanceFilter');
+  if (filterEl) filterEl.value = 'all';
 
   document.getElementById('attendanceMainView').style.display = 'none';
   document.getElementById('attendanceSubjectView').style.display = 'block';
@@ -2401,8 +2481,8 @@ async function loadTimetable() {
             ${classes.map(c => `
               <div class="class-item">
                 <div class="class-time">
-                  ${escapeHtml(c.start_time || '')}
-                  <small>to ${escapeHtml(c.end_time || '')}</small>
+                  ${escapeHtml(formatTime12(c.start_time))}
+                  <small>to ${escapeHtml(formatTime12(c.end_time))}</small>
                 </div>
                 <div class="class-info">
                   <h4>${escapeHtml(c.subject || 'Class')}</h4>
@@ -2610,88 +2690,32 @@ async function loadResults() {
   try {
     const res = await fetch(`${API_BASE_URL}/student-results/${STUDENT_ID}`);
     const data = await res.json();
-    const results = data.results || [];
+    allResults = data.results || [];
 
-    if (results.length) {
-      const sorted = [...results].sort((a, b) => (b.exam_date || '').localeCompare(a.exam_date || ''));
+    if (allResults.length) {
+      // Populate filter dropdowns
+      const subjects = [...new Set(allResults.map(r => r.subject).filter(Boolean))].sort();
+      const exams = [...new Set(allResults.map(r => r.exam_type).filter(Boolean))].sort();
 
-      // Subject-wise average
-      const subjectAvg = {};
-      sorted.forEach(r => {
-        if (!subjectAvg[r.subject]) subjectAvg[r.subject] = { total: 0, count: 0 };
-        const pct = (r.marks_obtained / r.total_marks) * 100;
-        subjectAvg[r.subject].total += pct;
-        subjectAvg[r.subject].count++;
-      });
+      const subEl = document.getElementById('resultsFilterSubject');
+      const exEl = document.getElementById('resultsFilterExam');
+      if (subEl) subEl.innerHTML = '<option value="">All Subjects</option>' + subjects.map(s => `<option value="${escapeHtml(s)}">${escapeHtml(s)}</option>`).join('');
+      if (exEl) exEl.innerHTML = '<option value="">All Exams</option>' + exams.map(e => `<option value="${escapeHtml(e)}">${escapeHtml(e)}</option>`).join('');
 
-      let summaryHtml = '';
-      Object.entries(subjectAvg).forEach(([sub, v]) => {
-        const avg = (v.total / v.count).toFixed(1);
-        const cls = avg >= 75 ? 'badge-success' : avg >= 50 ? 'badge-warning' : 'badge-danger';
-        const color = avg >= 75 ? 'var(--emerald)' : avg >= 50 ? 'var(--amber)' : 'var(--rose)';
-        summaryHtml += `
-          <div class="subject-card" style="cursor:default;">
-            <div class="subject-header">
-              <span class="subject-name">${escapeHtml(sub)}</span>
-              <span class="badge-pill-custom ${cls}">Avg ${avg}%</span>
-            </div>
-            <p style="font-size:0.75rem; color:var(--muted); margin:0;">
-              ${v.count} exam${v.count > 1 ? 's' : ''} completed
-            </p>
-            <div class="progress-track" style="height:6px; margin-top:12px;">
-              <div class="progress-bar-fill" style="width:${avg}%; background:${color};"></div>
-            </div>
-          </div>
-        `;
-      });
+      // Overall banner
+      const totalPct = allResults.reduce((sum, r) => {
+        const t = r.total_marks || 0;
+        return sum + (t ? (r.marks_obtained / t) * 100 : 0);
+      }, 0);
+      const overallPct = allResults.length ? (totalPct / allResults.length).toFixed(1) : 0;
 
-      container.innerHTML = `
-        <div class="card-modern">
-          <div class="card-head">
-            <div class="card-head-title">
-              <div class="card-head-icon emerald"><i class="fas fa-chart-line"></i></div>
-              Subject Performance
-            </div>
-          </div>
-          <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(240px, 1fr)); gap:14px;">
-            ${summaryHtml}
-          </div>
-        </div>
+      document.getElementById('overallResultPct').textContent = overallPct + '%';
+      document.getElementById('totalExams').textContent = allResults.length;
 
-        <div class="card-modern">
-          <div class="card-head">
-            <div class="card-head-title">
-              <div class="card-head-icon"><i class="fas fa-list"></i></div>
-              All Results
-            </div>
-            <span class="badge-pill-custom badge-primary">${sorted.length} records</span>
-          </div>
-          <div class="table-wrap">
-            <table class="table-modern">
-              <thead>
-                <tr><th>Subject</th><th>Exam</th><th>Marks</th><th>%</th><th>Grade</th><th>Date</th></tr>
-              </thead>
-              <tbody>
-                ${sorted.map(r => {
-                  const pct = Math.round((r.marks_obtained / r.total_marks) * 100);
-                  const cls = pct >= 75 ? 'badge-success' : pct >= 50 ? 'badge-warning' : 'badge-danger';
-                  return `
-                    <tr>
-                      <td><strong>${escapeHtml(r.subject)}</strong></td>
-                      <td>${escapeHtml(r.exam_type || '-')}</td>
-                      <td>${r.marks_obtained}/${r.total_marks}</td>
-                      <td><span class="badge-pill-custom ${cls}">${pct}%</span></td>
-                      <td><span class="badge-pill-custom badge-primary">${escapeHtml(r.grade || '-')}</span></td>
-                      <td>${formatDate(r.exam_date)}</td>
-                    </tr>
-                  `;
-                }).join('')}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      `;
+      applyResultFilters();
     } else {
+      document.getElementById('overallResultPct').textContent = '--%';
+      document.getElementById('totalExams').textContent = '0';
       container.innerHTML = `
         <div class="empty-state">
           <div class="empty-icon"><i class="fas fa-chart-bar"></i></div>
@@ -2710,6 +2734,120 @@ async function loadResults() {
       </div>
     `;
   }
+}
+
+function applyResultFilters() {
+  const subjectFilter = document.getElementById('resultsFilterSubject').value;
+  const examFilter = document.getElementById('resultsFilterExam').value;
+
+  const filtered = allResults.filter(r => {
+    if (subjectFilter && r.subject !== subjectFilter) return false;
+    if (examFilter && r.exam_type !== examFilter) return false;
+    return true;
+  });
+
+  const container = document.getElementById('resultsContent');
+
+  if (!filtered.length) {
+    container.innerHTML = `
+      <div class="empty-state">
+        <div class="empty-icon"><i class="fas fa-filter"></i></div>
+        <h4>No matching results</h4>
+        <p>Try changing the filters above.</p>
+        <button class="btn-primary-custom" onclick="clearResultFilters()"><i class="fas fa-times"></i> Clear Filters</button>
+      </div>
+    `;
+    return;
+  }
+
+  const sorted = [...filtered].sort((a, b) => (b.exam_date || '').localeCompare(a.exam_date || ''));
+
+  // Subject-wise average
+  const subjectAvg = {};
+  sorted.forEach(r => {
+    const t = r.total_marks || 0;
+    const pct = t ? (r.marks_obtained / t) * 100 : 0;
+    if (!subjectAvg[r.subject]) subjectAvg[r.subject] = { total: 0, count: 0 };
+    subjectAvg[r.subject].total += pct;
+    subjectAvg[r.subject].count++;
+  });
+
+  let summaryHtml = '';
+  Object.entries(subjectAvg).forEach(([sub, v]) => {
+    const avg = (v.total / v.count).toFixed(1);
+    const cls = avg >= 75 ? 'badge-success' : avg >= 50 ? 'badge-warning' : 'badge-danger';
+    const color = avg >= 75 ? 'var(--emerald)' : avg >= 50 ? 'var(--amber)' : 'var(--rose)';
+    summaryHtml += `
+      <div class="subject-card" style="cursor:default;">
+        <div class="subject-header">
+          <span class="subject-name">${escapeHtml(sub)}</span>
+          <span class="badge-pill-custom ${cls}">Avg ${avg}%</span>
+        </div>
+        <p style="font-size:0.75rem; color:var(--muted); margin:0;">
+          ${v.count} exam${v.count > 1 ? 's' : ''} completed
+        </p>
+        <div class="progress-track" style="height:6px; margin-top:12px;">
+          <div class="progress-bar-fill" style="width:${avg}%; background:${color};"></div>
+        </div>
+      </div>
+    `;
+  });
+
+  container.innerHTML = `
+    <div class="card-modern">
+      <div class="card-head">
+        <div class="card-head-title">
+          <div class="card-head-icon emerald"><i class="fas fa-chart-line"></i></div>
+          Subject Performance
+        </div>
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(240px, 1fr)); gap:14px;">
+        ${summaryHtml}
+      </div>
+    </div>
+
+    <div class="card-modern">
+      <div class="card-head">
+        <div class="card-head-title">
+          <div class="card-head-icon"><i class="fas fa-list"></i></div>
+          All Results
+        </div>
+        <span class="badge-pill-custom badge-primary">${sorted.length} record${sorted.length > 1 ? 's' : ''}</span>
+      </div>
+      <div class="table-wrap">
+        <table class="table-modern">
+          <thead>
+            <tr><th>Subject</th><th>Exam</th><th>Marks</th><th>%</th><th>Grade</th><th>Date</th></tr>
+          </thead>
+          <tbody>
+            ${sorted.map(r => {
+              const t = r.total_marks || 0;
+              const pct = t ? Math.round((r.marks_obtained / t) * 100) : 0;
+              const cls = pct >= 75 ? 'badge-success' : pct >= 50 ? 'badge-warning' : 'badge-danger';
+              return `
+                <tr>
+                  <td><strong>${escapeHtml(r.subject)}</strong></td>
+                  <td>${escapeHtml(r.exam_type || '-')}</td>
+                  <td>${r.marks_obtained}/${r.total_marks}</td>
+                  <td><span class="badge-pill-custom ${cls}">${pct}%</span></td>
+                  <td><span class="badge-pill-custom badge-primary">${escapeHtml(r.grade || '-')}</span></td>
+                  <td>${formatDate(r.exam_date)}</td>
+                </tr>
+              `;
+            }).join('')}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  `;
+}
+
+function clearResultFilters() {
+  const subEl = document.getElementById('resultsFilterSubject');
+  const exEl = document.getElementById('resultsFilterExam');
+  if (subEl) subEl.value = '';
+  if (exEl) exEl.value = '';
+  applyResultFilters();
 }
 
 /* ==================== STUDY MATERIALS ==================== */
