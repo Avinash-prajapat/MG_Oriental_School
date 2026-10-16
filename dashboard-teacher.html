@@ -47,7 +47,6 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 
 <style>
-/* ==================== DESIGN TOKENS ==================== */
 :root {
   --primary: #6366f1;
   --primary-dark: #4f46e5;
@@ -57,7 +56,6 @@
   --emerald: #10b981;
   --amber: #f59e0b;
   --rose: #f43f5e;
-
   --ink: #0f172a;
   --ink-soft: #1e293b;
   --muted: #64748b;
@@ -67,27 +65,22 @@
   --surface: #ffffff;
   --surface-soft: #f8fafc;
   --surface-tint: #f1f5f9;
-
   --grad-primary: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #a855f7 100%);
   --grad-accent: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%);
   --grad-warm: linear-gradient(135deg, #f59e0b 0%, #f43f5e 100%);
   --grad-emerald: linear-gradient(135deg, #10b981 0%, #059669 100%);
   --grad-rose: linear-gradient(135deg, #f43f5e 0%, #e11d48 100%);
   --grad-hero: linear-gradient(135deg, #4f46e5 0%, #7c3aed 45%, #a855f7 100%);
-
   --shadow-xs: 0 1px 2px rgba(15,23,42,0.04);
   --shadow-sm: 0 2px 8px rgba(15,23,42,0.05);
   --shadow-md: 0 8px 24px rgba(15,23,42,0.08);
   --shadow-lg: 0 20px 48px rgba(15,23,42,0.1);
-
   --radius-sm: 10px;
   --radius-md: 16px;
   --radius-lg: 22px;
   --radius-xl: 28px;
-
   --header-h: 68px;
   --sidebar-w: 268px;
-
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -101,7 +94,6 @@ body {
   min-height: 100vh;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
 }
 
 h1,h2,h3,h4,h5 {
@@ -111,7 +103,6 @@ h1,h2,h3,h4,h5 {
   line-height: 1.2;
 }
 
-/* ==================== AURORA (Desktop only) ==================== */
 .aurora-bg {
   position: fixed; inset: 0; z-index: -1; overflow: hidden;
   background: var(--surface-soft);
@@ -131,7 +122,6 @@ h1,h2,h3,h4,h5 {
   bottom: -200px; right: -150px;
 }
 
-/* ==================== HEADER ==================== */
 .top-header {
   position: fixed; top: 0; left: 0; right: 0;
   height: var(--header-h);
@@ -173,7 +163,6 @@ h1,h2,h3,h4,h5 {
 .header-brand-text small {
   display: block; font-size: 0.68rem;
   color: var(--muted); font-weight: 500;
-  letter-spacing: 0;
 }
 .header-spacer { flex: 1; }
 .header-actions { display: flex; align-items: center; gap: 10px; }
@@ -195,12 +184,6 @@ h1,h2,h3,h4,h5 {
   position: absolute; top: 8px; right: 8px;
   width: 8px; height: 8px; border-radius: 50%;
   background: var(--rose); border: 2px solid white;
-  animation: pulseDot 2s infinite;
-}
-@keyframes pulseDot {
-  0% { box-shadow: 0 0 0 0 rgba(244,63,94,0.6); }
-  70% { box-shadow: 0 0 0 8px rgba(244,63,94,0); }
-  100% { box-shadow: 0 0 0 0 rgba(244,63,94,0); }
 }
 
 .profile-trigger {
@@ -209,10 +192,7 @@ h1,h2,h3,h4,h5 {
   background: white; border: 1px solid var(--line);
   cursor: pointer; transition: all 0.3s var(--ease);
 }
-.profile-trigger:hover {
-  border-color: var(--primary-light);
-  box-shadow: 0 8px 20px -8px rgba(99,102,241,0.3);
-}
+.profile-trigger:hover { border-color: var(--primary-light); box-shadow: 0 8px 20px -8px rgba(99,102,241,0.3); }
 .profile-avatar-sm {
   width: 34px; height: 34px; border-radius: 50%;
   background: var(--grad-primary); display: grid; place-items: center;
@@ -222,7 +202,6 @@ h1,h2,h3,h4,h5 {
 .profile-info strong { font-size: 0.82rem; font-weight: 700; color: var(--ink); }
 .profile-info small { font-size: 0.68rem; color: var(--muted); }
 
-/* Dropdown */
 .dropdown-menu-custom {
   position: fixed; top: calc(var(--header-h) - 6px); right: 20px;
   min-width: 250px; background: white;
@@ -248,7 +227,6 @@ h1,h2,h3,h4,h5 {
 .dropdown-item-custom.danger:hover { background: rgba(244,63,94,0.08); }
 .dropdown-divider { height: 1px; background: var(--line); margin: 6px 4px; }
 
-/* ==================== SIDEBAR ==================== */
 .sidebar {
   position: fixed;
   top: var(--header-h);
@@ -265,7 +243,6 @@ h1,h2,h3,h4,h5 {
   flex-direction: column;
   transform: translateX(-100%);
   transition: transform 0.35s var(--ease);
-  -webkit-overflow-scrolling: touch;
 }
 .sidebar.open { transform: translateX(0); }
 .sidebar::-webkit-scrollbar { width: 5px; }
@@ -309,7 +286,6 @@ h1,h2,h3,h4,h5 {
   padding: 5px 12px; background: rgba(255,255,255,0.2);
   border: 1px solid rgba(255,255,255,0.3);
   border-radius: 100px; font-size: 0.68rem; font-weight: 600;
-  letter-spacing: 0.03em;
 }
 
 .sidebar-nav { flex: 1; padding: 14px 12px 8px; }
@@ -329,7 +305,7 @@ h1,h2,h3,h4,h5 {
 }
 .menu-item i {
   width: 20px; text-align: center; color: var(--muted);
-  transition: all 0.25s var(--ease); font-size: 0.95rem;
+  font-size: 0.95rem;
 }
 .menu-item:hover { background: var(--surface-tint); color: var(--primary-dark); }
 .menu-item:hover i { color: var(--primary); }
@@ -369,7 +345,6 @@ h1,h2,h3,h4,h5 {
 .sidebar-version {
   text-align: center; font-size: 0.6rem;
   color: var(--muted-light); padding: 6px 0 2px;
-  letter-spacing: 0.05em;
 }
 
 .sidebar-overlay {
@@ -380,7 +355,6 @@ h1,h2,h3,h4,h5 {
 }
 .sidebar-overlay.show { opacity: 1; visibility: visible; }
 
-/* ==================== MAIN ==================== */
 .main-content {
   margin-top: var(--header-h);
   padding: 24px;
@@ -395,7 +369,6 @@ h1,h2,h3,h4,h5 {
   .sidebar-overlay { display: none !important; }
 }
 
-/* ==================== CONTENT ==================== */
 .content-section { display: none; animation: fadeIn 0.4s var(--ease); }
 .content-section.active { display: block; }
 @keyframes fadeIn { from { opacity: 0; transform: translateY(8px);} to { opacity:1; transform: translateY(0);} }
@@ -413,15 +386,14 @@ h1,h2,h3,h4,h5 {
   padding: 5px 14px; border-radius: 100px; margin-bottom: 8px;
 }
 
-/* ==================== CARDS ==================== */
 .card-modern {
   background: white;
   border: 1px solid var(--line);
   border-radius: var(--radius-lg);
   padding: 22px; margin-bottom: 20px;
-  transition: border-color 0.3s var(--ease), box-shadow 0.3s var(--ease);
+  transition: border-color 0.3s var(--ease);
 }
-.card-modern:hover { border-color: var(--primary-light); box-shadow: var(--shadow-sm); }
+.card-modern:hover { border-color: var(--primary-light); }
 
 .card-head {
   display: flex; align-items: center; justify-content: space-between;
@@ -443,7 +415,6 @@ h1,h2,h3,h4,h5 {
 .card-head-icon.emerald { background: var(--grad-emerald); }
 .card-head-icon.rose { background: var(--grad-rose); }
 
-/* ==================== BUTTONS ==================== */
 .btn-primary-custom {
   display: inline-flex; align-items: center; gap: 8px;
   padding: 10px 20px; border-radius: 12px;
@@ -473,9 +444,8 @@ h1,h2,h3,h4,h5 {
   border-color: transparent; transform: translateY(-2px);
   box-shadow: 0 10px 22px -10px rgba(99,102,241,0.6);
 }
-.btn-mini.danger:hover { background: var(--grad-rose); box-shadow: 0 10px 22px -10px rgba(244,63,94,0.6); }
+.btn-mini.danger:hover { background: var(--grad-rose); }
 
-/* ==================== STATS ==================== */
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -507,7 +477,6 @@ h1,h2,h3,h4,h5 {
 .stat-icon.primary { background: rgba(99,102,241,0.12); color: var(--primary); }
 .stat-icon.success { background: rgba(16,185,129,0.12); color: var(--emerald); }
 .stat-icon.warning { background: rgba(245,158,11,0.12); color: var(--amber); }
-.stat-icon.danger { background: rgba(244,63,94,0.12); color: var(--rose); }
 .stat-icon.cyan { background: rgba(6,182,212,0.12); color: var(--cyan); }
 .stat-info { flex: 1; min-width: 0; }
 .stat-info .num {
@@ -522,7 +491,6 @@ h1,h2,h3,h4,h5 {
   letter-spacing: 0.05em;
 }
 
-/* ==================== WELCOME ==================== */
 .welcome-banner {
   background: var(--grad-hero); border-radius: var(--radius-lg);
   padding: 26px 24px; color: white;
@@ -553,10 +521,8 @@ h1,h2,h3,h4,h5 {
 .welcome-btn:hover {
   background: white; color: var(--primary-dark);
   border-color: white; transform: translateY(-2px);
-  box-shadow: 0 12px 28px -10px rgba(0,0,0,0.3);
 }
 
-/* ==================== DASHBOARD GRID ==================== */
 .dash-grid {
   display: grid;
   grid-template-columns: 1.6fr 1fr;
@@ -564,7 +530,6 @@ h1,h2,h3,h4,h5 {
 }
 @media (max-width: 991.98px) { .dash-grid { grid-template-columns: 1fr; } }
 
-/* Schedule */
 .schedule-list { display: flex; flex-direction: column; gap: 10px; }
 .schedule-item {
   display: flex; gap: 14px; padding: 14px;
@@ -596,7 +561,6 @@ h1,h2,h3,h4,h5 {
 }
 .schedule-info p i { color: var(--primary); font-size: 0.7rem; }
 
-/* Notice */
 .notice-list { display: flex; flex-direction: column; gap: 10px; }
 .notice-item {
   padding: 14px 16px; border-radius: 12px;
@@ -604,13 +568,12 @@ h1,h2,h3,h4,h5 {
   border-left: 3px solid var(--muted-light);
   transition: all 0.3s var(--ease);
 }
-.notice-item:hover { transform: translateX(4px); box-shadow: var(--shadow-sm); }
+.notice-item:hover { transform: translateX(4px); }
 .notice-item.high { border-left-color: var(--rose); background: rgba(244,63,94,0.03); }
 .notice-item.medium { border-left-color: var(--amber); background: rgba(245,158,11,0.03); }
 .notice-item.low { border-left-color: var(--primary); }
 .notice-item h5 {
   font-size: 0.85rem; margin-bottom: 4px; color: var(--ink);
-  display: flex; align-items: center; gap: 8px;
   overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
 }
 .notice-item p { font-size: 0.75rem; color: var(--muted); margin: 0 0 8px; line-height: 1.5; }
@@ -619,13 +582,13 @@ h1,h2,h3,h4,h5 {
   display: flex; align-items: center; gap: 8px;
 }
 
-/* Pending Widget */
 .pending-list { display: flex; flex-direction: column; gap: 10px; }
 .pending-item {
   display: flex; gap: 12px; padding: 12px 14px;
   border-radius: 12px; background: rgba(245,158,11,0.05);
   border: 1px solid rgba(245,158,11,0.2);
   transition: all 0.3s var(--ease);
+  align-items: center;
 }
 .pending-item:hover { background: rgba(245,158,11,0.1); }
 .pending-icon {
@@ -641,7 +604,6 @@ h1,h2,h3,h4,h5 {
 }
 .pending-info p { font-size: 0.72rem; color: var(--muted); margin: 0; }
 
-/* ==================== SECTION CARDS ==================== */
 .sections-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -726,11 +688,9 @@ h1,h2,h3,h4,h5 {
   box-shadow: 0 8px 18px -6px rgba(99,102,241,0.5);
 }
 
-/* ==================== TABLES ==================== */
 .table-wrap {
   overflow-x: auto; border-radius: var(--radius-md);
   border: 1px solid var(--line); background: white;
-  -webkit-overflow-scrolling: touch;
 }
 .table-modern {
   width: 100%; border-collapse: collapse; min-width: 680px;
@@ -749,7 +709,6 @@ h1,h2,h3,h4,h5 {
 .table-modern tbody tr:last-child td { border-bottom: none; }
 .table-modern tbody tr:hover { background: var(--surface-tint); }
 
-/* ==================== FILTERS ==================== */
 .filter-bar {
   display: flex; gap: 10px; flex-wrap: wrap;
   align-items: center; margin-bottom: 18px;
@@ -774,7 +733,6 @@ h1,h2,h3,h4,h5 {
   background: var(--surface-tint); border-radius: 10px;
 }
 
-/* ==================== PDF GRID ==================== */
 .pdf-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
@@ -832,20 +790,15 @@ h1,h2,h3,h4,h5 {
 .pdf-btn.view:hover {
   background: var(--grad-primary); color: white;
   transform: translateY(-2px);
-  box-shadow: 0 8px 18px -6px rgba(99,102,241,0.5);
 }
 .pdf-btn.download { background: var(--grad-emerald); color: white; }
-.pdf-btn.download:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 22px -8px rgba(16,185,129,0.7);
-}
+.pdf-btn.download:hover { transform: translateY(-2px); }
 .pdf-btn.delete { background: rgba(244,63,94,0.1); color: var(--rose); }
 .pdf-btn.delete:hover {
   background: var(--grad-rose); color: white;
   transform: translateY(-2px);
 }
 
-/* ==================== TIMETABLE ==================== */
 .day-card {
   background: white; border: 1px solid var(--line);
   border-radius: var(--radius-md); overflow: hidden;
@@ -887,7 +840,6 @@ h1,h2,h3,h4,h5 {
 .class-item:last-child { margin-bottom: 0; }
 .class-item:hover {
   transform: translateX(4px); border-color: var(--primary-light);
-  box-shadow: var(--shadow-sm);
 }
 .class-time {
   padding: 8px 12px; background: var(--grad-primary); color: white;
@@ -914,7 +866,6 @@ h1,h2,h3,h4,h5 {
 }
 .class-meta i { color: var(--primary); }
 
-/* ==================== EMPTY / LOADING ==================== */
 .empty-state { text-align: center; padding: 50px 20px; }
 .empty-icon {
   width: 72px; height: 72px; margin: 0 auto 16px;
@@ -944,7 +895,6 @@ h1,h2,h3,h4,h5 {
 }
 .skeleton-line { height: 12px; margin-bottom: 10px; border-radius: 6px; }
 
-/* ==================== MODALS ==================== */
 .modal-overlay {
   position: fixed; inset: 0;
   background: rgba(15,23,42,0.6);
@@ -969,7 +919,6 @@ h1,h2,h3,h4,h5 {
   font-size: 1.7rem;
 }
 .modal-icon.danger { background: rgba(244,63,94,0.1); color: var(--rose); }
-.modal-icon.primary { background: rgba(99,102,241,0.1); color: var(--primary); }
 .modal-icon.warning { background: rgba(245,158,11,0.1); color: var(--amber); }
 .modal-box h3 { font-size: 1.15rem; margin-bottom: 8px; }
 .modal-box p {
@@ -986,16 +935,15 @@ h1,h2,h3,h4,h5 {
   transition: all 0.3s var(--ease);
   font-family: inherit; min-width: 110px;
 }
-.btn-modal.danger { background: var(--grad-rose); color: white; box-shadow: 0 10px 24px -10px rgba(244,63,94,0.7); }
+.btn-modal.danger { background: var(--grad-rose); color: white; }
 .btn-modal.danger:hover { transform: translateY(-2px); }
-.btn-modal.primary { background: var(--grad-primary); color: white; box-shadow: 0 10px 24px -10px rgba(99,102,241,0.7); }
+.btn-modal.primary { background: var(--grad-primary); color: white; }
 .btn-modal.primary:hover { transform: translateY(-2px); }
-.btn-modal.warning { background: var(--grad-warm); color: white; box-shadow: 0 10px 24px -10px rgba(245,158,11,0.7); }
+.btn-modal.warning { background: var(--grad-warm); color: white; }
 .btn-modal.warning:hover { transform: translateY(-2px); }
 .btn-modal.ghost { background: var(--surface-tint); color: var(--ink-soft); }
 .btn-modal.ghost:hover { background: var(--line); }
 
-/* ==================== BOOTSTRAP MODAL OVERRIDE ==================== */
 .modal-content {
   border-radius: var(--radius-lg) !important;
   border: none !important;
@@ -1011,7 +959,6 @@ h1,h2,h3,h4,h5 {
 .modal-header .modal-title { font-size: 1rem; font-weight: 700; }
 .modal-header .btn-close { filter: brightness(0) invert(1); opacity: 0.9; }
 .modal-header.bg-warning { background: var(--grad-warm) !important; }
-.modal-header.bg-danger { background: var(--grad-rose) !important; }
 .modal-body { padding: 24px !important; }
 .modal-footer {
   border-top: 1px solid var(--line) !important;
@@ -1023,10 +970,7 @@ h1,h2,h3,h4,h5 {
   font-size: 0.85rem; padding: 10px 20px;
 }
 .modal-footer .btn-primary { background: var(--grad-primary); border: none; }
-.modal-footer .btn-primary:hover { background: var(--grad-primary); opacity: 0.95; }
 .modal-footer .btn-secondary { background: var(--surface-tint); border: none; color: var(--ink-soft); }
-.modal-footer .btn-danger { background: var(--grad-rose); border: none; }
-.modal-footer .btn-warning { background: var(--grad-warm); border: none; color: white; }
 .form-label { font-weight: 600; font-size: 0.85rem; color: var(--ink-soft); }
 .form-control, .form-select {
   border-radius: 11px; padding: 10px 14px;
@@ -1043,11 +987,8 @@ h1,h2,h3,h4,h5 {
   border-right: none; border-radius: 11px 0 0 11px;
   color: var(--muted);
 }
-.input-group .form-control {
-  border-radius: 0 11px 11px 0;
-}
+.input-group .form-control { border-radius: 0 11px 11px 0; }
 
-/* Password strength */
 .password-strength-meter {
   width: 100%; height: 5px; background: #e0e0e0;
   border-radius: 10px; overflow: hidden; margin-top: 5px;
@@ -1062,7 +1003,6 @@ h1,h2,h3,h4,h5 {
 .password-match-success { color: var(--emerald); font-size: 0.82rem; margin-top: 5px; }
 .password-match-error { color: var(--rose); font-size: 0.82rem; margin-top: 5px; }
 
-/* ==================== TOAST ==================== */
 .toast-stack {
   position: fixed; top: 84px; right: 20px;
   z-index: 4000; display: flex;
@@ -1089,7 +1029,6 @@ h1,h2,h3,h4,h5 {
   to { opacity: 1; transform: translateX(0); }
 }
 
-/* ==================== NOTIFICATION DROPDOWN ==================== */
 .notif-dropdown {
   position: fixed;
   top: calc(var(--header-h) - 6px); right: 20px;
@@ -1117,13 +1056,10 @@ h1,h2,h3,h4,h5 {
   font-family: inherit;
 }
 .notif-header button:hover { background: rgba(255,255,255,0.3); }
-.notif-list {
-  max-height: 380px; overflow-y: auto;
-}
+.notif-list { max-height: 380px; overflow-y: auto; }
 .notif-item {
   padding: 14px 20px; border-bottom: 1px solid var(--line);
-  display: flex; gap: 12px; transition: all 0.3s var(--ease);
-  cursor: pointer;
+  display: flex; gap: 12px; cursor: pointer;
 }
 .notif-item:hover { background: var(--surface-tint); }
 .notif-item.unread { background: rgba(99,102,241,0.04); }
@@ -1155,13 +1091,11 @@ h1,h2,h3,h4,h5 {
   color: var(--primary); text-decoration: none;
   font-weight: 600; font-size: 0.82rem; cursor: pointer;
 }
-.notif-footer a:hover { color: var(--primary-dark); }
 
-/* Badge pills */
 .badge-pill-custom {
   display: inline-block; padding: 3px 10px;
   border-radius: 100px; font-size: 0.7rem;
-  font-weight: 700; letter-spacing: 0.02em;
+  font-weight: 700;
 }
 .badge-success { background: rgba(16,185,129,0.12); color: #047857; }
 .badge-danger { background: rgba(244,63,94,0.12); color: #be123c; }
@@ -1169,7 +1103,6 @@ h1,h2,h3,h4,h5 {
 .badge-primary { background: rgba(99,102,241,0.12); color: var(--primary-dark); }
 .badge-info { background: rgba(6,182,212,0.12); color: #0e7490; }
 
-/* ==================== PDF VIEWER MODAL ==================== */
 .pdf-viewer-modal .modal-dialog {
   max-width: 95%; width: 95%;
   height: 90vh; margin: 5vh auto;
@@ -1195,22 +1128,13 @@ h1,h2,h3,h4,h5 {
 
 /* ==================== RESPONSIVE ==================== */
 @media (max-width: 991.98px) {
-  /* Mobile sharpness fix — no blur, no tap highlight */
   * {
     -webkit-tap-highlight-color: transparent !important;
     -webkit-touch-callout: none !important;
   }
-  .top-header,
-  .sidebar,
-  .card-modern,
-  .stat-card,
-  .section-card,
-  .pdf-card,
-  .day-card,
-  .notif-dropdown,
-  .dropdown-menu-custom,
-  .modal-box,
-  .welcome-banner {
+  .top-header, .sidebar, .card-modern, .stat-card,
+  .section-card, .pdf-card, .day-card, .notif-dropdown,
+  .dropdown-menu-custom, .modal-box, .welcome-banner {
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
   }
@@ -1218,8 +1142,6 @@ h1,h2,h3,h4,h5 {
   .aurora-bg { display: none !important; }
   .content-section { animation: none !important; }
   * { transition-duration: 0.15s !important; }
-
-  /* Button tap feedback */
   button:active, .btn:active, .menu-item:active,
   .action-btn:active, .btn-primary-custom:active,
   .btn-mini:active, .welcome-btn:active {
@@ -1431,7 +1353,7 @@ h1,h2,h3,h4,h5 {
       <div class="footer-icon-box blue"><i class="fas fa-code"></i></div>
       <div class="footer-info"><strong>Avinash Kumar</strong><small>Developer</small></div>
     </div>
-    <div class="sidebar-version">v3.1 · Teacher Portal</div>
+    <div class="sidebar-version">v3.2 · Teacher Portal</div>
   </div>
 </nav>
 
@@ -1509,7 +1431,6 @@ h1,h2,h3,h4,h5 {
       </div>
     </div>
 
-    <!-- Pending Attendance -->
     <div class="card-modern" id="pendingWidget" style="display:none;">
       <div class="card-head">
         <div class="card-head-title">
@@ -1883,7 +1804,7 @@ h1,h2,h3,h4,h5 {
           <div class="spinner-border text-primary" role="status"></div>
           <p class="mt-2 text-muted small">Loading PDF...</p>
         </div>
-        <iframe id="pdfViewerFrame" src="" onload="hidePdfLoading()"></iframe>
+        <iframe id="pdfViewerFrame" src=""></iframe>
       </div>
       <div class="modal-footer">
         <button class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
@@ -1903,39 +1824,41 @@ h1,h2,h3,h4,h5 {
         <h5 class="modal-title"><i class="fas fa-key me-2"></i>Change Password</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
       </div>
-      <div class="modal-body">
-        <div class="mb-3">
-          <label class="form-label">Current Password</label>
-          <div class="input-group">
-            <span class="input-group-text"><i class="fas fa-lock"></i></span>
-            <input type="password" class="form-control" id="currentPassword" required>
-            <button class="btn btn-outline-secondary" type="button" onclick="togglePwd('currentPassword')"><i class="fas fa-eye" id="eyeCurrentPassword"></i></button>
+      <form id="changePasswordForm" onsubmit="event.preventDefault(); changePassword();">
+        <div class="modal-body">
+          <div class="mb-3">
+            <label class="form-label">Current Password</label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="fas fa-lock"></i></span>
+              <input type="password" class="form-control" id="currentPassword" autocomplete="current-password" required>
+              <button class="btn btn-outline-secondary" type="button" onclick="togglePwd('currentPassword')"><i class="fas fa-eye" id="eyeCurrentPassword"></i></button>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">New Password</label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="fas fa-key"></i></span>
+              <input type="password" class="form-control" id="newPassword" autocomplete="new-password" onkeyup="checkPasswordStrength()" required>
+              <button class="btn btn-outline-secondary" type="button" onclick="togglePwd('newPassword')"><i class="fas fa-eye" id="eyeNewPassword"></i></button>
+            </div>
+            <div class="password-strength-meter"><div class="strength-bar" id="strengthBar"></div></div>
+            <small class="text-muted" id="passwordHelp">Min 6 characters</small>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Confirm Password</label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="fas fa-check-circle"></i></span>
+              <input type="password" class="form-control" id="confirmPassword" autocomplete="new-password" onkeyup="checkPasswordMatch()" required>
+              <button class="btn btn-outline-secondary" type="button" onclick="togglePwd('confirmPassword')"><i class="fas fa-eye" id="eyeConfirmPassword"></i></button>
+            </div>
+            <small id="matchMessage"></small>
           </div>
         </div>
-        <div class="mb-3">
-          <label class="form-label">New Password</label>
-          <div class="input-group">
-            <span class="input-group-text"><i class="fas fa-key"></i></span>
-            <input type="password" class="form-control" id="newPassword" onkeyup="checkPasswordStrength()" required>
-            <button class="btn btn-outline-secondary" type="button" onclick="togglePwd('newPassword')"><i class="fas fa-eye" id="eyeNewPassword"></i></button>
-          </div>
-          <div class="password-strength-meter"><div class="strength-bar" id="strengthBar"></div></div>
-          <small class="text-muted" id="passwordHelp">Min 6 characters</small>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-warning" id="changePasswordBtn"><i class="fas fa-save me-1"></i> Update Password</button>
         </div>
-        <div class="mb-3">
-          <label class="form-label">Confirm Password</label>
-          <div class="input-group">
-            <span class="input-group-text"><i class="fas fa-check-circle"></i></span>
-            <input type="password" class="form-control" id="confirmPassword" onkeyup="checkPasswordMatch()" required>
-            <button class="btn btn-outline-secondary" type="button" onclick="togglePwd('confirmPassword')"><i class="fas fa-eye" id="eyeConfirmPassword"></i></button>
-          </div>
-          <small id="matchMessage"></small>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-warning" id="changePasswordBtn" onclick="changePassword()"><i class="fas fa-save me-1"></i> Update Password</button>
-      </div>
+      </form>
     </div>
   </div>
 </div>
@@ -1944,13 +1867,12 @@ h1,h2,h3,h4,h5 {
 
 <script>
 /* =========================================================
-   TEACHER DASHBOARD — v3.1
+   TEACHER DASHBOARD — v3.2 (Fixed)
    ========================================================= */
 
 const API_BASE_URL = 'https://avinashprajapati.pythonanywhere.com/api';
 const READ_STATE_KEY = 'teacher_notif_read_ids';
 
-/* ==================== STATE ==================== */
 let teacherSections = [];
 let notifications = [];
 let attendanceRecords = [];
@@ -2011,7 +1933,15 @@ function getTimeAgo(d) {
   } catch { return 'recently'; }
 }
 
-/* Notification read state — localStorage persistence */
+/* Section label: "MCA · Section A" */
+function sectionLabel(section) {
+  const det = section.section_details || {};
+  const course = det.course_code || '';
+  const name = det.section_name || 'N/A';
+  return course ? `${course} · Section ${name}` : `Section ${name}`;
+}
+
+/* Notification read state */
 function getReadIds() {
   try { return JSON.parse(localStorage.getItem(READ_STATE_KEY) || '[]'); }
   catch { return []; }
@@ -2150,7 +2080,6 @@ async function loadTeacherSections(force = false) {
     const data = await res.json();
     if (!data.success) throw new Error(data.message || 'Failed');
 
-    // Merge section by section_id, collect all subjects
     const map = new Map();
     (data.sections || []).forEach(s => {
       const id = s.section_id;
@@ -2160,17 +2089,14 @@ async function loadTeacherSections(force = false) {
           section_details: s.section_details || {},
           subjects: [],
           student_count: 0,
-          subject_stats: {}  // ← per-subject breakdown
+          subject_stats: {}
         });
       }
       const cur = map.get(id);
-      (s.subjects || []).forEach(sub => { 
-        if (!cur.subjects.includes(sub)) cur.subjects.push(sub); 
-      });
+      (s.subjects || []).forEach(sub => { if (!cur.subjects.includes(sub)) cur.subjects.push(sub); });
     });
     teacherSections = Array.from(map.values());
 
-    // Count = total subject-cards (not unique sections)
     const totalSubjects = teacherSections.reduce((sum, s) => sum + s.subjects.length, 0);
     document.getElementById('badgeSections').textContent = totalSubjects;
     document.getElementById('ovSections').textContent = totalSubjects;
@@ -2178,7 +2104,6 @@ async function loadTeacherSections(force = false) {
     renderSectionsGrid();
     populateSectionDropdowns();
 
-    // Parallel stat load per section
     await Promise.all(teacherSections.map(s => hydrateSectionStats(s)));
     renderSectionsGrid();
     updateOverviewStats();
@@ -2199,7 +2124,6 @@ async function hydrateSectionStats(section) {
     ]);
     section.student_count = (stuRes.students || []).length;
     
-    // ✅ Subject-wise breakdown
     section.subject_stats = {};
     const allAtt = attRes.attendance || [];
     const allMk = mkRes.marks || [];
@@ -2247,11 +2171,13 @@ function renderSectionsGrid() {
     const det = sec.section_details || {};
     sec.subjects.forEach((subject, sIdx) => {
       const stats = sec.subject_stats?.[subject] || { attendance: 0, marks: 0 };
+      const course = det.course_code || '';
+      const sectionName = det.section_name || 'N/A';
       html += `
         <div class="section-card">
           <div class="section-header" style="background:${palettes[(idx + sIdx) % palettes.length]};">
-            <h4>Section ${escapeHtml(det.section_name || 'N/A')}</h4>
-            <small>${escapeHtml(det.course_code || '')}</small>
+            <h4>${course ? course + ' · ' : ''}Section ${escapeHtml(sectionName)}</h4>
+            <small>${escapeHtml(subject)}</small>
             <div class="section-subject-badge"><i class="fas fa-book"></i>${escapeHtml(subject)}</div>
           </div>
           <div class="section-body">
@@ -2261,13 +2187,13 @@ function renderSectionsGrid() {
               <div class="section-stat"><span class="v">${stats.marks}</span><span class="l">Marks</span></div>
             </div>
             <div class="action-buttons">
-              <button class="action-btn" onclick="openAttendanceFor('${sec.section_id}', '${escapeHtml(subject)}')">
+              <button class="action-btn" onclick="openAttendanceFor('${sec.section_id}', '${escapeHtml(subject).replace(/'/g, "\\'")}')">
                 <i class="fas fa-calendar-check"></i><span>Attendance</span>
               </button>
-              <button class="action-btn" onclick="openMarksFor('${sec.section_id}', '${escapeHtml(subject)}')">
+              <button class="action-btn" onclick="openMarksFor('${sec.section_id}', '${escapeHtml(subject).replace(/'/g, "\\'")}')">
                 <i class="fas fa-edit"></i><span>Marks</span>
               </button>
-              <button class="action-btn" onclick="openPdfFor('${sec.section_id}', '${escapeHtml(subject)}')">
+              <button class="action-btn" onclick="openPdfFor('${sec.section_id}', '${escapeHtml(subject).replace(/'/g, "\\'")}')">
                 <i class="fas fa-file-pdf"></i><span>PDF</span>
               </button>
             </div>
@@ -2286,8 +2212,10 @@ function renderAttendanceChart() {
   const labels = [];
   const data = [];
   teacherSections.forEach(sec => {
+    const course = sec.section_details?.course_code || '';
+    const sectionName = sec.section_details?.section_name || '?';
     sec.subjects.forEach(sub => {
-      labels.push(`${sec.section_details?.section_name || '?'} · ${sub.substring(0, 10)}`);
+      labels.push(`${course ? course + '-' : ''}${sectionName} · ${sub.substring(0, 10)}`);
       data.push(sec.subject_stats?.[sub]?.attendance || 0);
     });
   });
@@ -2315,9 +2243,7 @@ function renderAttendanceChart() {
         tooltip: {
           backgroundColor: 'rgba(15,23,42,0.95)',
           padding: 12,
-          cornerRadius: 10,
-          titleFont: { size: 12, weight: 'bold' },
-          bodyFont: { size: 12 }
+          cornerRadius: 10
         }
       },
       scales: {
@@ -2353,8 +2279,8 @@ async function renderTodaySchedule() {
         <div class="schedule-info">
           <h4>${escapeHtml(cl.subject || 'Class')}</h4>
           <p>
-            <span><i class="fas fa-layer-group"></i> Sec ${escapeHtml(cl.section_name || '-')}</span>
-            <span><i class="fas fa-door-open"></i> Room ${escapeHtml(cl.room_number || '-')}</span>
+            <span><i class="fas fa-layer-group"></i> ${escapeHtml((cl.course_code || '') + ' · Sec ' + (cl.section_name || '-'))}</span>
+            <span><i class="fas fa-door-open"></i> ${escapeHtml(cl.room_number || '-')}</span>
           </p>
         </div>
       </div>`).join('');
@@ -2370,15 +2296,14 @@ async function renderPendingWidget() {
   try {
     const res = await fetch(`${API_BASE_URL}/timetable/teacher/${getTeacherId()}`);
     const data = await res.json();
-    const list2 = (data.timetable || []).filter(t => t.is_active !== false);
+    const allList = (data.timetable || []).filter(t => t.is_active !== false);
     const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     const today = dayNames[new Date().getDay()];
     const todayStr = new Date().toISOString().split('T')[0];
-    const todayClasses = list2.filter(t => t.day_of_week === today);
+    const todayClasses = allList.filter(t => t.day_of_week === today);
     
     if (!todayClasses.length) { widget.style.display = 'none'; return; }
 
-    // Fetch attendance records to check which classes are done today
     const attendanceChecks = await Promise.all(todayClasses.map(async cl => {
       try {
         const r = await fetch(`${API_BASE_URL}/section-attendance/filter?section=${cl.section_id}&date=${todayStr}`);
@@ -2392,18 +2317,20 @@ async function renderPendingWidget() {
     if (!pending.length) { widget.style.display = 'none'; return; }
 
     widget.style.display = 'block';
-    list.innerHTML = pending.map(x => `
+    list.innerHTML = pending.map(x => {
+      const subject = (x.class.subject || '').replace(/'/g, "\\'");
+      return `
       <div class="pending-item">
         <div class="pending-icon"><i class="fas fa-exclamation"></i></div>
         <div class="pending-info">
-          <h5>${escapeHtml(x.class.subject || 'Class')} · Sec ${escapeHtml(x.class.section_name || '-')}</h5>
+          <h5>${escapeHtml(x.class.subject || 'Class')} · ${escapeHtml((x.class.course_code || '') + ' · Sec ' + (x.class.section_name || '-'))}</h5>
           <p>Attendance pending for today</p>
         </div>
-        <button class="btn-mini" onclick="openAttendanceFor('${x.class.section_id}', '${escapeHtml(x.class.subject)}')">
+        <button class="btn-mini" onclick="openAttendanceFor('${x.class.section_id}', '${subject}')">
           <i class="fas fa-plus"></i> Mark
         </button>
-      </div>
-    `).join('');
+      </div>`;
+    }).join('');
   } catch (e) { widget.style.display = 'none'; }
 }
 
@@ -2506,7 +2433,7 @@ function populateSectionDropdowns() {
     if (!el) return;
     const isFilter = id.startsWith('filter') || id.startsWith('marksFilter') || id === 'studentSectionFilter';
     el.innerHTML = `<option value="">${isFilter ? 'All Sections' : 'Select Section'}</option>` +
-      teacherSections.map(s => `<option value="${s.section_id}">Section ${escapeHtml(s.section_details?.section_name || 'N/A')}</option>`).join('');
+      teacherSections.map(s => `<option value="${s.section_id}">${escapeHtml(sectionLabel(s))}</option>`).join('');
   });
 }
 
@@ -2673,6 +2600,7 @@ async function loadAttendance() {
           .then(d => (d.attendance || []).map(a => ({
             ...a,
             section_name: s.section_details?.section_name || 'N/A',
+            course_code: s.section_details?.course_code || '',
             section_id: s.section_id
           })))
           .catch(() => [])
@@ -2687,7 +2615,7 @@ async function loadAttendance() {
 }
 
 function populateAttendanceFilters() {
-  const secSet = new Set(attendanceRecords.map(r => r.section_name).filter(Boolean));
+  const secSet = new Set(attendanceRecords.map(r => (r.course_code ? r.course_code + ' · ' : '') + r.section_name).filter(Boolean));
   const subSet = new Set(attendanceRecords.map(r => r.subject).filter(Boolean));
   const secSel = document.getElementById('filterSectionId');
   const subSel = document.getElementById('filterSubjectId');
@@ -2699,11 +2627,10 @@ function applyAttendanceFilters() {
   const d = document.getElementById('filterDate').value;
   const s = document.getElementById('filterSectionId').value;
   const sub = document.getElementById('filterSubjectId').value;
-  const filtered = attendanceRecords.filter(r =>
-    (!d || r.date === d) &&
-    (!s || r.section_name === s) &&
-    (!sub || r.subject === sub)
-  );
+  const filtered = attendanceRecords.filter(r => {
+    const secLabel = (r.course_code ? r.course_code + ' · ' : '') + r.section_name;
+    return (!d || r.date === d) && (!s || secLabel === s) && (!sub || r.subject === sub);
+  });
   renderAttendanceRows(filtered);
   document.getElementById('attendanceStats').innerHTML = `Showing <b>${filtered.length}</b> of <b>${attendanceRecords.length}</b> records`;
 }
@@ -2727,9 +2654,10 @@ function renderAttendanceRows(records) {
     const tot = p + a;
     const pct = r.percentage || (tot ? (p / tot * 100).toFixed(1) : 0);
     const cls = pct >= 80 ? 'success' : pct >= 60 ? 'warning' : 'danger';
+    const secLabel = (r.course_code ? r.course_code + ' · ' : '') + 'Sec ' + r.section_name;
     return `<tr>
       <td>${formatDate(r.date)}</td>
-      <td>Sec ${escapeHtml(r.section_name)}</td>
+      <td>${escapeHtml(secLabel)}</td>
       <td><span class="badge-pill-custom badge-info">${escapeHtml(r.subject || '-')}</span></td>
       <td><span class="badge-pill-custom badge-success">${p}</span></td>
       <td><span class="badge-pill-custom badge-danger">${a}</span></td>
@@ -2871,7 +2799,12 @@ async function loadMarks() {
       teacherSections.map(s =>
         fetch(`${API_BASE_URL}/section-marks/all?section=${s.section_id}`)
           .then(r => r.json())
-          .then(d => (d.marks || []).map(m => ({ ...m, section_name: s.section_details?.section_name || 'N/A', section_id: s.section_id })))
+          .then(d => (d.marks || []).map(m => ({ 
+            ...m, 
+            section_name: s.section_details?.section_name || 'N/A', 
+            course_code: s.section_details?.course_code || '',
+            section_id: s.section_id 
+          })))
           .catch(() => [])
       )
     );
@@ -2884,7 +2817,7 @@ async function loadMarks() {
 }
 
 function populateMarksFilters() {
-  const secSet = new Set(marksRecords.map(r => r.section_name).filter(Boolean));
+  const secSet = new Set(marksRecords.map(r => (r.course_code ? r.course_code + ' · ' : '') + r.section_name).filter(Boolean));
   const subSet = new Set(marksRecords.map(r => r.subject).filter(Boolean));
   const exSet = new Set(marksRecords.map(r => r.exam_type).filter(Boolean));
   const s = document.getElementById('marksFilterSectionId');
@@ -2900,12 +2833,10 @@ function applyMarksFilters() {
   const s = document.getElementById('marksFilterSectionId').value;
   const sb = document.getElementById('marksFilterSubjectId').value;
   const ex = document.getElementById('marksFilterExamId').value;
-  const filtered = marksRecords.filter(r =>
-    (!d || r.exam_date === d) &&
-    (!s || r.section_name === s) &&
-    (!sb || r.subject === sb) &&
-    (!ex || r.exam_type === ex)
-  );
+  const filtered = marksRecords.filter(r => {
+    const secLabel = (r.course_code ? r.course_code + ' · ' : '') + r.section_name;
+    return (!d || r.exam_date === d) && (!s || secLabel === s) && (!sb || r.subject === sb) && (!ex || r.exam_type === ex);
+  });
   renderMarksRows(filtered);
   document.getElementById('marksStats').innerHTML = `Showing <b>${filtered.length}</b> of <b>${marksRecords.length}</b> records`;
 }
@@ -2921,10 +2852,11 @@ function renderMarksRows(records) {
   tb.innerHTML = records.slice(0, 100).map(r => {
     const pct = r.percentage != null ? r.percentage : ((r.marks_obtained / r.total_marks) * 100).toFixed(1);
     const cls = pct >= 75 ? 'success' : pct >= 50 ? 'warning' : 'danger';
+    const secLabel = (r.course_code ? r.course_code + ' · ' : '') + 'Sec ' + r.section_name;
     return `<tr>
       <td>${formatDate(r.exam_date)}</td>
       <td><span class="badge-pill-custom badge-primary">${escapeHtml(r.exam_type || '-')}</span></td>
-      <td>Sec ${escapeHtml(r.section_name)}</td>
+      <td>${escapeHtml(secLabel)}</td>
       <td>${escapeHtml(r.student_name || '-')}</td>
       <td><span class="badge-pill-custom badge-info">${escapeHtml(r.subject || '-')}</span></td>
       <td><strong>${r.marks_obtained}/${r.total_marks}</strong></td>
@@ -2943,7 +2875,12 @@ async function loadStudents() {
       teacherSections.map(s =>
         fetch(`${API_BASE_URL}/section-attendance/students/${s.section_id}`)
           .then(r => r.json())
-          .then(d => (d.students || []).map(st => ({ ...st, section_name: s.section_details?.section_name || 'N/A', section_id: s.section_id, course_code: s.section_details?.course_code || 'N/A' })))
+          .then(d => (d.students || []).map(st => ({ 
+            ...st, 
+            section_name: s.section_details?.section_name || 'N/A', 
+            course_code: s.section_details?.course_code || '',
+            section_id: s.section_id 
+          })))
           .catch(() => [])
       )
     );
@@ -2958,7 +2895,7 @@ async function loadStudents() {
 }
 
 function populateStudentFilter() {
-  const secSet = new Set(studentsList.map(s => s.section_name).filter(Boolean));
+  const secSet = new Set(studentsList.map(s => (s.course_code ? s.course_code + ' · ' : '') + s.section_name).filter(Boolean));
   const el = document.getElementById('studentSectionFilter');
   if (el) el.innerHTML = '<option value="">All Sections</option>' + [...secSet].sort().map(v => `<option value="${escapeHtml(v)}">${escapeHtml(v)}</option>`).join('');
 }
@@ -2966,10 +2903,11 @@ function populateStudentFilter() {
 function applyStudentFilters() {
   const q = (document.getElementById('studentSearch').value || '').toLowerCase();
   const sec = document.getElementById('studentSectionFilter').value;
-  const filtered = studentsList.filter(s =>
-    (!sec || s.section_name === sec) &&
-    (!q || (s.name || '').toLowerCase().includes(q) || (s.student_id || '').toLowerCase().includes(q))
-  );
+  const filtered = studentsList.filter(s => {
+    const secLabel = (s.course_code ? s.course_code + ' · ' : '') + s.section_name;
+    return (!sec || secLabel === sec) &&
+      (!q || (s.name || '').toLowerCase().includes(q) || (s.student_id || '').toLowerCase().includes(q));
+  });
   renderStudentRows(filtered);
   document.getElementById('studentsStats').innerHTML = `Showing <b>${filtered.length}</b> of <b>${studentsList.length}</b> students`;
 }
@@ -2983,14 +2921,16 @@ function clearStudentFilters() {
 function renderStudentRows(records) {
   const tb = document.getElementById('studentsTbody');
   if (!records.length) { tb.innerHTML = '<tr><td colspan="5" class="text-center py-4 text-muted">No students</td></tr>'; return; }
-  tb.innerHTML = records.slice(0, 200).map((s, i) => `
-    <tr>
+  tb.innerHTML = records.slice(0, 200).map((s, i) => {
+    const secLabel = (s.course_code ? s.course_code + ' · ' : '') + 'Sec ' + s.section_name;
+    return `<tr>
       <td>${i + 1}</td>
       <td><span class="badge-pill-custom badge-primary">${escapeHtml(s.student_id)}</span></td>
       <td><strong>${escapeHtml(s.name)}</strong></td>
       <td>${escapeHtml(s.course_code || '-')}</td>
-      <td>Sec ${escapeHtml(s.section_name)}</td>
-    </tr>`).join('');
+      <td>${escapeHtml(secLabel)}</td>
+    </tr>`;
+  }).join('');
 }
 
 /* ==================== TIMETABLE ==================== */
@@ -3026,9 +2966,8 @@ async function loadTimetable(force = false) {
               <div class="class-info">
                 <h4>${escapeHtml(cl.subject || 'Class')}</h4>
                 <div class="class-meta">
-                  <span><i class="fas fa-layer-group"></i> Sec ${escapeHtml(cl.section_name || '-')}</span>
+                  <span><i class="fas fa-layer-group"></i> ${escapeHtml((cl.course_code || '') + ' · Sec ' + (cl.section_name || '-'))}</span>
                   <span><i class="fas fa-door-open"></i> Room ${escapeHtml(cl.room_number || '-')}</span>
-                  <span><i class="fas fa-book"></i> ${escapeHtml(cl.course_code || '-')}</span>
                 </div>
               </div>
             </div>`).join('')}
@@ -3050,13 +2989,13 @@ function openPdfPickerModal() {
 }
 
 function openPdfFor(sectionId, subject) {
-  // Permission check
+  // Permission check (agar backend support kare)
   fetch(`${API_BASE_URL}/teacher-permission/check`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ teacher_id: getTeacherId(), section_id: sectionId, action: 'pdfs' })
   }).then(r => r.json()).then(perm => {
-    if (!perm.permitted) {
+    if (perm && perm.permitted === false) {
       showToast('Permission required from admin to upload PDFs', 'error');
       return;
     }
@@ -3064,7 +3003,6 @@ function openPdfFor(sectionId, subject) {
     document.getElementById('pdfSectionSelect').value = sectionId;
     onPdfSectionChange(subject);
   }).catch(() => {
-    // Agar permission check fail ho jaye, toh allow karo (backward compat)
     openPdfPickerModal();
     document.getElementById('pdfSectionSelect').value = sectionId;
     onPdfSectionChange(subject);
@@ -3142,11 +3080,14 @@ async function loadPdfs() {
     }
     let html = '';
     flat.forEach(g => {
+      const course = g.section.section_details?.course_code || '';
+      const sectionName = g.section.section_details?.section_name || 'N/A';
+      const headerLabel = (course ? course + ' · ' : '') + 'Sec ' + sectionName + ' · ' + g.subject;
       html += `<div class="card-modern">
         <div class="card-head">
           <div class="card-head-title">
             <div class="card-head-icon rose"><i class="fas fa-file-pdf"></i></div>
-            Sec ${escapeHtml(g.section.section_details?.section_name || 'N/A')} · ${escapeHtml(g.subject)}
+            ${escapeHtml(headerLabel)}
           </div>
           <span class="badge-pill-custom badge-primary">${g.pdfs.length} PDF${g.pdfs.length > 1 ? 's' : ''}</span>
         </div>
@@ -3162,9 +3103,9 @@ async function loadPdfs() {
                 </div>
               </div>
               <div class="pdf-actions">
-                <button class="pdf-btn view" onclick="viewPdf('${p.pdf_id}', '${escapeHtml(p.pdf_title)}')"><i class="fas fa-eye"></i> View</button>
+                <button class="pdf-btn view" onclick="viewPdf('${p.pdf_id}', '${escapeHtml(p.pdf_title || '').replace(/'/g, "\\'")}')"><i class="fas fa-eye"></i> View</button>
                 <button class="pdf-btn download" onclick="downloadPdf('${p.pdf_id}')"><i class="fas fa-download"></i></button>
-                <button class="pdf-btn delete" onclick="confirmDeletePdf('${p.pdf_id}', '${escapeHtml(p.pdf_title)}')"><i class="fas fa-trash"></i></button>
+                <button class="pdf-btn delete" onclick="confirmDeletePdf('${p.pdf_id}', '${escapeHtml(p.pdf_title || '').replace(/'/g, "\\'")}')"><i class="fas fa-trash"></i></button>
               </div>
             </div>`).join('')}
         </div>
@@ -3181,11 +3122,13 @@ function viewPdf(id, title) {
   currentPdfTitle = title || 'PDF';
   document.getElementById('pdfViewerTitle').textContent = title || 'PDF Preview';
   document.getElementById('pdfLoadingIndicator').style.display = 'flex';
-  document.getElementById('pdfViewerFrame').src = currentPdfUrl;
+  const iframe = document.getElementById('pdfViewerFrame');
+  iframe.src = currentPdfUrl;
   new bootstrap.Modal(document.getElementById('pdfViewerModal')).show();
 }
 function hidePdfLoading() {
-  document.getElementById('pdfLoadingIndicator').style.display = 'none';
+  const indicator = document.getElementById('pdfLoadingIndicator');
+  if (indicator) indicator.style.display = 'none';
 }
 function downloadCurrentPdf() {
   if (currentPdfUrl) window.open(currentPdfUrl + '?download=true', '_blank');
@@ -3201,6 +3144,12 @@ function confirmDeletePdf(id, title) {
     } catch (e) { showToast('Network error', 'error'); }
   }, 'danger');
 }
+
+/* PDF iframe onload — attach after DOM ready */
+document.addEventListener('DOMContentLoaded', () => {
+  const iframe = document.getElementById('pdfViewerFrame');
+  if (iframe) iframe.addEventListener('load', hidePdfLoading);
+});
 
 /* ==================== CHANGE PASSWORD ==================== */
 function openChangePasswordModal() {
